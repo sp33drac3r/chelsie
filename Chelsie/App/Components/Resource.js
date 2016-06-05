@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ListView,
   TouchableHighlight,
-  NavigatorIOS
+  Navigator
 } from 'react-native';
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/`

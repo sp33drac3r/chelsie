@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import Resource from "./Resource"
+import ImmediateAssistance from "./ImmediateAssistance"
 
 class Main extends Component {
   constructor(props){
@@ -18,8 +19,14 @@ class Main extends Component {
     }
   }
 
+  _onASAPButton(){
+    this.props.navigator.push({
+      component: ImmediateAssistance,
+      name: "ImmediateAssistance"
+    })
+  }
+
   _onResourcesButton(){
-    console.log(this.props)
     this.props.navigator.push({
       component: Resource,
       name: "Resource"
@@ -29,17 +36,17 @@ class Main extends Component {
   render(){
     return (
       <View style={styles.container}>
+        <TouchableHighlight style={styles.button} onPress={this._onASAPButton.bind(this)}>
+          <Text style={styles.buttonText}> Immediate Assistance </Text>
+        </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onResourcesButton.bind(this)}>
-          <Text style={styles.buttonText}>Hi Mila!</Text>
+          <Text style={styles.buttonText}>Resources</Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
-          <Text style={styles.buttonText}>Hi Riley!</Text>
+          <Text style={styles.buttonText}> Schools </Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
-          <Text style={styles.buttonText}>Hi Andrew!</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
-          <Text style={styles.buttonText}>Hi Elizlalala!</Text>
+          <Text style={styles.buttonText}> Login/Register </Text>
         </TouchableHighlight>
       </View>
     )
@@ -49,7 +56,7 @@ class Main extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
@@ -61,15 +68,16 @@ var styles = StyleSheet.create({
   },
   button: {
     height: 45,
-    flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: 'red',
     borderColor: 'red',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
     marginTop: 10,
-    // alignSelf: 'stretch',
+    marginLeft: 5,
+    marginRight: 5,
+    alignSelf: 'stretch',
     justifyContent: 'center'
   }
 });
