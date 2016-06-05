@@ -19,6 +19,11 @@ class Login extends Component {
     }
   }
 
+  _onBackButton(){
+    this.props.navigator.pop({
+    })
+  }
+
   render(){
     return(
       <View style={styles.container}>
@@ -37,6 +42,9 @@ class Login extends Component {
         <Text style={styles.buttonText}>
           Log In
         </Text>
+      </TouchableHighlight>
+      <TouchableHighlight style={styles.backButton} onPress={this._onBackButton.bind(this)}>
+        <Text> back </Text>
       </TouchableHighlight>
       </View>
     )
@@ -59,8 +67,8 @@ var styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: '#ab6591',
-    borderColor: '#ab6591',
+    backgroundColor: '#E9D460',
+    borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
@@ -74,8 +82,8 @@ var styles = StyleSheet.create({
     height: 45,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'grey',
-    borderColor: 'blue',
+    backgroundColor: '#ECF0F1',
+    borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,

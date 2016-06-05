@@ -44,7 +44,8 @@ class Main extends Component {
   render(){
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={this._onASAPButton.bind(this)}>
+      <Text style={styles.header}>Chelsie</Text>
+        <TouchableHighlight style={styles.asapButton} onPress={this._onASAPButton.bind(this)}>
           <Text style={styles.buttonText}> Immediate Assistance </Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onResourcesButton.bind(this)}>
@@ -77,8 +78,8 @@ var styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: 'red',
-    borderColor: 'red',
+    backgroundColor: '#E74C3C',
+    borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
@@ -87,6 +88,26 @@ var styles = StyleSheet.create({
     marginRight: 5,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  asapButton: {
+    height: 45,
+    flexDirection: 'column',
+    backgroundColor: '#E74C3C',
+    borderColor: 'grey',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 5,
+    marginRight: 5,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  header: {
+    fontWeight: 'bold',
+    fontSize: 40,
+    fontFamily: 'Cochin',
+    alignSelf: 'center'
   }
 });
 
