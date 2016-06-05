@@ -18,7 +18,7 @@ class ImmediateAssistance extends Component {
     })
   }
 
-  _onHotlineButton(){
+  _onChatButton(){
     Linking.openURL(hotlineUrl)
   }
 
