@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ListView,
   TouchableHighlight,
+  ActivityIndicatorIOS,
   Navigator
 } from 'react-native';
 
@@ -68,9 +69,10 @@ class Resource extends Component {
   renderLoadingView() {
     return (
       <View style={styles.container}>
-        <Text>
-          Loading resources...
-        </Text>
+        <ActivityIndicatorIOS
+          animating={!this.state.loaded}
+          color="#111"
+          size="large"></ActivityIndicatorIOS>
       </View>
     );
   }
