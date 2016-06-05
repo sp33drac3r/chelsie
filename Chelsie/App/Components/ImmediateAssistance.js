@@ -37,9 +37,6 @@ class ImmediateAssistance extends Component {
       <TouchableHighlight style={styles.button} onPress={this._onChatButton}>
         <Text style={styles.buttonText}> Chat </Text>
       </TouchableHighlight>
-      <TouchableHighlight style={styles.backButton} onPress={this._onBackButton.bind(this)}>
-        <Text> back </Text>
-      </TouchableHighlight>
       </View>
     )
   }
