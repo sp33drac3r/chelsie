@@ -15,11 +15,6 @@ var hotlineUrl = `https://ohl.rainn.org/online/`
 
 class ImmediateAssistance extends Component {
 
-  _onBackButton(){
-    this.props.navigator.pop({
-    })
-  }
-
   _onHotlineButton(){
     Communications.phonecall('2134584288', true)
   }
@@ -36,9 +31,6 @@ class ImmediateAssistance extends Component {
       </TouchableHighlight>
       <TouchableHighlight style={styles.button} onPress={this._onChatButton}>
         <Text style={styles.buttonText}> Chat </Text>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.backButton} onPress={this._onBackButton.bind(this)}>
-        <Text> back </Text>
       </TouchableHighlight>
       </View>
     )

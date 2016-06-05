@@ -23,11 +23,6 @@ class Login extends Component {
     }
   }
 
-  _onBackButton(){
-    this.props.navigator.pop({
-    })
-  }
-
   login(){
     if (this.state.username.toLowerCase() == fakeUsername && this.state.password.toLowerCase() == fakePassword) {
       this.props.navigator.push({
@@ -58,9 +53,6 @@ class Login extends Component {
         <Text style={styles.buttonText}>
           Log In
         </Text>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.backButton} onPress={this._onBackButton.bind(this)}>
-        <Text> back </Text>
       </TouchableHighlight>
       </View>
     )

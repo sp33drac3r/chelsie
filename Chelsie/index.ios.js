@@ -10,8 +10,11 @@ import {
   StyleSheet,
   Text,
   Navigator,
+  TouchableHighlight,
+  Image,
   View
 } from 'react-native';
+
 
 import Resource from './App/Components/Resource'
 import Main from './App/Components/Main'
@@ -43,10 +46,40 @@ class Chelsie extends Component {
       <Navigator
         initialRoute={{ name: 'Main' }}
         renderScene={ this.renderScene.bind(this) }
+        navigationBar={
+          <Navigator.NavigationBar
+             style={ styles.nav }
+          routeMapper={NavigationBarRouteMapper}/>}
       />
     );
   }
 }
+
+var NavigationBarRouteMapper = {
+  LeftButton(route, navigator, index, navState) {
+    if(index > 0) {
+      return (
+        <TouchableHighlight
+        	 underlayColor="transparent"
+           onPress={() => { if (index > 0) { navigator.pop() } }}>
+          <Image style={styles.backBtn} source={require('./imgs/back.png')} />
+        </TouchableHighlight>
+  	)}
+  	else { return null }
+  },
+  RightButton(route, navigator, index, navState) {
+    if (route.onPress) return ( <TouchableHighlight
+    														onPress={ () => route.onPress() }>
+                                <Text style={ styles.navBarRightButton }>
+                                  	{ route.rightText || 'Right Button' }
+                                </Text>
+                              </TouchableHighlight> )
+  },
+  Title(route, navigator, index, navState) {
+    return <Text style={ styles.title }>CHELSIE</Text>
+  }
+};
+
 
 var styles = StyleSheet.create({
   other: {
@@ -59,22 +92,29 @@ var styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold'
   },
-  // container: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: '#F5FCFF',
-  // },
-  // welcome: {
-  //   fontSize: 20,
-  //   textAlign: 'center',
-  //   margin: 10,
-  // },
-  // instructions: {
-  //   textAlign: 'center',
-  //   color: '#333333',
-  //   marginBottom: 5,
-  // },
+  title: {
+  marginTop:4,
+  fontSize:16
+  },
+  nav: {
+  height: 60,
+  backgroundColor: '#efefef'
+  },
+  navBarTitleText: {
+    color: '#aaecca',
+    fontWeight: '500',
+    marginVertical: 9,
+  },
+  navBarLeftButton: {
+  paddingLeft: 10,
+  },
+  navBarRightButton: {
+  paddingRight: 10,
+  },
+  backBtn:{
+    marginLeft: 12,
+    marginTop: 5,
+  }
 });
 
 AppRegistry.registerComponent('Chelsie', () => Chelsie);

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ListView,
   TouchableHighlight,
+  ActivityIndicatorIOS,
   Navigator
 } from 'react-native';
 
@@ -40,11 +41,6 @@ class Resource extends Component {
       .done();
   }
 
-  _onBackButton(){
-    this.props.navigator.pop({
-    })
-  }
-
   render() {
     console.log("I made it to Resources!!!")
     if (!this.state.loaded) {
@@ -53,9 +49,6 @@ class Resource extends Component {
 
     return (
       <View>
-        <TouchableHighlight style={styles.backButton} onPress={this._onBackButton.bind(this)}>
-          <Text> back </Text>
-        </TouchableHighlight>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderResourceView}
@@ -68,9 +61,10 @@ class Resource extends Component {
   renderLoadingView() {
     return (
       <View style={styles.container}>
-        <Text>
-          Loading resources...
-        </Text>
+        <ActivityIndicatorIOS
+          animating={!this.state.loaded}
+          color="#111"
+          size="large"></ActivityIndicatorIOS>
       </View>
     );
   }
