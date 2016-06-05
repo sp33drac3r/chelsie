@@ -16,6 +16,7 @@ import {
 import Resource from './App/Components/Resource'
 import Main from './App/Components/Main'
 import ImmediateAssistance from './App/Components/ImmediateAssistance'
+import Login from './App/Components/Login'
 
 class Chelsie extends Component {
   renderScene(route, navigator){
@@ -27,6 +28,9 @@ class Chelsie extends Component {
     }
     if (route.name == 'ImmediateAssistance') {
       return <ImmediateAssistance navigator={navigator} />
+    }
+    if (route.name == 'Login') {
+      return <Login navigator={navigator} />
     }
   }
 

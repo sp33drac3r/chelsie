@@ -10,6 +10,7 @@ import {
 
 import Resource from "./Resource"
 import ImmediateAssistance from "./ImmediateAssistance"
+import Login from "./Login"
 
 class Main extends Component {
   constructor(props){
@@ -33,6 +34,13 @@ class Main extends Component {
     })
   }
 
+  _onLoginButton(){
+    this.props.navigator.push({
+      component: Login,
+      name: "Login"
+    })
+  }
+
   render(){
     return (
       <View style={styles.container}>
@@ -45,8 +53,8 @@ class Main extends Component {
         <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
           <Text style={styles.buttonText}> Schools </Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
-          <Text style={styles.buttonText}> Login/Register </Text>
+        <TouchableHighlight style={styles.button} onPress={this._onLoginButton.bind(this)}>
+          <Text style={styles.buttonText}> Login </Text>
         </TouchableHighlight>
       </View>
     )
