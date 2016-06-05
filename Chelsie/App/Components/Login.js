@@ -33,6 +33,11 @@ class Login extends Component {
         onChangeText={(password) => this.setState({password: password})}
         value={this.state.password}
       />
+      <TouchableHighlight onPress={console.log(this)} style={styles.button}>
+        <Text style={styles.buttonText}>
+          Log In
+        </Text>
+      </TouchableHighlight>
       </View>
     )
   }
@@ -54,8 +59,8 @@ var styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: 'red',
-    borderColor: 'red',
+    backgroundColor: '#ab6591',
+    borderColor: '#ab6591',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
