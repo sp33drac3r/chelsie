@@ -10,6 +10,7 @@ import {
 
 import Resource from "./Resource"
 import ImmediateAssistance from "./ImmediateAssistance"
+import Login from "./Login"
 
 class Main extends Component {
   constructor(props){
@@ -33,10 +34,18 @@ class Main extends Component {
     })
   }
 
+  _onLoginButton(){
+    this.props.navigator.push({
+      component: Login,
+      name: "Login"
+    })
+  }
+
   render(){
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={this._onASAPButton.bind(this)}>
+      <Text style={styles.header}>Chelsie</Text>
+        <TouchableHighlight style={styles.asapButton} onPress={this._onASAPButton.bind(this)}>
           <Text style={styles.buttonText}> Immediate Assistance </Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onResourcesButton.bind(this)}>
@@ -45,8 +54,8 @@ class Main extends Component {
         <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
           <Text style={styles.buttonText}> Schools </Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
-          <Text style={styles.buttonText}> Login/Register </Text>
+        <TouchableHighlight style={styles.button} onPress={this._onLoginButton.bind(this)}>
+          <Text style={styles.buttonText}> Login </Text>
         </TouchableHighlight>
       </View>
     )
@@ -69,8 +78,8 @@ var styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: 'red',
-    borderColor: 'red',
+    backgroundColor: '#E74C3C',
+    borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
@@ -79,6 +88,26 @@ var styles = StyleSheet.create({
     marginRight: 5,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  asapButton: {
+    height: 45,
+    flexDirection: 'column',
+    backgroundColor: '#E74C3C',
+    borderColor: 'grey',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 5,
+    marginRight: 5,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  header: {
+    fontWeight: 'bold',
+    fontSize: 40,
+    fontFamily: 'Cochin',
+    alignSelf: 'center'
   }
 });
 

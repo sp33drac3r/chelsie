@@ -31,14 +31,14 @@ class ImmediateAssistance extends Component {
   render(){
     return (
       <View style={styles.container}>
-      <TouchableHighlight style={styles.backButton} onPress={this._onBackButton.bind(this)}>
-        <Text> back </Text>
-      </TouchableHighlight>
       <TouchableHighlight style={styles.button} onPress={this._onHotlineButton}>
         <Text style={styles.buttonText}> Hotline </Text>
       </TouchableHighlight>
       <TouchableHighlight style={styles.button} onPress={this._onChatButton}>
         <Text style={styles.buttonText}> Chat </Text>
+      </TouchableHighlight>
+      <TouchableHighlight style={styles.backButton} onPress={this._onBackButton.bind(this)}>
+        <Text> back </Text>
       </TouchableHighlight>
       </View>
     )
@@ -61,8 +61,8 @@ var styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: 'red',
-    borderColor: 'red',
+    backgroundColor: '#E74C3C',
+    borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
