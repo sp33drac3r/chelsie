@@ -9,6 +9,10 @@ import {
   Navigator
 } from 'react-native';
 
+import ImmediateAssistance from "./ImmediateAssistance"
+
+var fakeUsername = "elizlalala"
+var fakePassword = "doggy"
 
 class Login extends Component {
   constructor(props){
@@ -24,6 +28,17 @@ class Login extends Component {
     })
   }
 
+  login(){
+    if (this.state.username.toLowerCase() == fakeUsername && this.state.password.toLowerCase() == fakePassword) {
+      this.props.navigator.push({
+        component: ImmediateAssistance,
+        name: 'ImmediateAssistance'
+      })
+    } else {
+      console.log("Didn't work")
+    }
+  }
+
   render(){
     return(
       <View style={styles.container}>
@@ -34,11 +49,12 @@ class Login extends Component {
         value={this.state.username}
       />
       <TextInput
+        secureTextEntry={true}
         style={styles.loginArea}
         onChangeText={(password) => this.setState({password: password})}
         value={this.state.password}
       />
-      <TouchableHighlight onPress={console.log(this)} style={styles.button}>
+      <TouchableHighlight onPress={this.login.bind(this)} style={styles.button}>
         <Text style={styles.buttonText}>
           Log In
         </Text>
