@@ -41,11 +41,6 @@ class Resource extends Component {
       .done();
   }
 
-  _onBackButton(){
-    this.props.navigator.pop({
-    })
-  }
-
   render() {
     console.log("I made it to Resources!!!")
     if (!this.state.loaded) {
@@ -54,9 +49,6 @@ class Resource extends Component {
 
     return (
       <View>
-        <TouchableHighlight style={styles.backButton} onPress={this._onBackButton.bind(this)}>
-          <Text> back </Text>
-        </TouchableHighlight>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderResourceView}
