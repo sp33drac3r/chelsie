@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   ListView,
+  TouchableHighlight,
   NavigatorIOS
 } from 'react-native';
 
@@ -42,6 +43,11 @@ class Resource extends Component {
       .done();
   }
 
+  _onBackButton(){
+    this.props.navigator.pop({
+    })
+  }
+
   render() {
     console.log("I made it to Resources!!!")
     if (!this.state.loaded) {
@@ -49,20 +55,25 @@ class Resource extends Component {
     }
 
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderResourceView}
-        style={styles.listView}
-      />
+      <View>
+        <TouchableHighlight style={styles.backButton} onPress={this._onBackButton.bind(this)}>
+          <Text> back </Text>
+        </TouchableHighlight>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderResourceView}
+          style={styles.listView}
+        />
+      </View>
     );
   }
 
   renderLoadingView() {
     return (
       <View style={styles.container}>
-      <Text>
-      Loading resources...
-      </Text>
+        <Text>
+          Loading resources...
+        </Text>
       </View>
     );
   }
@@ -84,7 +95,7 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFFFFF',
   },
   other: {
     flex: 1,
@@ -96,6 +107,13 @@ var styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold'
   },
+  listView: {
+    paddingTop: 30,
+    backgroundColor: '#FFFFFF'
+  },
+  backButton:{
+    paddingTop: 30,
+  }
 });
 
 module.exports = Resource;
