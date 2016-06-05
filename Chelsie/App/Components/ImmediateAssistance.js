@@ -9,6 +9,8 @@ import {
   Navigator
 } from 'react-native';
 
+import Communications from 'react-native-communications';
+
 var hotlineUrl = `https://ohl.rainn.org/online/`
 
 class ImmediateAssistance extends Component {
@@ -16,6 +18,10 @@ class ImmediateAssistance extends Component {
   _onBackButton(){
     this.props.navigator.pop({
     })
+  }
+
+  _onHotlineButton(){
+    Communications.phonecall('2134584288', true)
   }
 
   _onChatButton(){
