@@ -14,18 +14,26 @@ import {
 } from 'react-native';
 
 import Resource from './App/Components/Resource'
+import Main from './App/Components/Main'
+import ImmediateAssistance from './App/Components/ImmediateAssistance'
 
 class Chelsie extends Component {
   renderScene(route, navigator){
     if (route.name == 'Resource') {
       return <Resource navigator={navigator} />
     }
+    if (route.name == 'Main') {
+      return <Main navigator={navigator} />
+    }
+    if (route.name == 'ImmediateAssistance') {
+      return <ImmediateAssistance navigator={navigator} />
+    }
   }
 
   render() {
     return (
       <Navigator
-        initialRoute={{ name: 'Resource' }}
+        initialRoute={{ name: 'Main' }}
         renderScene={ this.renderScene.bind(this) }
       />
     );

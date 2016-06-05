@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   ListView,
-  NavigatorIOS
+  TouchableHighlight,
+  Navigator
 } from 'react-native';
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/`
@@ -22,6 +23,9 @@ class Resource extends Component {
   }
 
   componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => { console.log(position) }
+    )
     this.fetchData();
   }
 
@@ -39,26 +43,37 @@ class Resource extends Component {
       .done();
   }
 
+  _onBackButton(){
+    this.props.navigator.pop({
+    })
+  }
+
   render() {
+    console.log("I made it to Resources!!!")
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
 
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderResourceView}
-        style={styles.listView}
-      />
+      <View>
+        <TouchableHighlight style={styles.backButton} onPress={this._onBackButton.bind(this)}>
+          <Text> back </Text>
+        </TouchableHighlight>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderResourceView}
+          style={styles.listView}
+        />
+      </View>
     );
   }
 
   renderLoadingView() {
     return (
       <View style={styles.container}>
-      <Text>
-      Loading resources...
-      </Text>
+        <Text>
+          Loading resources...
+        </Text>
       </View>
     );
   }
@@ -80,7 +95,7 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFFFFF',
   },
   other: {
     flex: 1,
@@ -92,6 +107,13 @@ var styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold'
   },
+  listView: {
+    paddingTop: 30,
+    backgroundColor: '#FFFFFF'
+  },
+  backButton:{
+    paddingTop: 30,
+  }
 });
 
 module.exports = Resource;
