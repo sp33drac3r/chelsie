@@ -10,13 +10,13 @@ import {
 
 import Resource from "./Resource"
 import ImmediateAssistance from "./ImmediateAssistance"
+import AboutUs from "./AboutUs"
 import Login from "./Login"
 
 class Main extends Component {
   constructor(props){
     super(props)
     this.state={
-
     }
   }
 
@@ -34,6 +34,13 @@ class Main extends Component {
     })
   }
 
+  _onAboutUsButton(){
+    this.props.navigator.push({
+      component: AboutUs,
+      name: "AboutUs"
+    })
+  }
+
   _onLoginButton(){
     this.props.navigator.push({
       component: Login,
@@ -44,7 +51,9 @@ class Main extends Component {
   render(){
     return (
       <View style={styles.container}>
+      <TouchableHighlight onPress={this._onAboutUsButton.bind(this)}>
       <Text style={styles.header}>Chelsie</Text>
+      </TouchableHighlight>
         <TouchableHighlight style={styles.asapButton} onPress={this._onASAPButton.bind(this)}>
           <Text style={styles.buttonText}> Immediate Assistance </Text>
         </TouchableHighlight>
@@ -53,6 +62,9 @@ class Main extends Component {
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
           <Text style={styles.buttonText}> Schools </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={this._onAboutUsButton.bind(this)}>
+          <Text style={styles.buttonText}> About Us </Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onLoginButton.bind(this)}>
           <Text style={styles.buttonText}> Login </Text>

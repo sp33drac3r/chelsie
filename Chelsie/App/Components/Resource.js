@@ -23,9 +23,6 @@ class Resource extends Component {
   }
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => { console.log(position) }
-    )
     this.fetchData();
   }
 
