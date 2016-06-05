@@ -14,18 +14,22 @@ import {
 } from 'react-native';
 
 import Resource from './App/Components/Resource'
+import Main from './App/Components/Main'
 
 class Chelsie extends Component {
   renderScene(route, navigator){
     if (route.name == 'Resource') {
       return <Resource navigator={navigator} />
     }
+    if (route.name == 'Main') {
+      return <Main navigator={navigator} />
+    }
   }
 
   render() {
     return (
       <Navigator
-        initialRoute={{ name: 'Resource' }}
+        initialRoute={{ name: 'Main' }}
         renderScene={ this.renderScene.bind(this) }
       />
     );

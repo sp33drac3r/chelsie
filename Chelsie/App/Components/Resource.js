@@ -40,6 +40,7 @@ class Resource extends Component {
   }
 
   render() {
+    console.log("I made it to Resources!!!")
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
