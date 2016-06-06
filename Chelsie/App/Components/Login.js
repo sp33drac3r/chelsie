@@ -9,8 +9,7 @@ import {
   Navigator
 } from 'react-native';
 
-import ImmediateAssistance from "./ImmediateAssistance"
-import Post from "./Post"
+import Community from "./Community"
 
 var fakeUsername = "elizlalala"
 var fakePassword = "doggy"
@@ -27,8 +26,8 @@ class Login extends Component {
   login(){
     if (this.state.username.toLowerCase() == fakeUsername && this.state.password.toLowerCase() == fakePassword) {
       this.props.navigator.push({
-        component: Post,
-        name: 'Post'
+        component: Community,
+        name: 'Community'
       })
     } else {
       console.log("Didn't work")

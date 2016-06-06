@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
+
 import {
   View,
   Text,
   StyleSheet,
   ListView,
+  TouchableOpacity,
   TouchableHighlight,
   ActivityIndicatorIOS,
   Navigator
 } from 'react-native';
 
-var url = `https://afternoon-badlands-40242.herokuapp.com/centers/geo/37.7749/-122.4194/10`
+import School from './School'
 
-class Resource extends Component {
+var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
+class SchoolList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,13 +23,13 @@ class Resource extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      school_id: this.props.school_id
     };
   }
 
   componentDidMount() {
     this.fetchData();
   }
-
 
   fetchData() {
     fetch(url)
@@ -42,7 +45,6 @@ class Resource extends Component {
   }
 
   render() {
-    console.log("I made it to Resources!!!")
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
@@ -51,9 +53,12 @@ class Resource extends Component {
       <View>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderResourceView}
+          renderRow={this.renderSchoolView}
           style={styles.listView}
         />
+      <TouchableHighlight style={styles.button} onPress={this._onBackButton.bind(this)}>
+        <Text style={styles.word}>Test</Text>
+      </TouchableHighlight>
       </View>
     );
   }
@@ -69,11 +74,27 @@ class Resource extends Component {
     );
   }
 
-  renderResourceView(resource){
+  _onButton(){
+    this.props.navigator.push({
+      component: School,
+      name: "School"
+    })
+  }
+
+  _onBackButton(){
+    this.props.navigator.pop()
+  }
+
+  renderSchoolView(school){
+    {console.log(this)}
     return (
       <View style={styles.container}>
-        <Text>{resource.name}</Text>
-        <Text>{resource.address}</Text>
+      <TouchableOpacity
+        style={styles.row}
+        onPress={(this._onBackButton)}
+        underlayColor="white">
+        <Text>{school.name}</Text>
+      </TouchableOpacity>
       </View>
     );
   }
@@ -82,8 +103,9 @@ class Resource extends Component {
 
 var styles = StyleSheet.create({
   container: {
+    marginTop: 50,
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
@@ -98,6 +120,11 @@ var styles = StyleSheet.create({
     paddingTop: 30,
     backgroundColor: '#FFFFFF'
   },
+  row: {
+  flex: 1,
+  alignItems: 'stretch',
+  margin: 20
+  },
 });
 
-module.exports = Resource;
+module.exports = SchoolList;
