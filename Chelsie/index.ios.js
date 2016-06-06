@@ -22,6 +22,7 @@ import ImmediateAssistance from './App/Components/ImmediateAssistance'
 import AboutUs from './App/Components/AboutUs'
 import Login from './App/Components/Login'
 import Post from './App/Components/Post'
+import Community from './App/Components/Community'
 
 class Chelsie extends Component {
   renderScene(route, navigator){
@@ -42,6 +43,9 @@ class Chelsie extends Component {
     }
     if (route.name == 'Post') {
       return <Post navigator={navigator} />
+    }
+    if (route.name == 'Community') {
+      return <Community navigator={navigator} />
     }
   }
 
