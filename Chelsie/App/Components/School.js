@@ -9,6 +9,7 @@ import {
   TouchableHighlight,
   ActivityIndicatorIOS,
   ScrollView,
+  Image,
   Navigator
 } from 'react-native';
 
@@ -61,10 +62,14 @@ class School extends Component {
       return this.renderLoadingView();
     }
 
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.content}>
         <Text style={styles.header}>{this.props.schoolName}</Text>
+        <TouchableHighlight style={styles.button} onPress={this._onAddPostButton.bind(this)}>
+          <Text style={styles.add}>Add Post</Text>
+        </TouchableHighlight>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderPostView.bind(this)}
@@ -86,6 +91,12 @@ class School extends Component {
     );
   }
 
+  _onAddPostButton(){
+    this.props.navigator.push({
+      component: NewPost,
+      name: "NewPost"
+    })
+  }
   _onPostClick (post){
     console.log("THIS IS POST WE'RE PASSING FROM LIST: ")
     console.log(post)
@@ -135,6 +146,13 @@ var styles = StyleSheet.create({
     fontFamily: 'Cochin',
     color: '#000000',
     fontSize: 30,
+    fontWeight: 'bold'
+  },
+  add: {
+    fontFamily: 'Cochin',
+    color: '#000000',
+    fontSize: 14,
+    paddingLeft: 5,
     fontWeight: 'bold'
   },
   row: {
