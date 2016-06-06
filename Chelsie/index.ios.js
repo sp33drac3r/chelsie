@@ -64,7 +64,7 @@ class Chelsie extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{ name: 'Community' }}
+        initialRoute={{ name: 'Main' }}
         renderScene={ this.renderScene.bind(this) }
         navigationBar={
           <Navigator.NavigationBar
@@ -102,10 +102,6 @@ var NavigationBarRouteMapper = {
 
 
 var styles = StyleSheet.create({
-  other: {
-    flex: 1,
-    backgroundColor: '#aaeaca'
-  },
   word: {
     fontFamily: 'Cochin',
     color: '#000000',
@@ -113,27 +109,29 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   title: {
-  marginTop:4,
-  fontSize:16
+    color: '#FFFFFF',
+    fontWeight: '500',
+    marginTop:13,
+    fontSize:21
   },
   nav: {
-  height: 60,
-  backgroundColor: '#efefef'
+    height: 75,
+    backgroundColor: '#00bfd8'
   },
   navBarTitleText: {
     color: '#aaecca',
-    fontWeight: '500',
+    fontWeight: '900',
     marginVertical: 9,
   },
   navBarLeftButton: {
-  paddingLeft: 10,
+    paddingLeft: 10,
   },
   navBarRightButton: {
-  paddingRight: 10,
+    paddingRight: 10,
   },
   backBtn:{
-    marginLeft: 12,
-    marginTop: 5,
+    marginLeft: 14,
+    marginTop: 14,
   }
 });
 
