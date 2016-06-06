@@ -23,7 +23,9 @@ class SchoolList extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      school_id: ""
+      school_id: '',
+      title: '',
+      schoolName: ''
     };
   }
 
@@ -45,7 +47,6 @@ class SchoolList extends Component {
   }
 
   render() {
-    console.log(this.props)
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
@@ -77,11 +78,23 @@ class SchoolList extends Component {
     );
   }
 
-  _onButton(){
-    this.props.navigator.push({
-      component: School,
-      name: "School"
-    })
+  _onButton(school){
+    console.log("THIS IS SCHOOL WE'RE PASSING FROM LIST: ")
+    console.log(school)
+    console.log(school.name)
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${school.id}`)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData.school.name)
+        this.props.navigator.push({
+          // component: School,
+          name: "School",
+          title: school.name,
+          passProps: {
+            schoolName: responseData.school.name
+          },
+        });
+      }).done();
   }
 
   _onBackButton(){
@@ -93,7 +106,7 @@ class SchoolList extends Component {
       <View style={styles.container}>
       <TouchableOpacity
         style={styles.row}
-        onPress={(this._onButton.bind(this))}
+        onPress={(this._onButton.bind(this, school))}
         underlayColor="white">
         <Text>{school.name}</Text>
       </TouchableOpacity>
