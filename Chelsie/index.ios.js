@@ -21,7 +21,7 @@ import Main from './App/Components/Main'
 import ImmediateAssistance from './App/Components/ImmediateAssistance'
 import AboutUs from './App/Components/AboutUs'
 import Login from './App/Components/Login'
-import Post from './App/Components/Post'
+import NewPost from './App/Components/NewPost'
 import Community from './App/Components/Community'
 import SchoolList from './App/Components/SchoolList'
 import School from './App/Components/School'
@@ -44,8 +44,8 @@ class Chelsie extends Component {
     if (route.name == 'Login') {
       return <Login navigator={navigator} />
     }
-    if (route.name == 'Post') {
-      return <Post navigator={navigator} />
+    if (route.name == 'NewPost') {
+      return <NewPost navigator={navigator} />
     }
     if (route.name == 'Community') {
       return <Community navigator={navigator} />

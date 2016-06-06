@@ -9,7 +9,7 @@ import {
   TextInput
 } from 'react-native';
 
-class Post extends Component {
+class NewPost extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -128,4 +128,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = Post;
+module.exports = NewPost;

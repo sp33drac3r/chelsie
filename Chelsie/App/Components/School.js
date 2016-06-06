@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import SchoolList from './SchoolList'
-import Post from './Post'
+import NewPost from './NewPost'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
