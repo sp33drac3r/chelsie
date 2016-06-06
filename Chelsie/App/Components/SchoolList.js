@@ -6,9 +6,12 @@ import {
   StyleSheet,
   ListView,
   TouchableOpacity,
+  TouchableHighlight,
   ActivityIndicatorIOS,
   Navigator
 } from 'react-native';
+
+import School from './School'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
@@ -20,6 +23,7 @@ class SchoolList extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      school_id: this.props.school_id
     };
   }
 
@@ -52,6 +56,9 @@ class SchoolList extends Component {
           renderRow={this.renderSchoolView}
           style={styles.listView}
         />
+      <TouchableHighlight style={styles.button} onPress={this._onBackButton.bind(this)}>
+        <Text style={styles.word}>Test</Text>
+      </TouchableHighlight>
       </View>
     );
   }
@@ -67,12 +74,27 @@ class SchoolList extends Component {
     );
   }
 
+  _onButton(){
+    this.props.navigator.push({
+      component: School,
+      name: "School"
+    })
+  }
+
+  _onBackButton(){
+    this.props.navigator.pop()
+  }
+
   renderSchoolView(school){
+    {console.log(this)}
     return (
       <View style={styles.container}>
-        <TouchableOpacity>
+      <TouchableOpacity
+        style={styles.row}
+        onPress={(this._onBackButton)}
+        underlayColor="white">
         <Text>{school.name}</Text>
-        </TouchableOpacity>
+      </TouchableOpacity>
       </View>
     );
   }
@@ -97,6 +119,11 @@ var styles = StyleSheet.create({
   listView: {
     paddingTop: 30,
     backgroundColor: '#FFFFFF'
+  },
+  row: {
+  flex: 1,
+  alignItems: 'stretch',
+  margin: 20
   },
 });
 

@@ -24,6 +24,7 @@ import Login from './App/Components/Login'
 import Post from './App/Components/Post'
 import Community from './App/Components/Community'
 import SchoolList from './App/Components/SchoolList'
+import School from './App/Components/School'
 
 class Chelsie extends Component {
   renderScene(route, navigator){
@@ -51,12 +52,15 @@ class Chelsie extends Component {
     if (route.name == 'SchoolList') {
       return <SchoolList navigator={navigator} />
     }
+    if (route.name == 'School') {
+      return <School navigator={navigator} />
+    }
   }
 
   render() {
     return (
       <Navigator
-        initialRoute={{ name: 'Main' }}
+        initialRoute={{ name: 'Community' }}
         renderScene={ this.renderScene.bind(this) }
         navigationBar={
           <Navigator.NavigationBar
