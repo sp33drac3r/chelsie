@@ -23,7 +23,9 @@ class SchoolList extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      school_id: this.props.school_id
+      school_id: '',
+      title: '',
+      schoolName: ''
     };
   }
 
@@ -50,15 +52,17 @@ class SchoolList extends Component {
     }
 
     return (
-      <View>
+      <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderSchoolView}
+          renderRow={this.renderSchoolView.bind(this)}
           style={styles.listView}
         />
-      <TouchableHighlight style={styles.button} onPress={this._onBackButton.bind(this)}>
-        <Text style={styles.word}>Test</Text>
-      </TouchableHighlight>
+      <View style={styles.subcontainer}>
+        <TouchableHighlight style={styles.button} onPress={this._onBackButton.bind(this)}>
+          <Text style={styles.word}>Test</Text>
+        </TouchableHighlight>
+      </View>
       </View>
     );
   }
@@ -74,11 +78,23 @@ class SchoolList extends Component {
     );
   }
 
-  _onButton(){
-    this.props.navigator.push({
-      component: School,
-      name: "School"
-    })
+  _onButton(school){
+    console.log("THIS IS SCHOOL WE'RE PASSING FROM LIST: ")
+    console.log(school)
+    console.log(school.name)
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${school.id}`)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData.school.name)
+        this.props.navigator.push({
+          // component: School,
+          name: "School",
+          title: school.name,
+          passProps: {
+            schoolName: responseData.school.name
+          },
+        });
+      }).done();
   }
 
   _onBackButton(){
@@ -86,12 +102,11 @@ class SchoolList extends Component {
   }
 
   renderSchoolView(school){
-    {console.log(this)}
     return (
       <View style={styles.container}>
       <TouchableOpacity
         style={styles.row}
-        onPress={(this._onBackButton)}
+        onPress={(this._onButton.bind(this, school))}
         underlayColor="white">
         <Text>{school.name}</Text>
       </TouchableOpacity>
@@ -109,6 +124,11 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
+  },
+  subcontainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   word: {
     fontFamily: 'Cochin',

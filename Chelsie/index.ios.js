@@ -50,10 +50,10 @@ class Chelsie extends Component {
       return <Community navigator={navigator} />
     }
     if (route.name == 'SchoolList') {
-      return <SchoolList navigator={navigator} />
+      return <SchoolList navigator={navigator} {...route.passProps} />
     }
     if (route.name == 'School') {
-      return <School navigator={navigator} />
+      return <School navigator={navigator} {...route.passProps} />
     }
   }
 

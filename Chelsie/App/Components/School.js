@@ -8,11 +8,18 @@ import {
   Navigator
 } from 'react-native';
 
+import SchoolList from './SchoolList'
+
+
 class School extends Component {
   render(){
+    console.log("THIS IS PROPS: ")
+    console.log(this.props)
+    console.log(this.props.title)
+    console.log(this.props.schoolName)
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>School</Text>
+        <Text style={styles.text}>{this.props.schoolName}</Text>
       </View>
     )
   }
