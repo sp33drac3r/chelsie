@@ -61,7 +61,7 @@ class School extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>style={styles.text}>{this.props.schoolName}</Text>
+        <Text style={styles.header}>{this.props.schoolName}</Text>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderPostView.bind(this)}
@@ -124,7 +124,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   listView: {
-    paddingTop: 30,
+    paddingTop: 10,
     backgroundColor: '#FFFFFF'
   },
   text: {
@@ -138,6 +138,12 @@ var styles = StyleSheet.create({
   alignItems: 'stretch',
   margin: 20
   },
+  header: {
+    fontWeight: 'bold',
+    fontSize: 40,
+    fontFamily: 'Cochin',
+    alignSelf: 'center'
+  }
 });
 
 module.exports = School;
