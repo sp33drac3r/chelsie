@@ -6,8 +6,11 @@ import {
   ListView,
   TouchableHighlight,
   ActivityIndicatorIOS,
+  ScrollView,
   Navigator
 } from 'react-native';
+
+import Separator from './Helpers/Separator'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/centers/geo/37.7749/-122.4194/10`
 
@@ -48,19 +51,22 @@ class Resource extends Component {
     }
 
     return (
-      <View>
+      <View style={styles.container}>
+        <ScrollView style={styles.content}>
+        <Text style={styles.header}> Local Resources </Text>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderResourceView}
           style={styles.listView}
         />
+        </ScrollView>
       </View>
     );
   }
 
   renderLoadingView() {
     return (
-      <View style={styles.container}>
+      <View>
         <ActivityIndicatorIOS
           animating={!this.state.loaded}
           color="#111"
@@ -74,6 +80,7 @@ class Resource extends Component {
       <View style={styles.container}>
         <Text>{resource.name}</Text>
         <Text>{resource.address}</Text>
+        <Separator />
       </View>
     );
   }
@@ -83,10 +90,10 @@ class Resource extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    flexDirection: 'column',
+  },
+  content: {
+    marginTop: 90,
   },
   word: {
     fontFamily: 'Cochin',
@@ -95,9 +102,15 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listView: {
-    paddingTop: 30,
+    paddingTop: 1,
     backgroundColor: '#FFFFFF'
   },
+  header: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    fontFamily: 'Cochin',
+    alignSelf: 'center'
+  }
 });
 
 module.exports = Resource;
