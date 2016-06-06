@@ -5,14 +5,14 @@ import {
   Text,
   StyleSheet,
   ListView,
-  TouchableHighlight,
+  TouchableOpacity,
   ActivityIndicatorIOS,
   Navigator
 } from 'react-native';
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
-class School extends Component {
+class SchoolList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +70,9 @@ class School extends Component {
   renderSchoolView(school){
     return (
       <View style={styles.container}>
+        <TouchableOpacity>
         <Text>{school.name}</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -98,4 +100,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = School;
+module.exports = SchoolList;

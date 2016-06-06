@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import Post from "./Post"
-import School from "./School"
+import SchoolList from "./SchoolList"
 
 class Community extends Component {
 
@@ -22,8 +22,8 @@ class Community extends Component {
 
   _onSchoolButton(){
     this.props.navigator.push({
-      component: School,
-      name: "School"
+      component: SchoolList,
+      name: "SchoolList"
     })
   }
 
