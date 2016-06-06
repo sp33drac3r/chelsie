@@ -26,6 +26,7 @@ import Community from './App/Components/Community'
 import SchoolList from './App/Components/SchoolList'
 import School from './App/Components/School'
 import NewComment from './App/Components/NewComment'
+import SignUp from './App/Components/SignUp'
 
 class Chelsie extends Component {
   renderScene(route, navigator){
@@ -58,6 +59,9 @@ class Chelsie extends Component {
     }
     if (route.name == 'NewComment') {
       return <NewComment navigator={navigator} />
+    }
+    if (route.name == 'SignUp') {
+      return <SignUp navigator={navigator} {...route.passProps} />
     }
   }
 
