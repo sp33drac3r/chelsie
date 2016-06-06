@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import ImmediateAssistance from "./ImmediateAssistance"
+import Post from "./Post"
 
 var fakeUsername = "elizlalala"
 var fakePassword = "doggy"
@@ -26,8 +27,8 @@ class Login extends Component {
   login(){
     if (this.state.username.toLowerCase() == fakeUsername && this.state.password.toLowerCase() == fakePassword) {
       this.props.navigator.push({
-        component: ImmediateAssistance,
-        name: 'ImmediateAssistance'
+        component: Post,
+        name: 'Post'
       })
     } else {
       console.log("Didn't work")
