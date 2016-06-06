@@ -23,9 +23,11 @@ class SchoolList extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      school_id: '',
       title: '',
-      schoolName: ''
+      schoolName: '',
+      schoolId: '',
+      schoolAddress: '',
+      posts: ''
     };
   }
 
@@ -81,20 +83,32 @@ class SchoolList extends Component {
   _onButton(school){
     console.log("THIS IS SCHOOL WE'RE PASSING FROM LIST: ")
     console.log(school)
-    console.log(school.name)
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${school.id}`)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData.school.name)
-        this.props.navigator.push({
-          // component: School,
-          name: "School",
-          title: school.name,
-          passProps: {
-            schoolName: responseData.school.name
-          },
-        });
-      }).done();
+
+    this.props.navigator.push({
+      component: School,
+      name: "School",
+      passProps: {
+        schoolName: school.name,
+        schoolId: school.id,
+        schoolAddress: school.address
+      },
+    });
+
+
+    // fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${school.id}`)
+    //   .then((response) => response.json())
+    //   .then((responseData) => {
+    //     console.log(responseData)
+    //     this.props.navigator.push({
+    //       component: School,
+    //       name: "School",
+    //       passProps: {
+    //         schoolName: responseData.school.name,
+    //         schoolId: responseData.school.id,
+    //         schoolAddress: responseData.school.address
+    //       },
+    //     });
+    //   }).done();
   }
 
   _onBackButton(){
