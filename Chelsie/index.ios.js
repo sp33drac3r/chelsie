@@ -48,7 +48,7 @@ class Chelsie extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{ name: 'Post' }}
+        initialRoute={{ name: 'Main' }}
         renderScene={ this.renderScene.bind(this) }
         navigationBar={
           <Navigator.NavigationBar
