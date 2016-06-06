@@ -23,7 +23,7 @@ class SchoolList extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      school_id: this.props.school_id
+      school_id: ""
     };
   }
 
@@ -45,6 +45,7 @@ class SchoolList extends Component {
   }
 
   render() {
+    console.log(this.props)
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
@@ -53,7 +54,7 @@ class SchoolList extends Component {
       <View>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderSchoolView}
+          renderRow={this.renderSchoolView.bind(this)}
           style={styles.listView}
         />
       <TouchableHighlight style={styles.button} onPress={this._onBackButton.bind(this)}>
@@ -86,12 +87,11 @@ class SchoolList extends Component {
   }
 
   renderSchoolView(school){
-    {console.log(this)}
     return (
       <View style={styles.container}>
       <TouchableOpacity
         style={styles.row}
-        onPress={(this._onBackButton)}
+        onPress={(this._onBackButton.bind(this))}
         underlayColor="white">
         <Text>{school.name}</Text>
       </TouchableOpacity>
