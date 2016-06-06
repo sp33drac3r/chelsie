@@ -8,16 +8,16 @@ import {
   Navigator
 } from 'react-native';
 
-import Post from "./Post"
+import NewPost from "./NewPost"
 import NewComment from "./NewComment"
 import SchoolList from "./SchoolList"
 
 class Community extends Component {
 
-  _onPostButton(){
+  _onNewPostButton(){
     this.props.navigator.push({
-      component: Post,
-      name: "Post"
+      component: NewPost,
+      name: "NewPost"
     })
   }
 
@@ -39,7 +39,7 @@ class Community extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.header}> Community </Text>
-        <TouchableHighlight style={styles.button} onPress={this._onPostButton.bind(this)}>
+        <TouchableHighlight style={styles.button} onPress={this._onNewPostButton.bind(this)}>
           <Text style={styles.buttonText}> New Post </Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onNewCommentButton.bind(this)}>
