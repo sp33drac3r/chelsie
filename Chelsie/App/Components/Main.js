@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   Image,
   ScrollView,
+  StatusBar,
   Navigator
 } from 'react-native';
 
@@ -53,6 +54,10 @@ class Main extends Component {
   render(){
     return (
       <View style={styles.container}>
+      <StatusBar
+        backgroundColor="blue"
+        barStyle="light-content"
+      />
       <ScrollView>
         <TouchableHighlight onPress={this._onAboutUsButton.bind(this)}>
       <Text style={styles.header}>Chelsie</Text>
