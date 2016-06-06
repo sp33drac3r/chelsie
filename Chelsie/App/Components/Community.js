@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import Post from "./Post"
+import School from "./School"
 
 class Community extends Component {
 
@@ -19,12 +20,22 @@ class Community extends Component {
     })
   }
 
+  _onSchoolButton(){
+    this.props.navigator.push({
+      component: School,
+      name: "School"
+    })
+  }
+
   render(){
     return (
       <View style={styles.container}>
-        <Text> Community </Text>
+        <Text style={styles.header}> Community </Text>
         <TouchableHighlight style={styles.button} onPress={this._onPostButton.bind(this)}>
           <Text style={styles.buttonText}> New Post </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={this._onSchoolButton.bind(this)}>
+          <Text style={styles.buttonText}> Schools </Text>
         </TouchableHighlight>
       </View>
     )
@@ -42,7 +53,7 @@ var styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: '#E74C3C',
+    backgroundColor: '#B5E3FF',
     borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 8,
@@ -53,6 +64,12 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
+  header: {
+    fontWeight: 'bold',
+    fontSize: 40,
+    fontFamily: 'Cochin',
+    alignSelf: 'center'
+  }
 });
 
 module.exports = Community;
