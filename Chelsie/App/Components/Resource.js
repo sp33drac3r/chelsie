@@ -9,7 +9,7 @@ import {
   Navigator
 } from 'react-native';
 
-var url = `https://afternoon-badlands-40242.herokuapp.com/`
+var url = `https://afternoon-badlands-40242.herokuapp.com/centers/geo/37.7749/-122.4194/10`
 
 class Resource extends Component {
 
