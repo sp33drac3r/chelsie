@@ -88,10 +88,6 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
   },
-  other: {
-    flex: 1,
-    backgroundColor: '#aaeaca'
-  },
   word: {
     fontFamily: 'Cochin',
     color: '#000000',
@@ -102,9 +98,6 @@ var styles = StyleSheet.create({
     paddingTop: 30,
     backgroundColor: '#FFFFFF'
   },
-  backButton:{
-    paddingTop: 30,
-  }
 });
 
 module.exports = Resource;
