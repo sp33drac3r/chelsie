@@ -19,7 +19,7 @@ class NewPost extends Component {
     }
   }
 
-  post(){
+  postRequest(){
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/1/posts`, {
       method: 'POST',
       headers: {
@@ -58,7 +58,7 @@ class NewPost extends Component {
         onChangeText={(text) => this.setState({postText: text})}
         value={this.state.postText}
       />
-      <TouchableHighlight onPress={this.post.bind(this)} style={styles.button}>
+      <TouchableHighlight onPress={this.postRequest.bind(this)} style={styles.button}>
         <Text style={styles.buttonText}>
           submit
         </Text>

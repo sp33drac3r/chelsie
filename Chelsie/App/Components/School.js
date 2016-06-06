@@ -13,6 +13,7 @@ import {
 
 import SchoolList from './SchoolList'
 import NewPost from './NewPost'
+import Post from './Post'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
@@ -89,6 +90,7 @@ class School extends Component {
       component: Post,
       name: "Post",
       passProps: {
+        shoolId: this.props.schoolId,
         postTitle: post.title,
         postId: post.id,
         postBody: post.body
