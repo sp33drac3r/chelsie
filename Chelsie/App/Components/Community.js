@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import Post from "./Post"
+import NewComment from "./NewComment"
 import SchoolList from "./SchoolList"
 
 class Community extends Component {
@@ -17,6 +18,13 @@ class Community extends Component {
     this.props.navigator.push({
       component: Post,
       name: "Post"
+    })
+  }
+
+  _onNewCommentButton(){
+    this.props.navigator.push({
+      component: NewComment,
+      name: "NewComment"
     })
   }
 
@@ -33,6 +41,9 @@ class Community extends Component {
         <Text style={styles.header}> Community </Text>
         <TouchableHighlight style={styles.button} onPress={this._onPostButton.bind(this)}>
           <Text style={styles.buttonText}> New Post </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={this._onNewCommentButton.bind(this)}>
+          <Text style={styles.buttonText}> New Comment </Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onSchoolButton.bind(this)}>
           <Text style={styles.buttonText}> Schools </Text>
