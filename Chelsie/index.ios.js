@@ -110,12 +110,12 @@ var styles = StyleSheet.create({
   },
   title: {
     color: '#FFFFFF',
-    fontWeight: '500',
+    fontWeight: '800',
     marginTop:13,
     fontSize:21
   },
   nav: {
-    height: 75,
+    height: 80,
     backgroundColor: '#00bfd8'
   },
   navBarTitleText: {
