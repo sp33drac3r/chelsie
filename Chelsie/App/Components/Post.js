@@ -34,8 +34,9 @@ class Post extends Component {
         }
       })
     })
-    .then((responseText) => {
-      console.log(responseText);
+    .then((responseText) => responseText.json())
+    .then((responseData) => {
+      console.log(responseData);
     })
     .catch((error) => {
       console.warn(error);
