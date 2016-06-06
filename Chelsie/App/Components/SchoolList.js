@@ -51,15 +51,17 @@ class SchoolList extends Component {
     }
 
     return (
-      <View>
+      <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderSchoolView.bind(this)}
           style={styles.listView}
         />
-      <TouchableHighlight style={styles.button} onPress={this._onBackButton.bind(this)}>
-        <Text style={styles.word}>Test</Text>
-      </TouchableHighlight>
+      <View style={styles.subcontainer}>
+        <TouchableHighlight style={styles.button} onPress={this._onBackButton.bind(this)}>
+          <Text style={styles.word}>Test</Text>
+        </TouchableHighlight>
+      </View>
       </View>
     );
   }
@@ -91,7 +93,7 @@ class SchoolList extends Component {
       <View style={styles.container}>
       <TouchableOpacity
         style={styles.row}
-        onPress={(this._onBackButton.bind(this))}
+        onPress={(this._onButton.bind(this))}
         underlayColor="white">
         <Text>{school.name}</Text>
       </TouchableOpacity>
@@ -109,6 +111,11 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
+  },
+  subcontainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   word: {
     fontFamily: 'Cochin',
