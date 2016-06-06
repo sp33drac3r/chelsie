@@ -54,7 +54,7 @@ class Main extends Component {
       <TouchableHighlight onPress={this._onAboutUsButton.bind(this)}>
       <Text style={styles.header}>Chelsie</Text>
       </TouchableHighlight>
-        <TouchableHighlight style={styles.asapButton} onPress={this._onASAPButton.bind(this)}>
+        <TouchableHighlight style={styles.button} onPress={this._onASAPButton.bind(this)}>
           <Text style={styles.buttonText}> Immediate Assistance </Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onResourcesButton.bind(this)}>
