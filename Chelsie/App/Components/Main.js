@@ -60,9 +60,6 @@ class Main extends Component {
         <TouchableHighlight style={styles.button} onPress={this._onResourcesButton.bind(this)}>
           <Text style={styles.buttonText}>Resources</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
-          <Text style={styles.buttonText}> Schools </Text>
-        </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onAboutUsButton.bind(this)}>
           <Text style={styles.buttonText}> About Us </Text>
         </TouchableHighlight>
@@ -90,22 +87,8 @@ var styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: '#E74C3C',
-    borderColor: 'grey',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
-  asapButton: {
-    height: 45,
-    flexDirection: 'column',
-    backgroundColor: '#E74C3C',
-    borderColor: 'grey',
+    backgroundColor: '#B5E3FF',
+    borderColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
