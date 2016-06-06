@@ -21,6 +21,7 @@ import Main from './App/Components/Main'
 import ImmediateAssistance from './App/Components/ImmediateAssistance'
 import AboutUs from './App/Components/AboutUs'
 import Login from './App/Components/Login'
+import Post from './App/Components/Post'
 
 class Chelsie extends Component {
   renderScene(route, navigator){
@@ -39,12 +40,15 @@ class Chelsie extends Component {
     if (route.name == 'Login') {
       return <Login navigator={navigator} />
     }
+    if (route.name == 'Post') {
+      return <Post navigator={navigator} />
+    }
   }
 
   render() {
     return (
       <Navigator
-        initialRoute={{ name: 'Main' }}
+        initialRoute={{ name: 'Post' }}
         renderScene={ this.renderScene.bind(this) }
         navigationBar={
           <Navigator.NavigationBar
