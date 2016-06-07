@@ -34,8 +34,6 @@ class SignUp extends Component {
     }).done();
   }
 
-
-
   signUp(){
     fetch(`https://afternoon-badlands-40242.herokuapp.com/users`, {
       method: 'POST',
@@ -45,9 +43,9 @@ class SignUp extends Component {
       },
       body: JSON.stringify({
         user: {
-          username: this.state.username,
-          email: this.state.email,
-          password: this.state.password
+          username: this.state.username.toLowerCase(),
+          email: this.state.email.toLowerCase(),
+          password: this.state.password.toLowerCase()
         }
       })
     })

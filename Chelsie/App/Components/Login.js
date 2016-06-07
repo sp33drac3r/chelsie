@@ -6,32 +6,64 @@ import {
   ListView,
   TouchableHighlight,
   TextInput,
-  Navigator
+  Navigator,
+  AsyncStorage
 } from 'react-native';
 
 import Community from "./Community"
-
-var fakeUsername = "elizlalala"
-var fakePassword = "doggy"
 
 class Login extends Component {
   constructor(props){
     super(props)
     this.state = {
-      username: "",
+      email: "",
       password: ""
     }
   }
 
+  componentDidMount() {
+    // AsyncStorage.setItem('user_id', '')
+    AsyncStorage.getItem('user_id').then((value) => {
+      this.setState({'user_id': value});
+      console.log(this.state.user_id);
+    }).done();
+  }
+
   login(){
-    if (this.state.username.toLowerCase() == fakeUsername && this.state.password.toLowerCase() == fakePassword) {
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/login`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.email.toLowerCase(),
+        password: this.state.password.toLowerCase()
+      })
+    })
+    .then((responseText) => responseText.json())
+    .then((responseData) => {
+      console.log(responseData.response);
+      var stringId = String(responseData.id)
+      AsyncStorage.setItem('user_id', stringId)
       this.props.navigator.push({
         component: Community,
         name: 'Community'
       })
-    } else {
-      console.log("Didn't work")
-    }
+    })
+    .catch((error) => {
+      console.warn(error);
+    });
+
+
+    // if (this.state.username.toLowerCase() == fakeUsername && this.state.password.toLowerCase() == fakePassword) {
+    //   this.props.navigator.push({
+    //     component: Community,
+    //     name: 'Community'
+    //   })
+    // } else {
+    //   console.log("Didn't work")
+    // }
   }
 
   render(){
@@ -40,8 +72,8 @@ class Login extends Component {
       <Text style={styles.header}>Chelsie</Text>
       <TextInput
         style={styles.loginArea}
-        onChangeText={(username) => this.setState({username: username})}
-        value={this.state.username}
+        onChangeText={(email) => this.setState({email: email})}
+        value={this.state.email}
       />
       <TextInput
         secureTextEntry={true}
