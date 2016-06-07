@@ -24,7 +24,14 @@ class ResourceList extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      resourceID: ''
+      resourceID: '',
+      resourceName: '',
+      resourceAddress: '',
+      resourceZip: '',
+      resourcePopServed: '',
+      resourceTel1: '',
+      resourceTel2: '',
+      resourceWeb: ''
     };
   }
 
@@ -97,9 +104,14 @@ class ResourceList extends Component {
           component: Resource,
           name: "Resource",
           passProps: {
-            resourceName: resource.name,
-            resourceId: resource.id,
-            resourceAddress: resource.address
+            resourceID: responseData.id,
+            resourceName: responseData.name,
+            resourceAddress: responseData.address,
+            resourceZip: responseData.zip,
+            resourcePopServed: responseData.populations_served,
+            resourceTel1: responseData.telephone,
+            resourceTel2: responseData.tty,
+            resourceWeb: responseData.website
           },
       });
     }).done();
