@@ -13,11 +13,20 @@ import NewComment from "./NewComment"
 import SchoolList from "./SchoolList"
 
 class Community extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      user_id: this.props.user_id
+    }
+  }
 
   _onSchoolButton(){
     this.props.navigator.push({
       component: SchoolList,
-      name: "SchoolList"
+      name: "SchoolList",
+      passProps: {
+        user_id: this.state.user_id
+      }
     })
   }
 

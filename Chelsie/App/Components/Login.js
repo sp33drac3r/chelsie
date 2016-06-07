@@ -17,7 +17,8 @@ class Login extends Component {
     super(props)
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      user_id: ""
     }
   }
 
@@ -48,7 +49,10 @@ class Login extends Component {
       AsyncStorage.setItem('user_id', stringId)
       this.props.navigator.push({
         component: Community,
-        name: 'Community'
+        name: 'Community',
+        passProps: {
+          user_id: this.state.user_id
+        }
       })
     })
     .catch((error) => {
