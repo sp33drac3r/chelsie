@@ -9,11 +9,13 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicatorIOS,
+  ScrollView,
   Navigator,
   AsyncStorage
 } from 'react-native';
 
 import School from './School'
+import Separator from './Helpers/Separator'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
@@ -102,16 +104,13 @@ class SchoolList extends Component {
         value={this.state.searchText}
         onChange={this.setSearchText.bind(this)}
         placeholder="Search" />
+        <ScrollView>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderSchoolView.bind(this)}
           style={styles.listView}
         />
-      <View style={styles.subcontainer}>
-        <TouchableHighlight style={styles.button} onPress={this._onBackButton.bind(this)}>
-          <Text style={styles.word}>Test</Text>
-        </TouchableHighlight>
-      </View>
+      </ScrollView>
       </View>
     );
   }
@@ -130,6 +129,7 @@ class SchoolList extends Component {
   _onButton(school){
     console.log("THIS IS SCHOOL WE'RE PASSING FROM LIST: ")
     console.log(school)
+
     AsyncStorage.setItem('last_school', JSON.stringify(school) )
 
     this.props.navigator.push({
@@ -138,29 +138,8 @@ class SchoolList extends Component {
       passProps: {
         schoolName: school.name,
         schoolId: school.id
-        // schoolAddress: school.address
       },
     });
-
-
-    // fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${school.id}`)
-    //   .then((response) => response.json())
-    //   .then((responseData) => {
-    //     console.log(responseData)
-    //     this.props.navigator.push({
-    //       component: School,
-    //       name: "School",
-    //       passProps: {
-    //         schoolName: responseData.school.name,
-    //         schoolId: responseData.school.id,
-    //         schoolAddress: responseData.school.address
-    //       },
-    //     });
-    //   }).done();
-  }
-
-  _onBackButton(){
-    this.props.navigator.pop()
   }
 
   renderSchoolView(school){
@@ -171,6 +150,7 @@ class SchoolList extends Component {
         onPress={(this._onButton.bind(this, school))}
         underlayColor="white">
         <Text>{school.name}</Text>
+        <Separator />
       </TouchableOpacity>
       </View>
     );
@@ -180,17 +160,10 @@ class SchoolList extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 50,
+    marginTop: 5,
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#FFFFFF',
-  },
-  subcontainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   word: {
     fontFamily: 'Cochin',
@@ -199,8 +172,7 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listView: {
-    paddingTop: 30,
-    backgroundColor: '#FFFFFF'
+    paddingTop: 5,
   },
   row: {
     flex: 1,
@@ -208,9 +180,10 @@ var styles = StyleSheet.create({
     margin: 20
   },
   searchBar: {
+    marginTop: 74,
     paddingLeft: 30,
     fontSize: 22,
-    height: 10,
+    height: 8,
     flex: .1,
     borderWidth: 9,
     borderColor: '#E4E4E4',
