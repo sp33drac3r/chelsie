@@ -10,10 +10,17 @@ import {
   TouchableHighlight,
   ActivityIndicatorIOS,
   Navigator,
-  AsyncStorage
+  AsyncStorage,
+  ScrollView,
+  Image
 } from 'react-native';
 
 import School from './School'
+import Separator from './Helpers/Separator'
+
+// Navbar Routes
+import Main from "./Main"
+import AboutUs from "./AboutUs"
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
@@ -90,6 +97,27 @@ class SchoolList extends Component {
     .done();
   }
 
+  _onMainButton(){
+    this.props.navigator.resetTo({
+      component: Main,
+      name: "Main"
+    })
+  }
+
+  _onSchoolsButton(){
+    this.props.navigator.resetTo({
+      component: SchoolList,
+      name: "SchoolList"
+    })
+  }
+
+  _onProfileButton(){
+    this.props.navigator.resetTo({
+      component: AboutUs,
+      name: "AboutUs"
+    })
+  }
+
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
@@ -97,21 +125,28 @@ class SchoolList extends Component {
 
     return (
       <View style={styles.container}>
-        <TextInput
-        style={styles.searchBar}
-        value={this.state.searchText}
-        onChange={this.setSearchText.bind(this)}
-        placeholder="Search" />
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderSchoolView.bind(this)}
-          style={styles.listView}
-        />
-      <View style={styles.subcontainer}>
-        <TouchableHighlight style={styles.button} onPress={this._onBackButton.bind(this)}>
-          <Text style={styles.word}>Test</Text>
-        </TouchableHighlight>
-      </View>
+      <ScrollView style={styles.content}>
+          <TextInput
+          style={styles.searchBar}
+          value={this.state.searchText}
+          onChange={this.setSearchText.bind(this)}
+          placeholder="Search" />
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderSchoolView.bind(this)}
+            style={styles.listView}/>
+        </ScrollView>
+        <View style={styles.footerNav}>
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onMainButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/help.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onSchoolsButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/resource.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onProfileButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/info.png')} />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -168,10 +203,11 @@ class SchoolList extends Component {
     return (
       <View style={styles.container}>
       <TouchableOpacity
-        style={styles.row}
+        style={styles.rowContainer}
         onPress={(this._onButton.bind(this, school))}
         underlayColor="white">
         <Text>{school.name}</Text>
+        <Separator/>
       </TouchableOpacity>
       </View>
     );
@@ -181,17 +217,14 @@ class SchoolList extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 50,
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
   },
-  subcontainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+  content: {
+    marginTop: 90,
+  },
+  rowContainer: {
+    padding: 10,
   },
   word: {
     fontFamily: 'Cochin',
@@ -200,7 +233,7 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listView: {
-    paddingTop: 30,
+    paddingTop: 1,
     backgroundColor: '#FFFFFF'
   },
   row: {
@@ -209,12 +242,27 @@ var styles = StyleSheet.create({
     margin: 20
   },
   searchBar: {
-    paddingLeft: 30,
     fontSize: 22,
-    height: 10,
-    flex: .1,
-    borderWidth: 9,
+    height: 40,
+    flex: 0,
+    borderWidth: 5,
     borderColor: '#E4E4E4',
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  buttonNav: {
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'stretch',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
+  navBtn: {
+    marginTop: 12,
+    alignSelf: 'center'
   },
 });
 

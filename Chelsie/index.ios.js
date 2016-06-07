@@ -95,7 +95,6 @@ class Chelsie extends Component {
     }).done();
   }
 
-
   render() {
     if (this.state.isLoading) {
       return <View><Text>Loading...</Text></View>;
