@@ -50,7 +50,6 @@ class Post extends Component {
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData.comments)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
           loaded: true
@@ -59,12 +58,41 @@ class Post extends Component {
       .done();
   }
 
+  _onFlagPostButton(){
+    console.log(this.state.user_id)
+    console.log(this.state.postId)
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        flag: {
+          user: this.state.user_id,
+          flaggable: this.state.postId,
+          flaggable_type: "post"
+        }
+      })
+    })
+    .then((responseText) => console.log(responseText))
+    .then((responseData) => {
+      console.log(responseData);
+    })
+    .catch((error) => {
+      console.warn(error);
+    })
+  }
+
   render(){
     return(
       <View>
         <View style={styles.content}>
           <Text style={styles.header}>{this.props.postTitle}</Text>
           <Text style={styles.text}>{this.props.postBody}</Text>
+          <TouchableOpacity style={styles.flgBtn} onPress={this._onFlagPostButton.bind(this)}>
+            <Text>Flag This Post</Text>
+          </TouchableOpacity>
           <Text style={styles.header}> Comments </Text>
           <TouchableHighlight style={styles.button} onPress={this._onAddCommentButton.bind(this)}>
           <Text style={styles.add}>Add Comment</Text>
@@ -95,7 +123,6 @@ class Post extends Component {
 
   renderCommentView(comment){
 
-
     if (this.state.user_id !== null && this.state.user_id == comment.user_id) {
       console.log("I'm ALIIIVEEEE")
       deleteButton = "Delete"
@@ -111,10 +138,6 @@ class Post extends Component {
   }
 
   _onAddCommentButton(){
-    // console.log("this is button ")
-    // commentBox=(<NewComment>Hey!</NewComment>)
-    // this.render()
-
     this.props.navigator.push({
       component: NewComment,
       name: "NewComment",
@@ -128,16 +151,6 @@ class Post extends Component {
 }
 
 var styles = StyleSheet.create({
-  // container: {
-  //   marginTop: 90,
-  //   paddingLeft: 10,
-  //   paddingRight: 10,
-  //   flex: 1,
-  //   flexDirection: 'column',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: '#FFFFFF',
-  // },
   content:{
     marginTop: 90,
   },
@@ -166,6 +179,10 @@ var styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'normal'
   },
+  flgBtn: {
+    alignItems: 'flex-end',
+    alignSelf: 'stretch',
+  }
 });
 
 module.exports = Post;
