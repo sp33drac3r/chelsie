@@ -8,11 +8,13 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicatorIOS,
-  Navigator
+  Navigator,
+  AsyncStorage
 } from 'react-native';
 
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
+var deleteButton = null;
 
 class Post extends Component {
   constructor(props) {
@@ -27,24 +29,28 @@ class Post extends Component {
       postId: this.props.postId,
       postBody: this.props.postBody,
       commentId: '',
-      commentText: '',
+      commentBody: '',
+      user_id: '',
     }
   }
 
   componentDidMount() {
     this.fetchData();
+    AsyncStorage.getItem('user_id').then((value) => {
+      this.setState({'user_id': value});
+      console.log(this.state.user_id);
+    }).done();
   }
 
   fetchData() {
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
       .then((response) => response.json())
       .then((responseData) => {
-        {console.log(responseData)}
-        {console.log(responseData.comments)}
-        // this.setState({
-        //   dataSource: this.state.dataSource.cloneWithRows(responseData),
-        //   loaded: true
-        // });
+        console.log(responseData.comments)
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
+          loaded: true
+        });
       })
       .done();
   }
@@ -53,6 +59,40 @@ class Post extends Component {
     return(
       <View style={styles.container}>
         <Text style={styles.header}>{this.props.postTitle}</Text>
+        <Text style={styles.text}>{this.props.postBody}</Text>
+        <Text style={styles.header}> Comments </Text>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderCommentView.bind(this)}
+          style={styles.listView}
+        />
+      </View>
+    );
+  }
+
+  renderLoadingView() {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicatorIOS
+          animating={!this.state.loaded}
+          color="#111"
+          size="large"></ActivityIndicatorIOS>
+      </View>
+    );
+  }
+
+  renderCommentView(comment){
+
+
+    if (this.state.user_id !== null && this.state.user_id == comment.user_id) {
+      console.log("I'm ALIIIVEEEE")
+      deleteButton = "Delete"
+    }
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.text}> {comment.body} </Text>
+        <Text style={styles.text}> {deleteButton} </Text>
       </View>
     );
   }
@@ -75,7 +115,7 @@ var styles = StyleSheet.create({
   text: {
     fontFamily: 'Cochin',
     color: '#000000',
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   row: {
