@@ -32,10 +32,10 @@ import SignUp from './App/Components/SignUp'
 class Chelsie extends Component {
   renderScene(route, navigator){
     if (route.name == 'ResourceList') {
-      return <ResourceList navigator={navigator} />
+      return <ResourceList navigator={navigator} {...route.passProps} />
     }
     if (route.name == 'Resource') {
-      return <Resource navigator={navigator} />
+      return <Resource navigator={navigator} {...route.passProps} />
     }
     if (route.name == 'Main') {
       return <Main navigator={navigator} />
