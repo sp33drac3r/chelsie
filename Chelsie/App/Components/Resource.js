@@ -12,7 +12,6 @@ import {
 
 import Separator from './Helpers/Separator'
 
-var url = `https://afternoon-badlands-40242.herokuapp.com/centers/geo/37.7749/-122.4194/10`
 
 class Resource extends Component {
 
@@ -27,11 +26,23 @@ class Resource extends Component {
   }
 
   componentDidMount() {
-    this.fetchData();
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      console.log(position)
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      var initialPosition = JSON.stringify(position);
+      this.setState({initialPosition});
+      this.fetchData(lat,lng);
+    },
+    (error) => alert(error.message),
+    {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+  );
   }
 
 
-  fetchData() {
+  fetchData(lat, lng) {
+    var url = `https://afternoon-badlands-40242.herokuapp.com/centers/geo/${lat}/${lng}/10`
     fetch(url)
       .then((response) => response.json())
       .then((responseData) => {
@@ -45,7 +56,6 @@ class Resource extends Component {
   }
 
   render() {
-    console.log("I made it to Resources!!!")
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
