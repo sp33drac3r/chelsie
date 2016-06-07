@@ -38,7 +38,6 @@ class Post extends Component {
     this.fetchData();
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
-      console.log(this.state.user_id);
     }).done();
   }
 
