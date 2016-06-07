@@ -107,7 +107,6 @@ class ResourceList extends Component {
             resourceID: responseData.id,
             resourceName: responseData.name,
             resourceAddress: responseData.address,
-            resourceZip: responseData.zip,
             resourcePopServed: responseData.populations_served,
             resourceTel1: responseData.telephone,
             resourceTel2: responseData.tty,
