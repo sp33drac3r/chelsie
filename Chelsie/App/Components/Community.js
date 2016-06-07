@@ -36,6 +36,7 @@ class Community extends Component {
   }
 
   render(){
+    console.log(this.props.navigator)
     return (
       <View style={styles.container}>
         <Text style={styles.header}> Community </Text>

@@ -7,13 +7,20 @@ import {
   TouchableHighlight,
   Navigator,
   TextInput,
+  ListView,
   AsyncStorage
 } from 'react-native';
+
+import Post from "./Post"
 
 class NewComment extends Component {
   constructor(props){
     super(props)
     this.state = {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
+      loaded: false,
       schoolId: this.props.schoolId,
       postId: this.props.postId,
       commentText: "",
@@ -22,10 +29,26 @@ class NewComment extends Component {
   }
 
   componentDidMount() {
+    console.log(this.state.schoolId)
+    this.fetchData();
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
       console.log(this.state.user_id);
     }).done();
+  }
+
+  fetchData() {
+    console.log(this.state.postId)
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData.comments)
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
+          loaded: true
+        });
+      })
+      .done();
   }
 
   post(){
@@ -53,9 +76,15 @@ class NewComment extends Component {
   }
 
   render(){
+    console.log("I made it to New Comment!!!!!!")
     return (
       <View style={styles.container}>
-      <Text style={styles.header}>Comment</Text>
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderCommentView.bind(this)}
+        style={styles.listView}
+      />
+      <Text style={styles.header}>Add Your Comment:</Text>
       <TextInput
         style={styles.textArea}
         onChangeText={(text) => this.setState({commentText: text})}
@@ -69,6 +98,14 @@ class NewComment extends Component {
       </View>
 
     )
+  }
+
+  renderCommentView(comment){
+    return (
+      <View style={styles.container}>
+        <Text style={styles.text}> {comment.body} </Text>
+      </View>
+    );
   }
 }
 
@@ -94,6 +131,15 @@ var styles = StyleSheet.create({
     height: 100,
     borderColor: 'gray',
     borderWidth: 1
+  },
+  listView: {
+    paddingTop: 10,
+    backgroundColor: '#FFFFFF'
+  },
+  row: {
+  flex: 1,
+  alignItems: 'stretch',
+  margin: 20
   },
   button: {
     height: 45,
@@ -130,7 +176,5 @@ var styles = StyleSheet.create({
     alignSelf: 'center'
   }
 });
-
-
 
 module.exports = NewComment;
