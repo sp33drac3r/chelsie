@@ -12,6 +12,9 @@ import {
   AsyncStorage
 } from 'react-native';
 
+import Separator from './Helpers/Separator'
+import NewComment from './NewComment'
+
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 var deleteButton = null;
@@ -60,9 +63,11 @@ class Post extends Component {
         <Text style={styles.header}>{this.props.postTitle}</Text>
         <Text style={styles.text}>{this.props.postBody}</Text>
         <Text style={styles.header}> Comments </Text>
+
         <TouchableHighlight style={styles.button} onPress={this._onAddCommentButton.bind(this)}>
           <Text style={styles.add}>Add Comment</Text>
         </TouchableHighlight>
+
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderCommentView.bind(this)}
@@ -95,12 +100,17 @@ class Post extends Component {
       <View style={styles.container}>
         <Text style={styles.text}> {comment.body} </Text>
         <Text style={styles.text}> {deleteButton} </Text>
+        <Separator />
       </View>
     );
   }
 
   _onAddCommentButton(){
-    console.log("Add a comment")
+    return (
+      <View style={styles.container}>
+        <NewComment schoolId={this.state.schoolId} postId={this.state.postId} />
+      </View>
+    )
   }
 
 }
