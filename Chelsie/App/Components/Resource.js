@@ -14,10 +14,24 @@ import {
 } from 'react-native';
 
 class Resource extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
+      loaded: false,
+      resourceName: this.props.resourceName,
+      resourceId: this.props.resourceId,
+      resourceAddress: this.props.resourceAddress,
+    }
+  }
+
   render(){
+    console.log(this.props.navigator.state.routeStack)
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Resource</Text>
+        <Text style={styles.text}>{this.props.resourceName}</Text>
       </View>
     )
   }
