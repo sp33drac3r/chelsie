@@ -23,10 +23,8 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    // AsyncStorage.setItem('user_id', '')
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
-      console.log(this.state.user_id);
     }).done();
   }
 
@@ -44,7 +42,6 @@ class Login extends Component {
     })
     .then((responseText) => responseText.json())
     .then((responseData) => {
-      console.log(responseData.response);
       var stringId = String(responseData.id)
       AsyncStorage.setItem('user_id', stringId)
       this.props.navigator.push({
