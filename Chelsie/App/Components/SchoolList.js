@@ -130,14 +130,16 @@ class SchoolList extends Component {
   _onButton(school){
     console.log("THIS IS SCHOOL WE'RE PASSING FROM LIST: ")
     console.log(school)
+    // console.log(JSON.parse(JSON.stringify(school)).name)
+    AsyncStorage.setItem('last_school', JSON.stringify(school) )
 
     this.props.navigator.push({
       component: School,
       name: "School",
       passProps: {
         schoolName: school.name,
-        schoolId: school.id,
-        schoolAddress: school.address
+        schoolId: school.id
+        // schoolAddress: school.address
       },
     });
 

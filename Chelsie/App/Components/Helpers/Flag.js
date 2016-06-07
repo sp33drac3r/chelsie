@@ -21,7 +21,7 @@ class Flag extends React.Component{
     }
   }
 
-  _flagButton(){
+  _flagButton() {
 
   }
 
