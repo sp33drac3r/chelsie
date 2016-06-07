@@ -68,14 +68,12 @@ class Post extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        flag: {
-          user: this.state.user_id,
-          flaggable: this.state.postId,
-          flaggable_type: "post"
-        }
+        user_id: 1,
+        flaggable: 2,
+        flaggable_type: "post"
       })
     })
-    .then((responseText) => console.log(responseText))
+    .then((responseText) => responseText.json())
     .then((responseData) => {
       console.log(responseData);
     })
@@ -90,13 +88,13 @@ class Post extends Component {
         <View style={styles.content}>
           <Text style={styles.header}>{this.props.postTitle}</Text>
           <Text style={styles.text}>{this.props.postBody}</Text>
-          <TouchableOpacity style={styles.flgBtn} onPress={this._onFlagPostButton.bind(this)}>
+          <TouchableOpacity style={styles.button} onPress={this._onFlagPostButton.bind(this)}>
             <Text>Flag This Post</Text>
           </TouchableOpacity>
           <Text style={styles.header}> Comments </Text>
-          <TouchableHighlight style={styles.button} onPress={this._onAddCommentButton.bind(this)}>
+          <TouchableOpacity style={styles.button} onPress={this._onAddCommentButton.bind(this)}>
           <Text style={styles.add}>Add Comment</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       <ScrollView>
         <View style={styles.container}>{commentBox}</View>
@@ -179,7 +177,9 @@ var styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'normal'
   },
-  flgBtn: {
+  button: {
+    paddingRight: 10,
+    paddingLeft: 10,
     alignItems: 'flex-end',
     alignSelf: 'stretch',
   }
