@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 
 
+import ResourceList from './App/Components/ResourceList'
 import Resource from './App/Components/Resource'
 import Main from './App/Components/Main'
 import ImmediateAssistance from './App/Components/ImmediateAssistance'
@@ -30,8 +31,11 @@ import SignUp from './App/Components/SignUp'
 
 class Chelsie extends Component {
   renderScene(route, navigator){
+    if (route.name == 'ResourceList') {
+      return <ResourceList navigator={navigator} {...route.passProps} />
+    }
     if (route.name == 'Resource') {
-      return <Resource navigator={navigator} />
+      return <Resource navigator={navigator} {...route.passProps} />
     }
     if (route.name == 'Main') {
       return <Main navigator={navigator} />

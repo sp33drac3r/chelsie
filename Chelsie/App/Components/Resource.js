@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
+
 import {
   View,
   Text,
   StyleSheet,
   ListView,
-  TouchableHighlight,
+  TouchableOpacity,
   ActivityIndicatorIOS,
   ScrollView,
+  Linking,
+  Image,
   Navigator
 } from 'react-native';
 
-import Separator from './Helpers/Separator'
-
-
 class Resource extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -22,103 +21,70 @@ class Resource extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-    };
-  }
-
-  componentDidMount() {
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      console.log(position)
-      var lat = position.coords.latitude;
-      var lng = position.coords.longitude;
-      var initialPosition = JSON.stringify(position);
-      this.setState({initialPosition});
-      this.fetchData(lat,lng);
-    },
-    (error) => alert(error.message),
-    {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-  );
-  }
-
-
-  fetchData(lat, lng) {
-    var url = `https://afternoon-badlands-40242.herokuapp.com/centers/geo/${lat}/${lng}/10`
-    fetch(url)
-      .then((response) => response.json())
-      .then((responseData) => {
-        {console.log(responseData)}
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData),
-          loaded: true,
-        });
-      })
-      .done();
-  }
-
-  render() {
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
+      resourceName: this.props.resourceName,
+      resourceAddress: this.props.resourceAddress,
+      resourceTel1: this.props.resourceTel1,
+      resourceTel2: this.props.resourceTel2,
+      resourceWeb: this.props.resourceWeb,
+      resourcePopServed: this.props.resourcePopServed,
     }
+  }
 
+  _onResourceButton(){
+    console.log(this.props.resourceWeb)
+    Linking.openURL(this.props.resourceWeb)
+  }
+
+  _onMapButton(){
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position)
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        var initialPosition = JSON.stringify(position);
+        this.setState({initialPosition});
+        mapUrl = `http://maps.apple.com/?sll=${lat},${lng}&daddr=${this.props.resourceAddress}`
+        Linking.openURL(mapUrl)
+      },
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+
+  render(){
+    console.log(this.props.navigator.state.routeStack)
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.content}>
-        <Text style={styles.header}> Local Resources </Text>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderResourceView}
-          style={styles.listView}
-        />
+        <ScrollView>
+          <Text style={styles.text}>{this.props.resourceName}</Text>
+          <TouchableOpacity onPress={this._onMapButton.bind(this)}>
+            <Text style={styles.text}>{this.props.resourceAddress}</Text>
+          </TouchableOpacity>
+          <Text style={styles.text}>{this.props.resourceTel1}</Text>
+          <Text style={styles.text}>{this.props.resourceTel2}</Text>
+          <TouchableOpacity onPress={this._onResourceButton.bind(this)}>
+            <Text style={styles.text}>{this.props.resourceWeb}</Text>
+          </TouchableOpacity>
+          <Text style={styles.text}>{this.props.resourcePopServed}</Text>
         </ScrollView>
       </View>
-    );
+    )
   }
-
-  renderLoadingView() {
-    return (
-      <View>
-        <ActivityIndicatorIOS
-          animating={!this.state.loaded}
-          color="#111"
-          size="large"></ActivityIndicatorIOS>
-      </View>
-    );
-  }
-
-  renderResourceView(resource){
-    return (
-      <View style={styles.container}>
-        <Text>{resource.name}</Text>
-        <Text>{resource.address}</Text>
-        <Separator />
-      </View>
-    );
-  }
-
 }
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-  content: {
     marginTop: 90,
+    flex: 1,
+    paddingRight: 10,
+    paddingLeft: 10,
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
-  word: {
-    fontFamily: 'Cochin',
+  text: {
+    fontSize: 18,
     color: '#000000',
-    fontSize: 30,
-    fontWeight: 'bold'
-  },
-  listView: {
-    paddingTop: 1,
-    backgroundColor: '#FFFFFF'
-  },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    fontFamily: 'Cochin',
     alignSelf: 'center'
   }
 });

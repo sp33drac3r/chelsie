@@ -11,7 +11,7 @@ import {
   Navigator
 } from 'react-native';
 
-import Resource from "./Resource"
+import ResourceList from "./ResourceList"
 import ImmediateAssistance from "./ImmediateAssistance"
 import AboutUs from "./AboutUs"
 import Login from "./Login"
@@ -32,8 +32,8 @@ class Main extends Component {
 
   _onResourcesButton(){
     this.props.navigator.push({
-      component: Resource,
-      name: "Resource"
+      component: ResourceList,
+      name: "ResourceList"
     })
   }
 
