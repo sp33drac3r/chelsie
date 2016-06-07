@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicatorIOS,
-  Navigator
+  Navigator,
+  AsyncStorage
 } from 'react-native';
 
 import School from './School'
@@ -31,11 +32,16 @@ class SchoolList extends Component {
       posts: '',
       searchText: '',
       school: '',
+      user_id: ''
     };
   }
 
   componentDidMount() {
     this.fetchData();
+    AsyncStorage.getItem('user_id').then((value) => {
+      this.setState({'user_id': value});
+      console.log(this.state.user_id);
+    }).done();
   }
 
   componentDidUpdate() {
@@ -59,14 +65,14 @@ class SchoolList extends Component {
   filterSchools(searchText, schools) {
     var text = searchText.toLowerCase();
     var rows = [];
-   
+
    for (var i=0; i < schools.length; i++) {
      var schoolName = schools[i].name.toLowerCase();
      if(schoolName.search(text) !== -1){
          rows.push(schools[i]);
     }
   }
-  
+
   this.setState({
       dataSource: this.state.dataSource.cloneWithRows(rows),
       loaded: true,
@@ -79,7 +85,7 @@ class SchoolList extends Component {
     fetch(url)
     .then((response) => response.json())
     .then((responseData) => {
-        this.filterSchools(searchText, responseData);    
+        this.filterSchools(searchText, responseData);
     })
     .done();
   }

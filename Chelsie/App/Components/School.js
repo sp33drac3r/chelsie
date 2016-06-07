@@ -10,7 +10,8 @@ import {
   ActivityIndicatorIOS,
   ScrollView,
   Image,
-  Navigator
+  Navigator,
+  AsyncStorage
 } from 'react-native';
 
 import Separator from './Helpers/Separator'
@@ -34,11 +35,16 @@ class School extends Component {
       postId: '',
       postTitle: '',
       postBody: '',
+      user_id: ''
     }
   }
 
   componentDidMount() {
     this.fetchData();
+    AsyncStorage.getItem('user_id').then((value) => {
+      this.setState({'user_id': value});
+      console.log(this.state.user_id);
+    }).done();
   }
 
   fetchData() {
@@ -95,7 +101,12 @@ class School extends Component {
   _onAddPostButton(){
     this.props.navigator.push({
       component: NewPost,
-      name: "NewPost"
+      name: "NewPost",
+      passProps: {
+        schoolId: this.state.schoolId,
+        schoolName: this.state.schoolName,
+        schoolAddress: this.state.schoolAddress
+      }
     })
   }
   _onPostClick (post){
@@ -105,7 +116,7 @@ class School extends Component {
       component: Post,
       name: "Post",
       passProps: {
-        shoolId: this.props.schoolId,
+        schoolId: this.props.schoolId,
         postTitle: post.title,
         postId: post.id,
         postBody: post.body

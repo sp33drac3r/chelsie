@@ -6,10 +6,11 @@ import {
   StyleSheet,
   TouchableHighlight,
   Navigator,
-  TextInput
+  TextInput,
+  AsyncStorage
 } from 'react-native';
 
-import Community from "./Community"
+import School from "./School"
 
 class NewPost extends Component {
   constructor(props){
@@ -17,12 +18,22 @@ class NewPost extends Component {
     this.state = {
       postTitle: "",
       postText: "",
-      user_id: 1
+      user_id: "",
+      schoolId: this.props.schoolId,
+      schoolName: this.props.schoolName,
+      schoolAddress: this.props.schoolAddress
     }
   }
 
+  componentDidMount() {
+    AsyncStorage.getItem('user_id').then((value) => {
+      this.setState({'user_id': value});
+      console.log(this.state.user_id);
+    }).done();
+  }
+
   _onPostButton(){
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/1/posts`, {
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -32,7 +43,8 @@ class NewPost extends Component {
         post: {
           title: this.state.postTitle,
           body: this.state.postText,
-          user_id: this.state.user_id
+          user_id: this.state.user_id,
+          school_id: this.state.school_id
         }
       })
     })
@@ -42,14 +54,22 @@ class NewPost extends Component {
     })
     .catch((error) => {
       console.warn(error);
-    });
-    this.props.navigator.push({
-      component: Community,
-      name: "Community"
+    })
+    .done(() => {
+      this.props.navigator.replacePreviousAndPop({
+        component: School,
+        name: "School",
+        passProps: {
+        schoolId: this.state.schoolId,
+        schoolName: this.state.schoolName,
+        schoolAddress: this.state.schoolAddress
+      }})
     })
   }
 
   render(){
+    console.log(this.props)
+    console.log(this.state.schoolId)
     return (
       <View style={styles.container}>
       <Text style={styles.header}>Title</Text>
@@ -74,6 +94,7 @@ class NewPost extends Component {
     )
   }
 }
+
 
 var styles = StyleSheet.create({
   container: {

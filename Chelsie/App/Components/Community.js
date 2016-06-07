@@ -5,7 +5,8 @@ import {
   StyleSheet,
   ListView,
   TouchableHighlight,
-  Navigator
+  Navigator,
+  AsyncStorage
 } from 'react-native';
 
 import NewPost from "./NewPost"
@@ -13,19 +14,18 @@ import NewComment from "./NewComment"
 import SchoolList from "./SchoolList"
 
 class Community extends Component {
-
-  _onNewPostButton(){
-    this.props.navigator.push({
-      component: NewPost,
-      name: "NewPost"
-    })
+  constructor(props) {
+    super(props)
+    this.state = {
+      user_id: ""
+    }
   }
 
-  _onNewCommentButton(){
-    this.props.navigator.push({
-      component: NewComment,
-      name: "NewComment"
-    })
+  componentDidMount() {
+    AsyncStorage.getItem('user_id').then((value) => {
+      this.setState({'user_id': value});
+      console.log(this.state.user_id);
+    }).done();
   }
 
   _onSchoolButton(){
@@ -39,12 +39,6 @@ class Community extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.header}> Community </Text>
-        <TouchableHighlight style={styles.button} onPress={this._onNewPostButton.bind(this)}>
-          <Text style={styles.buttonText}> New Post </Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={this._onNewCommentButton.bind(this)}>
-          <Text style={styles.buttonText}> New Comment </Text>
-        </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={this._onSchoolButton.bind(this)}>
           <Text style={styles.buttonText}> Schools </Text>
         </TouchableHighlight>

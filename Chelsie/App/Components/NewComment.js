@@ -6,20 +6,30 @@ import {
   StyleSheet,
   TouchableHighlight,
   Navigator,
-  TextInput
+  TextInput,
+  AsyncStorage
 } from 'react-native';
 
 class NewComment extends Component {
   constructor(props){
     super(props)
     this.state = {
+      schoolId: this.props.schoolId,
+      postId: this.props.postId,
       commentText: "",
-      user_id: 1
+      user_id: ''
     }
   }
 
+  componentDidMount() {
+    AsyncStorage.getItem('user_id').then((value) => {
+      this.setState({'user_id': value});
+      console.log(this.state.user_id);
+    }).done();
+  }
+
   post(){
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/1/posts/1/comments/`, {
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}/comments/`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -29,7 +39,7 @@ class NewComment extends Component {
         comment: {
           body: this.state.commentText,
           user_id: this.state.user_id,
-          post_id: 1
+          post_id: this.state.post_id
         }
       })
     })
