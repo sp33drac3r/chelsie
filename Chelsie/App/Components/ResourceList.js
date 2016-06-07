@@ -88,19 +88,21 @@ class ResourceList extends Component {
     );
   }
 
-  _onButton(resource){
-    console.log("THIS IS SCHOOL WE'RE PASSING FROM LIST: ")
-    console.log(resource)
-
-    this.props.navigator.push({
-      component: Resource,
-      name: "Resource",
-      passProps: {
-        resourceName: resource.name,
-        resourceId: resource.id,
-        resourceAddress: resource.address
-      },
-    });
+  _onResourceButton(resource){
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/centers/${resource.id}`)
+      .then((response) => response.json())
+      .then(responseData => {
+        console.log(responseData)
+        this.props.navigator.push({
+          component: Resource,
+          name: "Resource",
+          passProps: {
+            resourceName: resource.name,
+            resourceId: resource.id,
+            resourceAddress: resource.address
+          },
+      });
+    }).done();
   }
 
   renderResourceView(resource){
@@ -108,7 +110,7 @@ class ResourceList extends Component {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.row}
-          onPress={(this._onButton.bind(this, resource))}
+          onPress={(this._onResourceButton.bind(this, resource))}
           underlayColor="white">
           <Text>{resource.name}</Text>
           <Text>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
@@ -124,6 +126,7 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    backgroundColor: '#EAFCFD'
   },
   content: {
     marginTop: 90,
@@ -137,7 +140,7 @@ var styles = StyleSheet.create({
   },
   listView: {
     paddingTop: 5,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#EAFCFD'
   },
   header: {
     fontWeight: 'bold',
