@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicatorIOS,
+  ScrollView,
   Navigator,
   AsyncStorage
 } from 'react-native';
@@ -49,8 +50,13 @@ class Profile extends Component {
   }
 
   render(){
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+
     return(
-      <View style={styles.container}>
+      <View>
+        <View style={styles.content}>
         <Text style={styles.header}> {this.state.username} </Text>
         <Text style={styles.header}> Posts </Text>
         <ListView
@@ -58,6 +64,7 @@ class Profile extends Component {
           renderRow={this.renderPostView.bind(this)}
           style={styles.listView}
         />
+        </View>
       </View>
     );
   }
@@ -73,26 +80,35 @@ class Profile extends Component {
     );
   }
 
+  _onDeleteButton(){
+    this.props.navigator.push({
+      component: NewPost,
+      name: "NewPost",
+      passProps: {
+        schoolId: this.state.schoolId,
+        schoolName: this.state.schoolName,
+        schoolAddress: this.state.schoolAddress
+      }
+    })
+  }
+
   renderPostView(post){
     return (
       <View style={styles.container}>
         <Text>{post.title}</Text>
+        <Text>{post.body}</Text>
+        <TouchableOpacity style={styles.button} onPress={this._onDeleteButton.bind(this)}>
+          <Text style={styles.add}>Add Post</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 
-
-
 }
 
 var styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+  content:{
+    marginTop: 90,
   },
   listView: {
     paddingTop: 10,
@@ -111,7 +127,7 @@ var styles = StyleSheet.create({
   },
   header: {
     fontWeight: 'bold',
-    fontSize: 40,
+    fontSize: 24,
     fontFamily: 'Cochin',
     alignSelf: 'center'
   }
