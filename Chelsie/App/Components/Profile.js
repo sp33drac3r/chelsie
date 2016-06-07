@@ -39,11 +39,10 @@ class Profile extends Component {
     fetch(`https://afternoon-badlands-40242.herokuapp.com/users/${user_id}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData)
-        console.log(responseData.username)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
           username: responseData.username,
+          posts: responseData.posts,
           loaded: true
         });
       })
@@ -53,8 +52,7 @@ class Profile extends Component {
   render(){
     return(
       <View style={styles.container}>
-        <Text style={styles.header}>{this.state.username}</Text>
-
+        <Text style={styles.header}> {this.state.username} </Text>
         <Text style={styles.header}> Posts </Text>
         <ListView
           dataSource={this.state.dataSource}
@@ -76,20 +74,21 @@ class Profile extends Component {
     );
   }
 
-  renderPostView(post){
+  renderPostView(posts){
+    for (var i=0; i < posts.length; i++) {
 
-    if (this.state.user_id !== null && this.state.user_id == post.user_id) {
-      console.log("I'm ALIIIVEEEE")
-      deleteButton = "Delete"
+      <TouchableHighlight style={styles.button} onPress={this._onDeleteButton.bind(this)}>
+        <Text style={styles.buttonText}> Delete </Text>
+      </TouchableHighlight>
+
+      return (
+        <View style={styles.container}>
+          <Text style={styles.text}> {this.state.posts[i].title} </Text>
+          <Text style={styles.text}> {this.state.posts[i].body} </Text>
+          <Text style={styles.text}> {deleteButton} </Text>
+        </View>
+      );
     }
-
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}> {post.title} </Text>
-        <Text style={styles.text}> {post.body} </Text>
-        <Text style={styles.text}> {deleteButton} </Text>
-      </View>
-    );
   }
 
 }
