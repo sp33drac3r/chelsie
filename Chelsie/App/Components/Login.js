@@ -49,10 +49,7 @@ class Login extends Component {
       AsyncStorage.setItem('user_id', stringId)
       this.props.navigator.push({
         component: Community,
-        name: 'Community',
-        passProps: {
-          user_id: this.state.user_id
-        }
+        name: 'Community'
       })
     })
     .catch((error) => {

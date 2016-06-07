@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableHighlight,
   Navigator,
-  TextInput
+  TextInput,
+  AsyncStorage
 } from 'react-native';
 
 import School from "./School"
@@ -17,11 +18,18 @@ class NewPost extends Component {
     this.state = {
       postTitle: "",
       postText: "",
-      user_id: 1,
+      user_id: "",
       schoolId: this.props.schoolId,
       schoolName: this.props.schoolName,
       schoolAddress: this.props.schoolAddress
     }
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('user_id').then((value) => {
+      this.setState({'user_id': value});
+      console.log(this.state.user_id);
+    }).done();
   }
 
   _onPostButton(){

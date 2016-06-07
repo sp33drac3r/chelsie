@@ -60,6 +60,9 @@ class Post extends Component {
         <Text style={styles.header}>{this.props.postTitle}</Text>
         <Text style={styles.text}>{this.props.postBody}</Text>
         <Text style={styles.header}> Comments </Text>
+        <TouchableHighlight style={styles.button} onPress={this._onAddCommentButton.bind(this)}>
+          <Text style={styles.add}>Add Comment</Text>
+        </TouchableHighlight>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderCommentView.bind(this)}
@@ -94,6 +97,10 @@ class Post extends Component {
         <Text style={styles.text}> {deleteButton} </Text>
       </View>
     );
+  }
+
+  _onAddCommentButton(){
+    console.log("Add a comment")
   }
 
 }
