@@ -68,8 +68,8 @@ class Post extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user_id: 1,
-        flaggable: 2,
+        user_id: this.state.user_id,
+        flaggable: this.state.postId,
         flaggable_type: "post"
       })
     })
