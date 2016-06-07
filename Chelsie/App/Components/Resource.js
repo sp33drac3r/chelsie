@@ -35,13 +35,31 @@ class Resource extends Component {
     Linking.openURL(this.props.resourceWeb)
   }
 
+  _onMapButton(){
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position)
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        var initialPosition = JSON.stringify(position);
+        this.setState({initialPosition});
+        mapUrl = `http://maps.apple.com/?sll=${lat},${lng}&daddr=${this.props.resourceAddress}`
+        Linking.openURL(mapUrl)
+      },
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+
   render(){
     console.log(this.props.navigator.state.routeStack)
     return (
       <View style={styles.container}>
         <ScrollView>
           <Text style={styles.text}>{this.props.resourceName}</Text>
-          <Text style={styles.text}>{this.props.resourceAddress}</Text>
+          <TouchableOpacity onPress={this._onMapButton.bind(this)}>
+            <Text style={styles.text}>{this.props.resourceAddress}</Text>
+          </TouchableOpacity>
           <Text style={styles.text}>{this.props.resourceTel1}</Text>
           <Text style={styles.text}>{this.props.resourceTel2}</Text>
           <TouchableOpacity onPress={this._onResourceButton.bind(this)}>
