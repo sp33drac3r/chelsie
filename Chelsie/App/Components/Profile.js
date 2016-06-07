@@ -24,32 +24,26 @@ class Profile extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      // userName: this.props.userName,
-      // postId: this.props.postId,
-      // postTitle: this.props.postTitle,
-      // postBody: this.props.postBody,
       user_id: '',
     }
   }
 
   componentDidMount() {
-    this.fetchData();
     AsyncStorage.getItem('user_id').then((value) => {
-      console.log(value)
       this.setState({'user_id': value});
+      this.fetchData(value);
     }).done();
   }
 
-  fetchData() {
-    // fetch(`https://afternoon-badlands-40242.herokuapp.com/users/${this.state.userId}`)
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/users/1`)
+  fetchData(user_id) {
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/users/${user_id}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log("***********************************ß")
         console.log(responseData)
-        console.log("________________________________ß")
+        console.log(responseData.username)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
+          username: responseData.username,
           loaded: true
         });
       })
@@ -59,7 +53,8 @@ class Profile extends Component {
   render(){
     return(
       <View style={styles.container}>
-        <Text style={styles.header}>{this.props.userName}</Text>
+        <Text style={styles.header}>{this.state.username}</Text>
+
         <Text style={styles.header}> Posts </Text>
         <ListView
           dataSource={this.state.dataSource}

@@ -24,8 +24,9 @@ class Community extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem('user_id').then((value) => {
+      // console.log(value);
       this.setState({'user_id': value});
-      console.log(this.state.user_id);
+      // console.log(this.state.user_id);
     }).done();
   }
 

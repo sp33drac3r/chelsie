@@ -16,6 +16,7 @@ import ResourceList from "./ResourceList"
 import ImmediateAssistance from "./ImmediateAssistance"
 import AboutUs from "./AboutUs"
 import Login from "./Login"
+import SignUp from "./SignUp"
 
 class Main extends Component {
   constructor(props){
@@ -49,6 +50,13 @@ class Main extends Component {
     this.props.navigator.push({
       component: Login,
       name: "Login"
+    })
+  }
+
+  _onSignUpButton(){
+    this.props.navigator.push({
+      component: SignUp,
+      name: "SignUp"
     })
   }
 
@@ -87,6 +95,9 @@ class Main extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={this._onLoginButton.bind(this)}>
             <Image style={styles.navBtn} source={require('./../../imgs/group.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={this._onSignUpButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/add.png')} />
           </TouchableOpacity>
           </View>
       </View>
