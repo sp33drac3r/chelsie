@@ -84,7 +84,7 @@ class Profile extends Component {
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/1/posts/82`, {
       method: 'delete',
       headers: {
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Methods': 'DELETE',
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
