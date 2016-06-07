@@ -12,7 +12,8 @@ import {
   Navigator,
   TouchableHighlight,
   Image,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 
 
@@ -73,17 +74,43 @@ class Chelsie extends Component {
     }
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      root_route: {name: "Main"},
+      isLoading: true
+    }
+  }
+  // last_school datastructure in AsyncStorage{ name: school_name, id: school_id }
+
+  componentDidMount() {
+    AsyncStorage.getItem('last_school').then((value) => {
+      if ( value === null ) {
+        this.setState({isLoading: false});
+      } else {
+        var parsed_value = JSON.parse(value)
+        this.setState({root_route: {name: 'School', passProps: {schoolName: parsed_value.name, schoolId: parsed_value.id}}})
+        this.setState({isLoading: false});
+      }
+    }).done();
+  }
+
+
   render() {
-    return (
-      <Navigator
-        initialRoute={{ name: 'Community' }}
+    if (this.state.isLoading) {
+      return <View><Text>Loading...</Text></View>;
+    } else {
+      return (
+        <Navigator
+        initialRoute={ this.state.root_route }
         renderScene={ this.renderScene.bind(this) }
         navigationBar={
           <Navigator.NavigationBar
-             style={ styles.nav }
+          style={ styles.nav }
           routeMapper={NavigationBarRouteMapper}/>}
-      />
-    );
+          />
+        );
+    }
   }
 }
 

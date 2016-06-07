@@ -55,16 +55,6 @@ class Login extends Component {
     .catch((error) => {
       console.warn(error);
     });
-
-
-    // if (this.state.username.toLowerCase() == fakeUsername && this.state.password.toLowerCase() == fakePassword) {
-    //   this.props.navigator.push({
-    //     component: Community,
-    //     name: 'Community'
-    //   })
-    // } else {
-    //   console.log("Didn't work")
-    // }
   }
 
   render(){
