@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   ListView,
-  TouchableHighlight,
+  TouchableOpacity,
   ActivityIndicatorIOS,
   ScrollView,
   Navigator
@@ -13,7 +13,7 @@ import {
 import Separator from './Helpers/Separator'
 
 
-class Resource extends Component {
+class ResourceList extends Component {
 
   constructor(props) {
     super(props);
@@ -22,6 +22,7 @@ class Resource extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      resourceID: ''
     };
   }
 
@@ -113,15 +114,16 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listView: {
-    paddingTop: 1,
+    paddingTop: 5,
     backgroundColor: '#FFFFFF'
   },
   header: {
     fontWeight: 'bold',
     fontSize: 20,
     fontFamily: 'Cochin',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginBottom: 10,
   }
 });
 
-module.exports = Resource;
+module.exports = ResourceList;
