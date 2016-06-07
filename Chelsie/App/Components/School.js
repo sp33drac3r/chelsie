@@ -78,9 +78,9 @@ class School extends Component {
   }
 
   _onProfileButton(){
-    this.props.navigator.resetTo({
-      component: AboutUs,
-      name: "AboutUs"
+    this.props.navigator.push({
+      component: Profile,
+      name: "Profile"
     })
   }
 

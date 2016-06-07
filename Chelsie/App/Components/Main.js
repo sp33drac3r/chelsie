@@ -16,6 +16,7 @@ import ResourceList from "./ResourceList"
 import ImmediateAssistance from "./ImmediateAssistance"
 import Login from "./Login"
 import Community from "./Community"
+import SignUp from "./SignUp"
 
 // Navbar Routes
 import SchoolList from "./SchoolList"
@@ -43,9 +44,9 @@ class Main extends Component {
   }
 
   _onProfileButton(){
-    this.props.navigator.resetTo({
-      component: AboutUs,
-      name: "AboutUs"
+    this.props.navigator.push({
+      component: Profile,
+      name: "Profile"
     })
   }
 
@@ -53,6 +54,13 @@ class Main extends Component {
     this.props.navigator.push({
       component: Login,
       name: "Login"
+    })
+  }
+
+  _onSignUpButton(){
+    this.props.navigator.push({
+      component: SignUp,
+      name: "SignUp"
     })
   }
 
@@ -91,6 +99,9 @@ class Main extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={this._onLoginButton.bind(this)}>
             <Image style={styles.navBtn} source={require('./../../imgs/group.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={this._onSignUpButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/add.png')} />
           </TouchableOpacity>
           </View>
       </View>

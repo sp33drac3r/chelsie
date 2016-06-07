@@ -16,6 +16,7 @@ import NewComment from "./NewComment"
 import SchoolList from "./SchoolList"
 import Main from "./Main"
 import AboutUs from "./AboutUs"
+import Profile from "./Profile"
 
 class Community extends Component {
   constructor(props) {
@@ -27,8 +28,9 @@ class Community extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem('user_id').then((value) => {
+      // console.log(value);
       this.setState({'user_id': value});
-      console.log(this.state.user_id);
+      // console.log(this.state.user_id);
     }).done();
   }
 
@@ -54,9 +56,9 @@ class Community extends Component {
   }
 
   _onProfileButton(){
-    this.props.navigator.resetTo({
-      component: AboutUs,
-      name: "AboutUs"
+    this.props.navigator.push({
+      component: Profile,
+      name: "Profile"
     })
   }
 
@@ -68,6 +70,9 @@ class Community extends Component {
         <Text style={styles.header}> Community </Text>
         <TouchableHighlight style={styles.button} onPress={this._onSchoolButton.bind(this)}>
           <Text style={styles.buttonText}> Schools </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={this._onProfileButton.bind(this)}>
+          <Text style={styles.buttonText}> Profile </Text>
         </TouchableHighlight>
       </View>
       <View style={styles.footerNav}>
