@@ -5,7 +5,8 @@ import {
   StyleSheet,
   ListView,
   TouchableHighlight,
-  Navigator
+  Navigator,
+  AsyncStorage
 } from 'react-native';
 
 import NewPost from "./NewPost"
@@ -13,6 +14,19 @@ import NewComment from "./NewComment"
 import SchoolList from "./SchoolList"
 
 class Community extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      user_id: ""
+    }
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('user_id').then((value) => {
+      this.setState({'user_id': value});
+      console.log(this.state.user_id);
+    }).done();
+  }
 
   _onSchoolButton(){
     this.props.navigator.push({

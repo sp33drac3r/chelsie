@@ -10,7 +10,8 @@ import {
   ActivityIndicatorIOS,
   ScrollView,
   Image,
-  Navigator
+  Navigator,
+  AsyncStorage
 } from 'react-native';
 
 import Separator from './Helpers/Separator'
@@ -34,11 +35,16 @@ class School extends Component {
       postId: '',
       postTitle: '',
       postBody: '',
+      user_id: ''
     }
   }
 
   componentDidMount() {
     this.fetchData();
+    AsyncStorage.getItem('user_id').then((value) => {
+      this.setState({'user_id': value});
+      console.log(this.state.user_id);
+    }).done();
   }
 
   fetchData() {
