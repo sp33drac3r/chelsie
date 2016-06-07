@@ -17,6 +17,7 @@ import {
 
 
 import ResourceList from './App/Components/ResourceList'
+import Resource from './App/Components/Resource'
 import Main from './App/Components/Main'
 import ImmediateAssistance from './App/Components/ImmediateAssistance'
 import AboutUs from './App/Components/AboutUs'
@@ -32,6 +33,9 @@ class Chelsie extends Component {
   renderScene(route, navigator){
     if (route.name == 'ResourceList') {
       return <ResourceList navigator={navigator} />
+    }
+    if (route.name == 'Resource') {
+      return <Resource navigator={navigator} />
     }
     if (route.name == 'Main') {
       return <Main navigator={navigator} />
@@ -68,7 +72,7 @@ class Chelsie extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{ name: 'Main' }}
+        initialRoute={{ name: 'Resource' }}
         renderScene={ this.renderScene.bind(this) }
         navigationBar={
           <Navigator.NavigationBar
