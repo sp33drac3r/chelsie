@@ -14,7 +14,6 @@ import {
 
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/users`
-var deleteButton = null;
 
 class Profile extends Component {
   constructor(props) {
@@ -39,10 +38,10 @@ class Profile extends Component {
     fetch(`https://afternoon-badlands-40242.herokuapp.com/users/${user_id}`)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData)
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData),
+          dataSource: this.state.dataSource.cloneWithRows(responseData.posts),
           username: responseData.username,
-          posts: responseData.posts,
           loaded: true
         });
       })
@@ -74,22 +73,15 @@ class Profile extends Component {
     );
   }
 
-  renderPostView(posts){
-    for (var i=0; i < posts.length; i++) {
-
-      <TouchableHighlight style={styles.button} onPress={this._onDeleteButton.bind(this)}>
-        <Text style={styles.buttonText}> Delete </Text>
-      </TouchableHighlight>
-
-      return (
-        <View style={styles.container}>
-          <Text style={styles.text}> {this.state.posts[i].title} </Text>
-          <Text style={styles.text}> {this.state.posts[i].body} </Text>
-          <Text style={styles.text}> {deleteButton} </Text>
-        </View>
-      );
-    }
+  renderPostView(post){
+    return (
+      <View style={styles.container}>
+        <Text>{post.title}</Text>
+      </View>
+    );
   }
+
+
 
 }
 
