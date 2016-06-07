@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicatorIOS,
+  ScrollView,
   Navigator,
   AsyncStorage
 } from 'react-native';
@@ -49,7 +50,6 @@ class Post extends Component {
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData.comments)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
           loaded: true
@@ -58,24 +58,52 @@ class Post extends Component {
       .done();
   }
 
+  _onFlagPostButton(){
+    console.log(this.state.user_id)
+    console.log(this.state.postId)
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: 1,
+        flaggable: 2,
+        flaggable_type: "post"
+      })
+    })
+    .then((responseText) => responseText.json())
+    .then((responseData) => {
+      console.log(responseData);
+    })
+    .catch((error) => {
+      console.warn(error);
+    })
+  }
+
   render(){
     return(
-      <View style={styles.container}>
-        <Text style={styles.header}>{this.props.postTitle}</Text>
-        <Text style={styles.text}>{this.props.postBody}</Text>
-        <Text style={styles.header}> Comments </Text>
-
-        <TouchableHighlight style={styles.button} onPress={this._onAddCommentButton.bind(this)}>
+      <View>
+        <View style={styles.content}>
+          <Text style={styles.header}>{this.props.postTitle}</Text>
+          <Text style={styles.text}>{this.props.postBody}</Text>
+          <TouchableOpacity style={styles.button} onPress={this._onFlagPostButton.bind(this)}>
+            <Text>Flag This Post</Text>
+          </TouchableOpacity>
+          <Text style={styles.header}> Comments </Text>
+          <TouchableOpacity style={styles.button} onPress={this._onAddCommentButton.bind(this)}>
           <Text style={styles.add}>Add Comment</Text>
-        </TouchableHighlight>
-
+          </TouchableOpacity>
+        </View>
+      <ScrollView>
         <View style={styles.container}>{commentBox}</View>
-
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderCommentView.bind(this)}
           style={styles.listView}
         />
+      </ScrollView>
       </View>
     );
   }
@@ -93,7 +121,6 @@ class Post extends Component {
 
   renderCommentView(comment){
 
-
     if (this.state.user_id !== null && this.state.user_id == comment.user_id) {
       console.log("I'm ALIIIVEEEE")
       deleteButton = "Delete"
@@ -109,10 +136,6 @@ class Post extends Component {
   }
 
   _onAddCommentButton(){
-    // console.log("this is button ")
-    // commentBox=(<NewComment>Hey!</NewComment>)
-    // this.render()
-
     this.props.navigator.push({
       component: NewComment,
       name: "NewComment",
@@ -128,34 +151,39 @@ class Post extends Component {
 }
 
 var styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+  content:{
+    marginTop: 90,
   },
   listView: {
-    paddingTop: 10,
+    paddingTop: 2,
     backgroundColor: '#FFFFFF'
+  },
+  row: {
+    flex: 1,
+    alignItems: 'stretch',
+    margin: 20
+  },
+  header: {
+    fontWeight: 'bold',
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 21,
+    fontFamily: 'Cochin',
+    alignSelf: 'center'
   },
   text: {
     fontFamily: 'Cochin',
     color: '#000000',
-    fontSize: 20,
-    fontWeight: 'bold'
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 17,
+    fontWeight: 'normal'
   },
-  row: {
-  flex: 1,
-  alignItems: 'stretch',
-  margin: 20
-  },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 40,
-    fontFamily: 'Cochin',
-    alignSelf: 'center'
+  button: {
+    paddingRight: 10,
+    paddingLeft: 10,
+    alignItems: 'flex-end',
+    alignSelf: 'stretch',
   }
 });
 

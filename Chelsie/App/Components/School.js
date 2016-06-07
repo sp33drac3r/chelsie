@@ -51,8 +51,6 @@ class School extends Component {
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}`)
       .then((response) => response.json())
       .then((responseData) => {
-        {console.log(responseData)}
-        {console.log(responseData.posts)}
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.posts),
           loaded: true
@@ -62,13 +60,9 @@ class School extends Component {
   }
 
   render() {
-    console.log("****ROUTE STACK*****")
-    console.log(this.props.navigator.state.routeStack)
-
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-
 
     return (
       <View style={styles.container}>
@@ -110,8 +104,6 @@ class School extends Component {
     })
   }
   _onPostClick (post){
-    console.log("THIS IS POST WE'RE PASSING FROM LIST: ")
-    console.log(post)
     this.props.navigator.push({
       component: Post,
       name: "Post",
