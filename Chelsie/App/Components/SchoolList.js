@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  TextInput,
   StyleSheet,
   ListView,
   TouchableOpacity,
@@ -27,7 +28,9 @@ class SchoolList extends Component {
       schoolName: '',
       schoolId: '',
       schoolAddress: '',
-      posts: ''
+      posts: '',
+      searchText: '',
+      school: '',
     };
   }
 
@@ -35,17 +38,50 @@ class SchoolList extends Component {
     this.fetchData();
   }
 
+  componentDidUpdate() {
+    if (this.state.searchText === '') {
+      this.fetchData();
+    }
+  }
+
   fetchData() {
     fetch(url)
       .then((response) => response.json())
       .then((responseData) => {
-        {console.log(responseData)}
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
         });
       })
       .done();
+  }
+
+  filterSchools(searchText, schools) {
+    var text = searchText.toLowerCase();
+    var rows = [];
+   
+   for (var i=0; i < schools.length; i++) {
+     var schoolName = schools[i].name.toLowerCase();
+     if(schoolName.search(text) !== -1){
+         rows.push(schools[i]);
+    }
+  }
+  
+  this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(rows),
+      loaded: true,
+     });
+  }
+
+  setSearchText(event) {
+    let searchText = event.nativeEvent.text;
+    this.setState({searchText});
+    fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+        this.filterSchools(searchText, responseData);    
+    })
+    .done();
   }
 
   render() {
@@ -55,6 +91,11 @@ class SchoolList extends Component {
 
     return (
       <View style={styles.container}>
+        <TextInput
+        style={styles.searchBar}
+        value={this.state.searchText}
+        onChange={this.setSearchText.bind(this)}
+        placeholder="Search" />
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderSchoolView.bind(this)}
@@ -155,9 +196,17 @@ var styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   row: {
-  flex: 1,
-  alignItems: 'stretch',
-  margin: 20
+    flex: 1,
+    alignItems: 'stretch',
+    margin: 20
+  },
+  searchBar: {
+    paddingLeft: 30,
+    fontSize: 22,
+    height: 10,
+    flex: .1,
+    borderWidth: 9,
+    borderColor: '#E4E4E4',
   },
 });
 
