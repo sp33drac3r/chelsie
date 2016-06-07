@@ -6,9 +6,9 @@ import {
   StyleSheet,
   ListView,
   TouchableOpacity,
-  TouchableHighlight,
   ActivityIndicatorIOS,
   ScrollView,
+  Linking,
   Image,
   Navigator
 } from 'react-native';
@@ -30,6 +30,11 @@ class Resource extends Component {
     }
   }
 
+  _onResourceButton(){
+    console.log(this.props.resourceWeb)
+    Linking.openURL(this.props.resourceWeb)
+  }
+
   render(){
     console.log(this.props.navigator.state.routeStack)
     return (
@@ -39,7 +44,9 @@ class Resource extends Component {
           <Text style={styles.text}>{this.props.resourceAddress}</Text>
           <Text style={styles.text}>{this.props.resourceTel1}</Text>
           <Text style={styles.text}>{this.props.resourceTel2}</Text>
-          <Text style={styles.text}>{this.props.resourceWeb}</Text>
+          <TouchableOpacity onPress={this._onResourceButton.bind(this)}>
+            <Text style={styles.text}>{this.props.resourceWeb}</Text>
+          </TouchableOpacity>
           <Text style={styles.text}>{this.props.resourcePopServed}</Text>
         </ScrollView>
       </View>
