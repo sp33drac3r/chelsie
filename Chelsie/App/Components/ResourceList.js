@@ -5,12 +5,14 @@ import {
   StyleSheet,
   ListView,
   TouchableOpacity,
+  TouchableHighlight,
   ActivityIndicatorIOS,
   ScrollView,
   Navigator
 } from 'react-native';
 
 import Separator from './Helpers/Separator'
+import Resource from './Resource'
 
 
 class ResourceList extends Component {
@@ -67,7 +69,7 @@ class ResourceList extends Component {
         <Text style={styles.header}> Local Resources </Text>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderResourceView}
+          renderRow={this.renderResourceView.bind(this)}
           style={styles.listView}
         />
         </ScrollView>
@@ -86,12 +88,32 @@ class ResourceList extends Component {
     );
   }
 
+  _onButton(resource){
+    console.log("THIS IS SCHOOL WE'RE PASSING FROM LIST: ")
+    console.log(resource)
+
+    this.props.navigator.push({
+      component: Resource,
+      name: "Resource",
+      passProps: {
+        resourceName: resource.name,
+        resourceId: resource.id,
+        resourceAddress: resource.address
+      },
+    });
+  }
+
   renderResourceView(resource){
     return (
       <View style={styles.container}>
-        <Text>{resource.name}</Text>
-        <Text>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
-        <Separator />
+        <TouchableOpacity
+          style={styles.row}
+          onPress={(this._onButton.bind(this, resource))}
+          underlayColor="white">
+          <Text>{resource.name}</Text>
+          <Text>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
+        </TouchableOpacity>
+      <Separator />
       </View>
     );
   }
