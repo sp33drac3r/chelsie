@@ -66,7 +66,7 @@ class Chelsie extends Component {
       return <Post navigator={navigator} {...route.passProps} />
     }
     if (route.name == 'NewComment') {
-      return <NewComment navigator={navigator} />
+      return <NewComment navigator={navigator} {...route.passProps} />
     }
     if (route.name == 'SignUp') {
       return <SignUp navigator={navigator} {...route.passProps} />

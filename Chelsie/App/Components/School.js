@@ -116,7 +116,7 @@ class School extends Component {
       component: Post,
       name: "Post",
       passProps: {
-        schoolId: this.props.schoolId,
+        schoolId: this.state.schoolId,
         postTitle: post.title,
         postId: post.id,
         postBody: post.body

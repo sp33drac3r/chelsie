@@ -18,6 +18,7 @@ import NewComment from './NewComment'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 var deleteButton = null;
+var commentBox;
 
 class Post extends Component {
   constructor(props) {
@@ -68,6 +69,8 @@ class Post extends Component {
           <Text style={styles.add}>Add Comment</Text>
         </TouchableHighlight>
 
+        <View style={styles.container}>{commentBox}</View>
+
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderCommentView.bind(this)}
@@ -106,11 +109,18 @@ class Post extends Component {
   }
 
   _onAddCommentButton(){
-    return (
-      <View style={styles.container}>
-        <NewComment schoolId={this.state.schoolId} postId={this.state.postId} />
-      </View>
-    )
+    // console.log("this is button ")
+    // commentBox=(<NewComment>Hey!</NewComment>)
+    // this.render()
+
+    this.props.navigator.push({
+      component: NewComment,
+      name: "NewComment",
+      passProps: {
+        schoolId: this.state.schoolId,
+        postId: this.state.postId,
+      },
+    });
   }
 
 }
