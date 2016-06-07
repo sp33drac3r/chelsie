@@ -9,6 +9,8 @@ import {
   TextInput
 } from 'react-native';
 
+import Community from "./Community"
+
 class NewPost extends Component {
   constructor(props){
     super(props)
@@ -19,7 +21,11 @@ class NewPost extends Component {
     }
   }
 
+<<<<<<< HEAD
   postRequest(){
+=======
+  _onPostButton(){
+>>>>>>> development
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/1/posts`, {
       method: 'POST',
       headers: {
@@ -41,6 +47,10 @@ class NewPost extends Component {
     .catch((error) => {
       console.warn(error);
     });
+    this.props.navigator.push({
+      component: Community,
+      name: "Community"
+    })
   }
 
   render(){
@@ -58,7 +68,11 @@ class NewPost extends Component {
         onChangeText={(text) => this.setState({postText: text})}
         value={this.state.postText}
       />
+<<<<<<< HEAD
       <TouchableHighlight onPress={this.postRequest.bind(this)} style={styles.button}>
+=======
+      <TouchableHighlight onPress={this._onPostButton.bind(this)} style={styles.button}>
+>>>>>>> development
         <Text style={styles.buttonText}>
           submit
         </Text>

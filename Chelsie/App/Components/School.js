@@ -8,9 +8,12 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicatorIOS,
+  ScrollView,
+  Image,
   Navigator
 } from 'react-native';
 
+import Separator from './Helpers/Separator'
 import SchoolList from './SchoolList'
 import NewPost from './NewPost'
 import Post from './Post'
@@ -60,14 +63,20 @@ class School extends Component {
       return this.renderLoadingView();
     }
 
+
     return (
       <View style={styles.container}>
+        <ScrollView style={styles.content}>
         <Text style={styles.header}>{this.props.schoolName}</Text>
+        <TouchableHighlight style={styles.button} onPress={this._onAddPostButton.bind(this)}>
+          <Text style={styles.add}>Add Post</Text>
+        </TouchableHighlight>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderPostView.bind(this)}
           style={styles.listView}
         />
+        </ScrollView>
       </View>
     );
   }
@@ -83,6 +92,12 @@ class School extends Component {
     );
   }
 
+  _onAddPostButton(){
+    this.props.navigator.push({
+      component: NewPost,
+      name: "NewPost"
+    })
+  }
   _onPostClick (post){
     console.log("THIS IS POST WE'RE PASSING FROM LIST: ")
     console.log(post)
@@ -106,10 +121,11 @@ class School extends Component {
     return (
       <View style={styles.container}>
       <TouchableOpacity
-        style={styles.row}
+        style={styles.rowContainer}
         onPress={(this._onPostClick.bind(this, post))}
         underlayColor="white">
         <Text>{post.title}</Text>
+         <Separator />
       </TouchableOpacity>
       </View>
     );
@@ -118,15 +134,14 @@ class School extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 50,
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+  },
+  content: {
+    marginTop: 90,
   },
   listView: {
-    paddingTop: 10,
+    paddingTop: 1,
     backgroundColor: '#FFFFFF'
   },
   text: {
@@ -135,14 +150,24 @@ var styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold'
   },
+  add: {
+    fontFamily: 'Cochin',
+    color: '#000000',
+    fontSize: 14,
+    paddingLeft: 5,
+    fontWeight: 'bold'
+  },
   row: {
-  flex: 1,
-  alignItems: 'stretch',
-  margin: 20
+    flex: 1,
+    alignItems: 'stretch',
+    margin: 20
+  },
+  rowContainer: {
+    padding: 10,
   },
   header: {
     fontWeight: 'bold',
-    fontSize: 40,
+    fontSize: 20,
     fontFamily: 'Cochin',
     alignSelf: 'center'
   }

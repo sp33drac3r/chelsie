@@ -6,10 +6,12 @@ import {
   ListView,
   TouchableHighlight,
   ActivityIndicatorIOS,
+  ScrollView,
   Navigator
 } from 'react-native';
 
-var url = `https://afternoon-badlands-40242.herokuapp.com/centers/geo/37.7749/-122.4194/10`
+import Separator from './Helpers/Separator'
+
 
 class Resource extends Component {
 
@@ -24,11 +26,23 @@ class Resource extends Component {
   }
 
   componentDidMount() {
-    this.fetchData();
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      console.log(position)
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      var initialPosition = JSON.stringify(position);
+      this.setState({initialPosition});
+      this.fetchData(lat,lng);
+    },
+    (error) => alert(error.message),
+    {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+  );
   }
 
 
-  fetchData() {
+  fetchData(lat, lng) {
+    var url = `https://afternoon-badlands-40242.herokuapp.com/centers/geo/${lat}/${lng}/10`
     fetch(url)
       .then((response) => response.json())
       .then((responseData) => {
@@ -42,25 +56,27 @@ class Resource extends Component {
   }
 
   render() {
-    console.log("I made it to Resources!!!")
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
 
     return (
-      <View>
+      <View style={styles.container}>
+        <ScrollView style={styles.content}>
+        <Text style={styles.header}> Local Resources </Text>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderResourceView}
           style={styles.listView}
         />
+        </ScrollView>
       </View>
     );
   }
 
   renderLoadingView() {
     return (
-      <View style={styles.container}>
+      <View>
         <ActivityIndicatorIOS
           animating={!this.state.loaded}
           color="#111"
@@ -74,6 +90,7 @@ class Resource extends Component {
       <View style={styles.container}>
         <Text>{resource.name}</Text>
         <Text>{resource.address}</Text>
+        <Separator />
       </View>
     );
   }
@@ -83,10 +100,10 @@ class Resource extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    flexDirection: 'column',
+  },
+  content: {
+    marginTop: 90,
   },
   word: {
     fontFamily: 'Cochin',
@@ -95,9 +112,15 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listView: {
-    paddingTop: 30,
+    paddingTop: 1,
     backgroundColor: '#FFFFFF'
   },
+  header: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    fontFamily: 'Cochin',
+    alignSelf: 'center'
+  }
 });
 
 module.exports = Resource;
