@@ -119,6 +119,8 @@ class Post extends Component {
       passProps: {
         schoolId: this.state.schoolId,
         postId: this.state.postId,
+        postBody: this.state.postBody,
+        postTitle: this.state.postTitle
       },
     });
   }

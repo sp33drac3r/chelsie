@@ -23,6 +23,8 @@ class NewComment extends Component {
       loaded: false,
       schoolId: this.props.schoolId,
       postId: this.props.postId,
+      postBody: this.props.postBody,
+      postTitle: this.props.postTitle,
       commentText: "",
       user_id: ''
     }
@@ -72,6 +74,17 @@ class NewComment extends Component {
     })
     .catch((error) => {
       console.warn(error);
+    })
+    .done(() => {
+      this.props.navigator.replacePreviousAndPop({
+        component: Post,
+        name: "Post",
+        passProps: {
+        postId: this.state.postId,
+        schoolId: this.state.schoolId,
+        postBody: this.state.postBody,
+        postTitle: this.state.postTitle
+      }})
     });
   }
 
