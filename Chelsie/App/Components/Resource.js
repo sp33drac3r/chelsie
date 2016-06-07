@@ -22,8 +22,11 @@ class Resource extends Component {
       }),
       loaded: false,
       resourceName: this.props.resourceName,
-      resourceId: this.props.resourceId,
       resourceAddress: this.props.resourceAddress,
+      resourceTel1: this.props.resourceTel1,
+      resourceTel2: this.props.resourceTel2,
+      resourceWeb: this.props.resourceWeb,
+      resourcePopServed: this.props.resourcePopServed,
     }
   }
 
@@ -31,7 +34,14 @@ class Resource extends Component {
     console.log(this.props.navigator.state.routeStack)
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>{this.props.resourceName}</Text>
+        <ScrollView>
+          <Text style={styles.text}>{this.props.resourceName}</Text>
+          <Text style={styles.text}>{this.props.resourceAddress}</Text>
+          <Text style={styles.text}>{this.props.resourceTel1}</Text>
+          <Text style={styles.text}>{this.props.resourceTel2}</Text>
+          <Text style={styles.text}>{this.props.resourceWeb}</Text>
+          <Text style={styles.text}>{this.props.resourcePopServed}</Text>
+        </ScrollView>
       </View>
     )
   }
@@ -39,8 +49,8 @@ class Resource extends Component {
 
 var styles = StyleSheet.create({
   container: {
+    marginTop: 90,
     flex: 1,
-    paddingTop: 70,
     paddingRight: 10,
     paddingLeft: 10,
     flexDirection: 'column',
@@ -48,7 +58,6 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   text: {
-    marginTop: 90,
     fontSize: 18,
     color: '#000000',
     alignSelf: 'center'
