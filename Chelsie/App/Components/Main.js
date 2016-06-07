@@ -16,11 +16,41 @@ import ImmediateAssistance from "./ImmediateAssistance"
 import AboutUs from "./AboutUs"
 import Login from "./Login"
 
+var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
+
 class Main extends Component {
   constructor(props){
     super(props)
-    this.state={
+    this.state = {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
+      loaded: false,
+      schoolName: this.props.schoolName,
+      schoolId: this.props.schoolId,
+      schoolAddress: this.props.schoolAddress,
+      postId: '',
+      postTitle: '',
+      postBody: '',
     }
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/2`)
+      .then((response) => response.json())
+      .then((responseData) => {
+        {console.log(responseData)}
+        {console.log(responseData.posts)}
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(responseData.posts),
+          loaded: true
+        });
+      })
+      .done();
   }
 
   _onASAPButton(){
@@ -60,8 +90,11 @@ class Main extends Component {
       />
       <ScrollView>
         <TouchableHighlight onPress={this._onAboutUsButton.bind(this)}>
-      <Text style={styles.header}>Chelsie</Text>
+      <Text style={styles.header}>You Are Not Alone</Text>
       </TouchableHighlight>
+      <View style={styles.cotent}>
+      <Text style={styles.content}>Cronut fanny pack waistcoat food truck. Cronut fanny pack waistcoat food truck. Cronut fanny pack waistcoat food truck.</Text>
+      </View>
       </ScrollView>
         <View style={styles.footerNav}>
           <TouchableHighlight style={styles.button} onPress={this._onASAPButton.bind(this)}>
@@ -112,8 +145,20 @@ var styles = StyleSheet.create({
   },
   header: {
     fontWeight: 'bold',
-    fontSize: 40,
-    fontFamily: 'Cochin',
+    marginTop: 110,
+    fontSize: 20,
+    color: '#29808C',
+    fontFamily: 'Arial',
+    alignSelf: 'center'
+  },
+  content: {
+    borderColor: 'red',
+    fontWeight: 'bold',
+    marginTop: 90,
+    paddingTop: 10,
+    fontSize: 20,
+    color: '#29808C',
+    fontFamily: 'Arial',
     alignSelf: 'center'
   }
 });
