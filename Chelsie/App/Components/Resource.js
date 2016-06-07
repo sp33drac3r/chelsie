@@ -89,7 +89,7 @@ class Resource extends Component {
     return (
       <View style={styles.container}>
         <Text>{resource.name}</Text>
-        <Text>{resource.address}</Text>
+        <Text>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
         <Separator />
       </View>
     );
@@ -104,6 +104,7 @@ var styles = StyleSheet.create({
   },
   content: {
     marginTop: 90,
+    marginLeft: 10,
   },
   word: {
     fontFamily: 'Cochin',
