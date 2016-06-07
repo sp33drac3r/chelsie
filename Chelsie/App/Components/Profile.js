@@ -81,14 +81,22 @@ class Profile extends Component {
   }
 
   _onDeleteButton(){
-    this.props.navigator.push({
-      component: NewPost,
-      name: "NewPost",
-      passProps: {
-        schoolId: this.state.schoolId,
-        schoolName: this.state.schoolName,
-        schoolAddress: this.state.schoolAddress
-      }
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/1/posts/82`, {
+      method: 'delete',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: 82
+      })
+    })
+    .then((responseText) => responseText.json())
+    .then((responseData) => {
+      console.log(responseData);
+    })
+    .catch((error) => {
+      console.warn(error);
     })
   }
 
@@ -98,7 +106,7 @@ class Profile extends Component {
         <Text>{post.title}</Text>
         <Text>{post.body}</Text>
         <TouchableOpacity style={styles.button} onPress={this._onDeleteButton.bind(this)}>
-          <Text style={styles.add}>Add Post</Text>
+          <Text style={styles.add}>Delete Post</Text>
         </TouchableOpacity>
       </View>
     );
