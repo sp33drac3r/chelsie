@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicatorIOS,
+  ScrollView,
   Navigator,
   AsyncStorage
 } from 'react-native';
@@ -60,22 +61,23 @@ class Post extends Component {
 
   render(){
     return(
-      <View style={styles.container}>
-        <Text style={styles.header}>{this.props.postTitle}</Text>
-        <Text style={styles.text}>{this.props.postBody}</Text>
-        <Text style={styles.header}> Comments </Text>
-
-        <TouchableHighlight style={styles.button} onPress={this._onAddCommentButton.bind(this)}>
+      <View>
+        <View style={styles.content}>
+          <Text style={styles.header}>{this.props.postTitle}</Text>
+          <Text style={styles.text}>{this.props.postBody}</Text>
+          <Text style={styles.header}> Comments </Text>
+          <TouchableHighlight style={styles.button} onPress={this._onAddCommentButton.bind(this)}>
           <Text style={styles.add}>Add Comment</Text>
-        </TouchableHighlight>
-
+          </TouchableHighlight>
+        </View>
+      <ScrollView>
         <View style={styles.container}>{commentBox}</View>
-
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderCommentView.bind(this)}
           style={styles.listView}
         />
+      </ScrollView>
       </View>
     );
   }
@@ -126,35 +128,44 @@ class Post extends Component {
 }
 
 var styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+  // container: {
+  //   marginTop: 90,
+  //   paddingLeft: 10,
+  //   paddingRight: 10,
+  //   flex: 1,
+  //   flexDirection: 'column',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   backgroundColor: '#FFFFFF',
+  // },
+  content:{
+    marginTop: 90,
   },
   listView: {
-    paddingTop: 10,
+    paddingTop: 2,
     backgroundColor: '#FFFFFF'
+  },
+  row: {
+    flex: 1,
+    alignItems: 'stretch',
+    margin: 20
+  },
+  header: {
+    fontWeight: 'bold',
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 21,
+    fontFamily: 'Cochin',
+    alignSelf: 'center'
   },
   text: {
     fontFamily: 'Cochin',
     color: '#000000',
-    fontSize: 20,
-    fontWeight: 'bold'
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 17,
+    fontWeight: 'normal'
   },
-  row: {
-  flex: 1,
-  alignItems: 'stretch',
-  margin: 20
-  },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 40,
-    fontFamily: 'Cochin',
-    alignSelf: 'center'
-  }
 });
 
 module.exports = Post;
