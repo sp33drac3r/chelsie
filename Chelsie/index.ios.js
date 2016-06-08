@@ -140,7 +140,13 @@ var NavigationBarRouteMapper = {
   )
   },
   Title(route, navigator, index, navState) {
-    return <Text style={ styles.title }>CHELSIE</Text>
+    return (
+      <TouchableHighlight
+         underlayColor="transparent"
+         onPress={() => { navigator.push({ component: Main, name: "Main" }) } }>
+         <Text style={ styles.title }>CHELSIE</Text>
+      </TouchableHighlight>
+    )
   }
 };
 
