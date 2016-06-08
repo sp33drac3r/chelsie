@@ -200,7 +200,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   content: {
-    marginTop: 90,
+    marginTop: 10,
   },
   rowContainer: {
     padding: 10,
