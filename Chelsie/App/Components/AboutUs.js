@@ -22,7 +22,7 @@ class AboutUs extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 70,
+    paddingTop: 90,
     paddingRight: 10,
     paddingLeft: 10,
     flexDirection: 'column',

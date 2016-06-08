@@ -91,6 +91,7 @@ class NewComment extends Component {
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderCommentView.bind(this)}
+        enableEmptySections={true}
         style={styles.listView}
       />
       <Text style={styles.header}>Add Your Comment:</Text>
