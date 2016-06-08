@@ -18,13 +18,10 @@ import {
 
 import School from './School'
 import Separator from './Helpers/Separator'
-<<<<<<< HEAD
 
 // Navbar Routes
 import Main from "./Main"
 import AboutUs from "./AboutUs"
-=======
->>>>>>> development
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
@@ -187,11 +184,7 @@ class SchoolList extends Component {
         onPress={(this._onButton.bind(this, school))}
         underlayColor="white">
         <Text>{school.name}</Text>
-<<<<<<< HEAD
         <Separator/>
-=======
-        <Separator />
->>>>>>> development
       </TouchableOpacity>
       </View>
     );
@@ -201,9 +194,10 @@ class SchoolList extends Component {
 
 var styles = StyleSheet.create({
   container: {
-<<<<<<< HEAD
+    marginTop: 5,
     flex: 1,
     flexDirection: 'column',
+    backgroundColor: '#FFFFFF',
   },
   content: {
     marginTop: 90,
@@ -211,13 +205,6 @@ var styles = StyleSheet.create({
   rowContainer: {
     padding: 10,
   },
-=======
-    marginTop: 5,
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#FFFFFF',
-  },
->>>>>>> development
   word: {
     fontFamily: 'Cochin',
     color: '#000000',
@@ -225,12 +212,7 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listView: {
-<<<<<<< HEAD
     paddingTop: 1,
-    backgroundColor: '#FFFFFF'
-=======
-    paddingTop: 5,
->>>>>>> development
   },
   row: {
     flex: 1,
@@ -238,19 +220,12 @@ var styles = StyleSheet.create({
     margin: 20
   },
   searchBar: {
-<<<<<<< HEAD
-    fontSize: 22,
-    height: 40,
-    flex: 0,
-    borderWidth: 5,
-=======
     marginTop: 74,
     paddingLeft: 30,
     fontSize: 22,
     height: 8,
     flex: .1,
     borderWidth: 9,
->>>>>>> development
     borderColor: '#E4E4E4',
   },
   footerNav: {
