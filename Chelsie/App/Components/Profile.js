@@ -36,7 +36,7 @@ class Profile extends Component {
           component: Login,
           name: 'Login',
           passProps: {
-            profileRedirect: true,
+            message: "You must be logged in to view your profile.",
           }
         })
       } else {

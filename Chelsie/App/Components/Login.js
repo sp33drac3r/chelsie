@@ -20,7 +20,7 @@ class Login extends Component {
       email: "",
       password: "",
       user_id: "",
-      profileReRoute: false,
+      message: this.props.message || ''
     }
   }
 
@@ -65,6 +65,7 @@ class Login extends Component {
     return(
       <View style={styles.container}>
       <Text style={styles.header}>Chelsie</Text>
+      <Text style={styles.redirectMessage}>{this.state.message}</Text>
       <TextInput
         style={styles.loginArea}
         placeholder="EMAIL"
@@ -135,6 +136,12 @@ var styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: 'Cochin',
     alignSelf: 'center'
+  },
+  redirectMessage: {
+    fontSize: 20,
+    fontFamily: 'Cochin',
+    alignSelf: 'center',
+    color: 'red'
   }
 });
 
