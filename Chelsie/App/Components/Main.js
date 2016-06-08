@@ -21,6 +21,7 @@ import SignUp from "./SignUp"
 // Navbar Routes
 import SchoolList from "./SchoolList"
 import AboutUs from "./AboutUs"
+import Profile from './Profile'
 
 class Main extends Component {
   constructor(props){
