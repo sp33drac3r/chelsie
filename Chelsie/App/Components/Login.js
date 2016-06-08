@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   TextInput,
   Navigator,
+  Alert,
   AsyncStorage
 } from 'react-native';
 
@@ -42,12 +43,17 @@ class Login extends Component {
     })
     .then((responseText) => responseText.json())
     .then((responseData) => {
-      var stringId = String(responseData.id)
-      AsyncStorage.setItem('user_id', stringId)
-      this.props.navigator.push({
-        component: Community,
-        name: 'Community'
-      })
+      console.log(responseData)
+      if (responseData.response === "User authentication failed"){
+        Alert.alert('User Authentication Failed', 'Please validate email and/or password')
+      } else {
+        var stringId = String(responseData.id)
+        AsyncStorage.setItem('user_id', stringId)
+        this.props.navigator.push({
+          component: Community,
+          name: 'Community'
+        })
+      }
     })
     .catch((error) => {
       console.warn(error);
@@ -60,11 +66,13 @@ class Login extends Component {
       <Text style={styles.header}>Chelsie</Text>
       <TextInput
         style={styles.loginArea}
+        placeholder="EMAIL"
         onChangeText={(email) => this.setState({email: email})}
         value={this.state.email}
       />
       <TextInput
         secureTextEntry={true}
+        placeholder="PASSWORD"
         style={styles.loginArea}
         onChangeText={(password) => this.setState({password: password})}
         value={this.state.password}
