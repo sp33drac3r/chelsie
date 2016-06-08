@@ -131,12 +131,13 @@ var NavigationBarRouteMapper = {
   	else { return null }
   },
   RightButton(route, navigator, index, navState) {
-    if (route.onPress) return ( <TouchableHighlight
-    														onPress={ () => route.onPress() }>
-                                <Text style={ styles.navBarRightButton }>
-                                  	{ route.rightText || 'Right Button' }
-                                </Text>
-                              </TouchableHighlight> )
+    return (
+      <TouchableHighlight
+         underlayColor="transparent"
+         onPress={() => { navigator.push({ component: SchoolList, name: "SchoolList" }) } }>
+        <Text>School</Text>
+      </TouchableHighlight>
+  )
   },
   Title(route, navigator, index, navState) {
     return <Text style={ styles.title }>CHELSIE</Text>
