@@ -106,7 +106,7 @@ class Post extends Component {
 
   render(){
     return(
-      <View>
+      <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.header}>{this.props.postTitle}</Text>
           <Text style={styles.text}>{this.props.postBody}</Text>
@@ -178,6 +178,11 @@ class Post extends Component {
 }
 
 var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#F5FCFF',
+  },
   content:{
     marginTop: 90,
   },
