@@ -22,6 +22,7 @@ import Post from './Post'
 // Navbar Routes
 import Main from "./Main"
 import AboutUs from "./AboutUs"
+import Profile from './Profile'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
