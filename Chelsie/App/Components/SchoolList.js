@@ -12,7 +12,6 @@ import {
   ScrollView,
   Navigator,
   AsyncStorage,
-  ScrollView,
   Image
 } from 'react-native';
 
@@ -213,6 +212,7 @@ var styles = StyleSheet.create({
   },
   listView: {
     paddingTop: 1,
+    backgroundColor: '#FFFFFF',
   },
   row: {
     flex: 1,
