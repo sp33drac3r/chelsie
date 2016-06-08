@@ -180,7 +180,7 @@ var styles = StyleSheet.create({
     marginTop: 90,
   },
   listView: {
-    paddingTop: 2,
+    paddingTop: 1,
     backgroundColor: '#FFFFFF'
   },
   row: {

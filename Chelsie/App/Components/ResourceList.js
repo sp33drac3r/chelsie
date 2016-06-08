@@ -151,8 +151,8 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listView: {
-    paddingTop: 5,
-    backgroundColor: '#EAFCFD'
+    paddingTop: 1,
+    backgroundColor: '#FFFFFF',
   },
   header: {
     fontWeight: 'bold',

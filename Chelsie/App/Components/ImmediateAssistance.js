@@ -53,7 +53,7 @@ var styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: '#E74C3C',
+    backgroundColor: '#E71D36',
     borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 8,

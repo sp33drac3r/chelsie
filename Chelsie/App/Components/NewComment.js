@@ -142,13 +142,13 @@ var styles = StyleSheet.create({
     borderWidth: 1
   },
   listView: {
-    paddingTop: 10,
-    backgroundColor: '#FFFFFF'
+    paddingTop: 1,
+    backgroundColor: '#FFFFFF',
   },
   row: {
-  flex: 1,
-  alignItems: 'stretch',
-  margin: 20
+    flex: 1,
+    alignItems: 'stretch',
+    margin: 20
   },
   button: {
     height: 45,
