@@ -182,7 +182,7 @@ var styles = StyleSheet.create({
   },
   listView: {
     paddingTop: 1,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
   text: {
     fontFamily: 'Cochin',

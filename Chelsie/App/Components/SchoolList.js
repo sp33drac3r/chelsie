@@ -213,6 +213,7 @@ var styles = StyleSheet.create({
   },
   listView: {
     paddingTop: 1,
+    backgroundColor: '#FFFFFF',
   },
   row: {
     flex: 1,
