@@ -19,7 +19,8 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      user_id: ""
+      user_id: "",
+      profileReRoute: false,
     }
   }
 

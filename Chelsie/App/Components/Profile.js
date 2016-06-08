@@ -13,6 +13,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
+import Login from './Login'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/users`
 
@@ -30,9 +31,18 @@ class Profile extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem('user_id').then((value) => {
-      this.setState({'user_id': value});
-      this.fetchData(value);
-
+      if (value === null) {
+        this.props.navigator.resetTo({
+          component: Login,
+          name: 'Login',
+          passProps: {
+            profileRedirect: true,
+          }
+        })
+      } else {
+        this.setState({'user_id': value});
+        this.fetchData(value);
+      }
     }).done();
   }
 
