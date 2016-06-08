@@ -11,6 +11,7 @@ import {
   Text,
   Navigator,
   TouchableOpacity,
+  ActivityIndicatorIOS,
   Image,
   View,
   AsyncStorage
@@ -83,7 +84,7 @@ class Chelsie extends Component {
     super(props)
     this.state = {
       root_route: {name: "Main"},
-      isLoading: true
+      loaded: false
     }
   }
   // last_school datastructure in AsyncStorage{ name: school_name, id: school_id }
@@ -95,14 +96,22 @@ class Chelsie extends Component {
       } else {
         var parsed_value = JSON.parse(value)
         this.setState({root_route: {name: 'School', passProps: {schoolName: parsed_value.name, schoolId: parsed_value.id}}})
-        this.setState({isLoading: false});
+        this.setState({loaded: true});
       }
     }).done();
   }
 
   render() {
-    if (this.state.isLoading) {
-      return <View><Text>Loading...</Text></View>;
+    if (!this.state.loaded) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicatorIOS
+            animating={!this.state.loaded}
+            color="#111"
+            size="large"></ActivityIndicatorIOS>
+        </View>
+      );
+
     } else {
       return (
         <Navigator
@@ -160,6 +169,11 @@ var NavigationBarRouteMapper = {
 
 
 var styles = StyleSheet.create({
+  container: {
+    marginTop: 200,
+    flex: 1,
+    flexDirection: 'column',
+  },
   word: {
     fontFamily: 'Cochin',
     color: '#000000',
