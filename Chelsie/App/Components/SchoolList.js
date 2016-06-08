@@ -11,11 +11,17 @@ import {
   ActivityIndicatorIOS,
   ScrollView,
   Navigator,
-  AsyncStorage
+  AsyncStorage,
+  ScrollView,
+  Image
 } from 'react-native';
 
 import School from './School'
 import Separator from './Helpers/Separator'
+
+// Navbar Routes
+import Main from "./Main"
+import AboutUs from "./AboutUs"
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
@@ -92,6 +98,27 @@ class SchoolList extends Component {
     .done();
   }
 
+  _onMainButton(){
+    this.props.navigator.resetTo({
+      component: Main,
+      name: "Main"
+    })
+  }
+
+  _onSchoolsButton(){
+    this.props.navigator.resetTo({
+      component: SchoolList,
+      name: "SchoolList"
+    })
+  }
+
+  _onProfileButton(){
+    this.props.navigator.push({
+      component: Profile,
+      name: "Profile"
+    })
+  }
+
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
@@ -99,18 +126,28 @@ class SchoolList extends Component {
 
     return (
       <View style={styles.container}>
-        <TextInput
-        style={styles.searchBar}
-        value={this.state.searchText}
-        onChange={this.setSearchText.bind(this)}
-        placeholder="Search" />
-        <ScrollView>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderSchoolView.bind(this)}
-          style={styles.listView}
-        />
-      </ScrollView>
+      <ScrollView style={styles.content}>
+          <TextInput
+          style={styles.searchBar}
+          value={this.state.searchText}
+          onChange={this.setSearchText.bind(this)}
+          placeholder="Search" />
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderSchoolView.bind(this)}
+            style={styles.listView}/>
+        </ScrollView>
+        <View style={styles.footerNav}>
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onMainButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/help.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onSchoolsButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/resource.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onProfileButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/info.png')} />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -143,11 +180,11 @@ class SchoolList extends Component {
     return (
       <View style={styles.container}>
       <TouchableOpacity
-        style={styles.row}
+        style={styles.rowContainer}
         onPress={(this._onButton.bind(this, school))}
         underlayColor="white">
         <Text>{school.name}</Text>
-        <Separator />
+        <Separator/>
       </TouchableOpacity>
       </View>
     );
@@ -162,6 +199,12 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
   },
+  content: {
+    marginTop: 90,
+  },
+  rowContainer: {
+    padding: 10,
+  },
   word: {
     fontFamily: 'Cochin',
     color: '#000000',
@@ -169,7 +212,7 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listView: {
-    paddingTop: 5,
+    paddingTop: 1,
   },
   row: {
     flex: 1,
@@ -184,6 +227,22 @@ var styles = StyleSheet.create({
     flex: .1,
     borderWidth: 9,
     borderColor: '#E4E4E4',
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  buttonNav: {
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'stretch',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
+  navBtn: {
+    marginTop: 12,
+    alignSelf: 'center'
   },
 });
 
