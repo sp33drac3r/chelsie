@@ -78,6 +78,7 @@ class ResourceList extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderResourceView.bind(this)}
+          enableEmptySections={true}
           style={styles.listView}
         />
         </ScrollView>
