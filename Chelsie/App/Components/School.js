@@ -103,7 +103,7 @@ class School extends Component {
         </ScrollView>
         <View style={styles.footerNav}>
           <TouchableOpacity style={styles.buttonNav} onPress={this._onAddPostButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/add.png')} />
+            <Text style={styles.addBtnText}>ADD A POST</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -216,9 +216,12 @@ var styles = StyleSheet.create({
     height: 70,
     backgroundColor: '#29808C',
   },
-  navBtn: {
-    marginTop: 12,
-    alignSelf: 'center'
+  addBtnText:{
+    marginTop: 23,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: '#FFFFFF',
   }
 });
 
