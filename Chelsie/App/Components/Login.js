@@ -19,7 +19,8 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      user_id: ""
+      user_id: "",
+      message: this.props.message || ''
     }
   }
 
@@ -64,6 +65,7 @@ class Login extends Component {
     return(
       <View style={styles.container}>
       <Text style={styles.header}>Chelsie</Text>
+      <Text style={styles.redirectMessage}>{this.state.message}</Text>
       <TextInput
         style={styles.loginArea}
         placeholder="EMAIL"
@@ -81,6 +83,9 @@ class Login extends Component {
         <Text style={styles.buttonText}>
           Log In
         </Text>
+      </TouchableHighlight>
+      <TouchableHighlight onPress={() => {this.props.navigator.resetTo({name: 'SignUp'})}}>
+        <Text style={styles.newUserText}>New to Chelsie? Create an account.</Text>
       </TouchableHighlight>
       </View>
     )
@@ -134,7 +139,19 @@ var styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: 'Cochin',
     alignSelf: 'center'
-  }
+  },
+  redirectMessage: {
+    fontSize: 20,
+    fontFamily: 'Cochin',
+    alignSelf: 'center',
+    color: 'red'
+  },
+  newUserText: {
+    fontSize: 18,
+    color: 'blue',
+    alignSelf: 'center',
+    textDecorationLine: 'underline'
+  },
 });
 
 module.exports = Login;
