@@ -126,12 +126,12 @@ class SchoolList extends Component {
 
     return (
       <View style={styles.container}>
+      <TextInput
+      style={styles.searchBar}
+      value={this.state.searchText}
+      onChange={this.setSearchText.bind(this)}
+      placeholder="Search" />
       <ScrollView style={styles.content}>
-          <TextInput
-          style={styles.searchBar}
-          value={this.state.searchText}
-          onChange={this.setSearchText.bind(this)}
-          placeholder="Search" />
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderSchoolView.bind(this)}
