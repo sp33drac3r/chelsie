@@ -8,10 +8,13 @@ import {
   Navigator,
   TextInput,
   ListView,
+  Alert,
+  ScrollView,
   AsyncStorage
 } from 'react-native';
 
 import Post from "./Post"
+import Separator from './Helpers/Separator'
 
 class NewComment extends Component {
   constructor(props){
@@ -49,7 +52,10 @@ class NewComment extends Component {
       .done();
   }
 
-  post(){
+  _postCommentButton(){
+    if (this.state.commentText.replace(/\s+/g, '') === '' ){
+      Alert.alert('Comment is currently empty.')
+    } else {
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}/comments/`, {
       method: 'POST',
       headers: {
@@ -82,27 +88,29 @@ class NewComment extends Component {
         postTitle: this.state.postTitle
       }})
     });
+    }
   }
 
   render(){
-    console.log("I made it to New Comment!!!!!!")
     return (
       <View style={styles.container}>
+      <ScrollView style={styles.content}>
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderCommentView.bind(this)}
         enableEmptySections={true}
         style={styles.listView}
       />
+      </ScrollView>
       <Text style={styles.header}>Add Your Comment:</Text>
       <TextInput
         style={styles.textArea}
         onChangeText={(text) => this.setState({commentText: text})}
         value={this.state.commentText}
       />
-      <TouchableHighlight onPress={this.post.bind(this)} style={styles.button}>
+      <TouchableHighlight onPress={this._postCommentButton.bind(this)} style={styles.button}>
         <Text style={styles.buttonText}>
-          submit
+          SUBMIT
         </Text>
       </TouchableHighlight>
       </View>
@@ -112,8 +120,9 @@ class NewComment extends Component {
 
   renderCommentView(comment){
     return (
-      <View style={styles.container}>
+      <View style={styles.rowContainer}>
         <Text style={styles.text}> {comment.body} </Text>
+        <Separator />
       </View>
     );
   }
@@ -123,19 +132,30 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  content: {
+    marginTop: 90,
+  },
+  rowContainer: {
+    padding: 10,
+  },
+  commentContainer:{
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    backgroundColor: '#F5FCFF',
+    paddingTop: 10,
+  },
+  text: {
+    fontFamily: 'Cochin',
+    color: '#000000',
+    fontSize: 18,
+    paddingTop: 10,
   },
   buttonText: {
     fontSize: 18,
     color: '#111',
     alignSelf: 'center'
-  },
-  smallTextArea: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1
   },
   textArea: {
     height: 100,
@@ -144,12 +164,7 @@ var styles = StyleSheet.create({
   },
   listView: {
     paddingTop: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  row: {
-    flex: 1,
-    alignItems: 'stretch',
-    margin: 20
+    backgroundColor: '#F5FCFF',
   },
   button: {
     height: 45,
@@ -165,25 +180,10 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
-  asapButton: {
-    height: 45,
-    flexDirection: 'column',
-    backgroundColor: '#E74C3C',
-    borderColor: 'grey',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
   header: {
     fontWeight: 'bold',
-    fontSize: 40,
+    fontSize: 20,
     fontFamily: 'Cochin',
-    alignSelf: 'center'
   }
 });
 
