@@ -10,7 +10,7 @@ import {
   StyleSheet,
   Text,
   Navigator,
-  TouchableHighlight,
+  TouchableOpacity,
   Image,
   View,
   AsyncStorage
@@ -122,38 +122,38 @@ var NavigationBarRouteMapper = {
   LeftButton(route, navigator, index, navState) {
     if(index === 0) {
       return (
-        <TouchableHighlight
+        <TouchableOpacity
            underlayColor="transparent"
            onPress={() => { navigator.resetTo({ component: SchoolList, name: "SchoolList" }) } }>
-          <Text>School</Text>
-        </TouchableHighlight>
+          <Text style={ styles.titleNav }>SCHOOL</Text>
+        </TouchableOpacity>
     )}
     if(index > 0) {
       return (
-        <TouchableHighlight
+        <TouchableOpacity
         	 underlayColor="transparent"
            onPress={() => { if (index > 0) { navigator.pop() } }}>
           <Image style={styles.backBtn} source={require('./imgs/back.png')} />
-        </TouchableHighlight>
+        </TouchableOpacity>
   	)}
   	else { return null }
   },
   RightButton(route, navigator, index, navState) {
     return (
-      <TouchableHighlight
+      <TouchableOpacity
          underlayColor="transparent"
          onPress={() => { navigator.resetTo({ component: Profile, name: "Profile" }) } }>
-        <Text>Profile</Text>
-      </TouchableHighlight>
+        <Text style={ styles.titleNav }>PROFILE</Text>
+      </TouchableOpacity>
   )
   },
   Title(route, navigator, index, navState) {
     return (
-      <TouchableHighlight
+      <TouchableOpacity
          underlayColor="transparent"
          onPress={() => { navigator.resetTo({ component: Main, name: "Main" }) } }>
          <Text style={ styles.title }>CHELSIE</Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     )
   }
 };
@@ -171,6 +171,14 @@ var styles = StyleSheet.create({
     fontWeight: '800',
     marginTop:13,
     fontSize:21
+  },
+  titleNav: {
+    color: '#FFFFFF',
+    fontWeight: '800',
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginTop:17,
+    fontSize:16
   },
   nav: {
     height: 80,
