@@ -12,7 +12,6 @@ import {
   ScrollView,
   Navigator,
   AsyncStorage,
-  ScrollView,
   Image
 } from 'react-native';
 
