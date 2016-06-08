@@ -95,9 +95,6 @@ class School extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.content}>
         <Text style={styles.header}>{this.props.schoolName}</Text>
-        <TouchableHighlight style={styles.button} onPress={this._onAddPostButton.bind(this)}>
-          <Text style={styles.add}>Add Post</Text>
-        </TouchableHighlight>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderPostView.bind(this)}
@@ -105,14 +102,8 @@ class School extends Component {
         />
         </ScrollView>
         <View style={styles.footerNav}>
-          <TouchableOpacity style={styles.buttonNav} onPress={this._onMainButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/help.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonNav} onPress={this._onSchoolsButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/resource.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonNav} onPress={this._onProfileButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/info.png')} />
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onAddPostButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/add.png')} />
           </TouchableOpacity>
         </View>
       </View>
