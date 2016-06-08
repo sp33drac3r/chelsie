@@ -11,10 +11,7 @@ import {
 } from 'react-native';
 
 import Community from "./Community"
-
-var fakeUsername = "elizlalala"
-var fakeEmail = "liz@gmail.com"
-var fakePassword = "doggy"
+import Main from "./Main"
 
 class SignUp extends Component {
   constructor(props){
@@ -51,9 +48,12 @@ class SignUp extends Component {
     })
     .then((responseText) => responseText.json())
     .then((responseData) => {
-      console.log(String(responseData.id));
       var stringId = String(responseData.id)
       AsyncStorage.setItem('user_id', stringId)
+      this.props.navigator.push({
+        component: Main,
+        name: 'Main'
+      })
     })
     .catch((error) => {
       console.warn(error);
