@@ -10,7 +10,7 @@ import {
   StyleSheet,
   Text,
   Navigator,
-  TouchableHighlight,
+  TouchableOpacity,
   Image,
   View,
   AsyncStorage
@@ -120,26 +120,41 @@ class Chelsie extends Component {
 
 var NavigationBarRouteMapper = {
   LeftButton(route, navigator, index, navState) {
+    if(index === 0) {
+      return (
+        <TouchableOpacity
+           underlayColor="transparent"
+           onPress={() => { navigator.resetTo({ component: SchoolList, name: "SchoolList" }) } }>
+          <Text style={ styles.titleNav }>SCHOOL</Text>
+        </TouchableOpacity>
+    )}
     if(index > 0) {
       return (
-        <TouchableHighlight
+        <TouchableOpacity
         	 underlayColor="transparent"
            onPress={() => { if (index > 0) { navigator.pop() } }}>
           <Image style={styles.backBtn} source={require('./imgs/back.png')} />
-        </TouchableHighlight>
+        </TouchableOpacity>
   	)}
   	else { return null }
   },
   RightButton(route, navigator, index, navState) {
-    if (route.onPress) return ( <TouchableHighlight
-    														onPress={ () => route.onPress() }>
-                                <Text style={ styles.navBarRightButton }>
-                                  	{ route.rightText || 'Right Button' }
-                                </Text>
-                              </TouchableHighlight> )
+    return (
+      <TouchableOpacity
+         underlayColor="transparent"
+         onPress={() => { navigator.resetTo({ component: Profile, name: "Profile" }) } }>
+        <Text style={ styles.titleNav }>PROFILE</Text>
+      </TouchableOpacity>
+  )
   },
   Title(route, navigator, index, navState) {
-    return <Text style={ styles.title }>CHELSIE</Text>
+    return (
+      <TouchableOpacity
+         underlayColor="transparent"
+         onPress={() => { navigator.resetTo({ component: Main, name: "Main" }) } }>
+         <Text style={ styles.title }>CHELSIE</Text>
+      </TouchableOpacity>
+    )
   }
 };
 
@@ -156,6 +171,14 @@ var styles = StyleSheet.create({
     fontWeight: '800',
     marginTop:13,
     fontSize:21
+  },
+  titleNav: {
+    color: '#FFFFFF',
+    fontWeight: '800',
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginTop:17,
+    fontSize:16
   },
   nav: {
     height: 80,
