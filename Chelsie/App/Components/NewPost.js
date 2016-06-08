@@ -74,8 +74,6 @@ class NewPost extends Component {
   }
 
   render(){
-    console.log(this.props)
-    console.log(this.state.schoolId)
     return (
       <View style={styles.container}>
       <Text style={styles.header}>Title</Text>
