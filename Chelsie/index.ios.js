@@ -120,6 +120,14 @@ class Chelsie extends Component {
 
 var NavigationBarRouteMapper = {
   LeftButton(route, navigator, index, navState) {
+    if(index === 0) {
+      return (
+        <TouchableHighlight
+           underlayColor="transparent"
+           onPress={() => { navigator.resetTo({ component: SchoolList, name: "SchoolList" }) } }>
+          <Text>School</Text>
+        </TouchableHighlight>
+    )}
     if(index > 0) {
       return (
         <TouchableHighlight
@@ -134,8 +142,8 @@ var NavigationBarRouteMapper = {
     return (
       <TouchableHighlight
          underlayColor="transparent"
-         onPress={() => { navigator.push({ component: SchoolList, name: "SchoolList" }) } }>
-        <Text>School</Text>
+         onPress={() => { navigator.resetTo({ component: Profile, name: "Profile" }) } }>
+        <Text>Profile</Text>
       </TouchableHighlight>
   )
   },
@@ -143,7 +151,7 @@ var NavigationBarRouteMapper = {
     return (
       <TouchableHighlight
          underlayColor="transparent"
-         onPress={() => { navigator.push({ component: Main, name: "Main" }) } }>
+         onPress={() => { navigator.resetTo({ component: Main, name: "Main" }) } }>
          <Text style={ styles.title }>CHELSIE</Text>
       </TouchableHighlight>
     )
