@@ -19,6 +19,11 @@ import SchoolList from './SchoolList'
 import NewPost from './NewPost'
 import Post from './Post'
 
+// Navbar Routes
+import Main from "./Main"
+import AboutUs from "./AboutUs"
+import Profile from './Profile'
+
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
 class School extends Component {
@@ -48,15 +53,37 @@ class School extends Component {
   }
 
   fetchData() {
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}`)
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts`)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.posts),
           loaded: true
         });
       })
       .done();
+  }
+
+  _onMainButton(){
+    this.props.navigator.resetTo({
+      component: Main,
+      name: "Main"
+    })
+  }
+
+  _onSchoolsButton(){
+    this.props.navigator.resetTo({
+      component: SchoolList,
+      name: "SchoolList"
+    })
+  }
+
+  _onProfileButton(){
+    this.props.navigator.push({
+      component: Profile,
+      name: "Profile"
+    })
   }
 
   render() {
@@ -77,6 +104,17 @@ class School extends Component {
           style={styles.listView}
         />
         </ScrollView>
+        <View style={styles.footerNav}>
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onMainButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/help.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onSchoolsButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/resource.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onProfileButton.bind(this)}>
+            <Image style={styles.navBtn} source={require('./../../imgs/info.png')} />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -145,7 +183,7 @@ var styles = StyleSheet.create({
   },
   listView: {
     paddingTop: 1,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
   text: {
     fontFamily: 'Cochin',
@@ -162,6 +200,7 @@ var styles = StyleSheet.create({
   },
   row: {
     flex: 1,
+    flexDirection: 'row',
     alignItems: 'stretch',
     margin: 20
   },
@@ -172,6 +211,22 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     fontFamily: 'Cochin',
+    alignSelf: 'center'
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  buttonNav: {
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'stretch',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
+  navBtn: {
+    marginTop: 12,
     alignSelf: 'center'
   }
 });

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ListView,
   TouchableOpacity,
+  ActivityIndicatorIOS,
   Image,
   ScrollView,
   StatusBar,
@@ -14,35 +15,47 @@ import {
 import Swiper from 'react-native-swiper'
 import ResourceList from "./ResourceList"
 import ImmediateAssistance from "./ImmediateAssistance"
-import AboutUs from "./AboutUs"
 import Login from "./Login"
+import Community from "./Community"
 import SignUp from "./SignUp"
+
+// Navbar Routes
+import SchoolList from "./SchoolList"
+import AboutUs from "./AboutUs"
+import Profile from './Profile'
 
 class Main extends Component {
   constructor(props){
     super(props)
     this.state={
+      loaded: false,
     }
   }
 
-  _onASAPButton(){
-    this.props.navigator.push({
-      component: ImmediateAssistance,
-      name: "ImmediateAssistance"
+  componentDidMount(){
+    this.setState({
+      loaded: true,
     })
   }
 
-  _onResourcesButton(){
-    this.props.navigator.push({
-      component: ResourceList,
-      name: "ResourceList"
+  _onMainButton(){
+    this.props.navigator.resetTo({
+      component: Main,
+      name: "Main"
     })
   }
 
-  _onAboutUsButton(){
+  _onSchoolsButton(){
+    this.props.navigator.resetTo({
+      component: SchoolList,
+      name: "SchoolList"
+    })
+  }
+
+  _onProfileButton(){
     this.props.navigator.push({
-      component: AboutUs,
-      name: "AboutUs"
+      component: Profile,
+      name: "Profile"
     })
   }
 
@@ -60,7 +73,22 @@ class Main extends Component {
     })
   }
 
+  renderLoadingView() {
+    return (
+      <View>
+        <ActivityIndicatorIOS
+          animating={!this.state.loaded}
+          color="#111"
+          size="large"></ActivityIndicatorIOS>
+      </View>
+    );
+  }
+
   render(){
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+
     return (
       <View style={styles.container}>
       <StatusBar
@@ -84,13 +112,13 @@ class Main extends Component {
       </View>
       </ScrollView>
         <View style={styles.footerNav}>
-          <TouchableOpacity style={styles.button} onPress={this._onASAPButton.bind(this)}>
+          <TouchableOpacity style={styles.button} onPress={this._onMainButton.bind(this)}>
             <Image style={styles.navBtn} source={require('./../../imgs/help.png')} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this._onResourcesButton.bind(this)}>
+          <TouchableOpacity style={styles.button} onPress={this._onSchoolsButton.bind(this)}>
             <Image style={styles.navBtn} source={require('./../../imgs/resource.png')} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this._onAboutUsButton.bind(this)}>
+          <TouchableOpacity style={styles.button} onPress={this._onProfileButton.bind(this)}>
             <Image style={styles.navBtn} source={require('./../../imgs/info.png')} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={this._onLoginButton.bind(this)}>
@@ -112,11 +140,6 @@ var styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#29808C',
   },
-  footerNav: {
-    flex: 0,
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-  },
   buttonText: {
     fontSize: 18,
     color: '#FFFFFF',
@@ -128,10 +151,6 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     height: 70,
     backgroundColor: '#29808C',
-  },
-  navBtn: {
-    marginTop: 12,
-    alignSelf: 'center'
   },
   header: {
     fontWeight: 'bold',
@@ -183,7 +202,23 @@ var styles = StyleSheet.create({
     color: '#fff',
     fontSize: 25,
     fontWeight: 'bold',
-  }
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  buttonNav: {
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'stretch',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
+  navBtn: {
+    marginTop: 12,
+    alignSelf: 'center'
+  },
 });
 
 module.exports = Main;

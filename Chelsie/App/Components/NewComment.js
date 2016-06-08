@@ -31,20 +31,16 @@ class NewComment extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.schoolId)
     this.fetchData();
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
-      console.log(this.state.user_id);
     }).done();
   }
 
   fetchData() {
-    console.log(this.state.postId)
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData.comments)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
           loaded: true
@@ -95,6 +91,7 @@ class NewComment extends Component {
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderCommentView.bind(this)}
+        enableEmptySections={true}
         style={styles.listView}
       />
       <Text style={styles.header}>Add Your Comment:</Text>
@@ -146,13 +143,13 @@ var styles = StyleSheet.create({
     borderWidth: 1
   },
   listView: {
-    paddingTop: 10,
-    backgroundColor: '#FFFFFF'
+    paddingTop: 1,
+    backgroundColor: '#FFFFFF',
   },
   row: {
-  flex: 1,
-  alignItems: 'stretch',
-  margin: 20
+    flex: 1,
+    alignItems: 'stretch',
+    margin: 20
   },
   button: {
     height: 45,

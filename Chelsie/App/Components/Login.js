@@ -95,7 +95,7 @@ var styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: '#E9D460',
+    backgroundColor: '#F0F3BD',
     borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 8,
@@ -103,7 +103,7 @@ var styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 5,
     marginRight: 5,
-    alignSelf: 'stretch',
+    alignSelf: 'center',
     justifyContent: 'center'
   },
   loginArea: {

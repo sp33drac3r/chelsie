@@ -82,6 +82,28 @@ class Post extends Component {
     })
   }
 
+  _onFlagCommentButton(comment){
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: this.state.user_id,
+        flaggable: comment.id,
+        flaggable_type: 'comment'
+      })
+    })
+    .then((responseText) => responseText.json())
+    .then((responseData) => {
+      console.log(responseData);
+    })
+    .catch((error) => {
+      console.warn(error);
+    })
+  }
+
   render(){
     return(
       <View>
@@ -101,6 +123,7 @@ class Post extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderCommentView.bind(this)}
+          enableEmptySections={true}
           style={styles.listView}
         />
       </ScrollView>
@@ -122,13 +145,15 @@ class Post extends Component {
   renderCommentView(comment){
 
     if (this.state.user_id !== null && this.state.user_id == comment.user_id) {
-      console.log("I'm ALIIIVEEEE")
       deleteButton = "Delete"
     }
 
     return (
       <View style={styles.container}>
         <Text style={styles.text}> {comment.body} </Text>
+        <TouchableOpacity style={styles.button} onPress={this._onFlagCommentButton.bind(this, comment)}>
+          <Text>Flag Comment</Text>
+        </TouchableOpacity>
         <Text style={styles.text}> {deleteButton} </Text>
         <Separator />
       </View>
@@ -155,7 +180,7 @@ var styles = StyleSheet.create({
     marginTop: 90,
   },
   listView: {
-    paddingTop: 2,
+    paddingTop: 1,
     backgroundColor: '#FFFFFF'
   },
   row: {

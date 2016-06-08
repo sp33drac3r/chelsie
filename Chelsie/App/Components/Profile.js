@@ -120,8 +120,8 @@ var styles = StyleSheet.create({
     marginTop: 90,
   },
   listView: {
-    paddingTop: 10,
-    backgroundColor: '#FFFFFF'
+    paddingTop: 1,
+    backgroundColor: '#FFFFFF',
   },
   text: {
     fontFamily: 'Cochin',
@@ -130,9 +130,9 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   row: {
-  flex: 1,
-  alignItems: 'stretch',
-  margin: 20
+    flex: 1,
+    alignItems: 'stretch',
+    margin: 20
   },
   header: {
     fontWeight: 'bold',

@@ -13,6 +13,7 @@ import {
 
 import Separator from './Helpers/Separator'
 import Resource from './Resource'
+import Profile from './Profile'
 
 
 class ResourceList extends Component {
@@ -77,6 +78,7 @@ class ResourceList extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderResourceView.bind(this)}
+          enableEmptySections={true}
           style={styles.listView}
         />
         </ScrollView>
@@ -150,8 +152,8 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listView: {
-    paddingTop: 5,
-    backgroundColor: '#EAFCFD'
+    paddingTop: 1,
+    backgroundColor: '#FFFFFF',
   },
   header: {
     fontWeight: 'bold',
