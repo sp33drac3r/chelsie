@@ -31,20 +31,16 @@ class NewComment extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.schoolId)
     this.fetchData();
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
-      console.log(this.state.user_id);
     }).done();
   }
 
   fetchData() {
-    console.log(this.state.postId)
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData.comments)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
           loaded: true
