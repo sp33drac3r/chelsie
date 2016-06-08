@@ -84,6 +84,9 @@ class Login extends Component {
           Log In
         </Text>
       </TouchableHighlight>
+      <TouchableHighlight onPress={() => {this.props.navigator.resetTo({name: 'SignUp'})}}>
+        <Text style={styles.newUserText}>New to Chelsie? Create an account.</Text>
+      </TouchableHighlight>
       </View>
     )
   }
@@ -142,7 +145,13 @@ var styles = StyleSheet.create({
     fontFamily: 'Cochin',
     alignSelf: 'center',
     color: 'red'
-  }
+  },
+  newUserText: {
+    fontSize: 18,
+    color: 'blue',
+    alignSelf: 'center',
+    textDecorationLine: 'underline'
+  },
 });
 
 module.exports = Login;
