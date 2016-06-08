@@ -33,9 +33,9 @@ class NewPost extends Component {
   }
 
   _onPostButton(){
-    if (this.state.postTitle.length === 0 ){
+    if (this.state.postTitle.replace(/\s+/g, '') === '' ){
       Alert.alert('Title is currently empty.')
-    } else if (this.state.postText.length === 0) {
+    } else if (this.state.postText.replace(/\s+/g, '') === '') {
       Alert.alert('Post is currently empty.')
     } else {
       fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts`, {
