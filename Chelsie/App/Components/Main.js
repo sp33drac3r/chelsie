@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ListView,
   TouchableOpacity,
+  ActivityIndicatorIOS,
   Image,
   ScrollView,
   StatusBar,
@@ -27,7 +28,14 @@ class Main extends Component {
   constructor(props){
     super(props)
     this.state={
+      loaded: false,
     }
+  }
+
+  componentDidMount(){
+    this.setState({
+      loaded: true,
+    })
   }
 
   _onMainButton(){
@@ -65,7 +73,22 @@ class Main extends Component {
     })
   }
 
+  renderLoadingView() {
+    return (
+      <View>
+        <ActivityIndicatorIOS
+          animating={!this.state.loaded}
+          color="#111"
+          size="large"></ActivityIndicatorIOS>
+      </View>
+    );
+  }
+
   render(){
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+
     return (
       <View style={styles.container}>
       <StatusBar
