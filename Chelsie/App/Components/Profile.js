@@ -32,19 +32,29 @@ class Profile extends Component {
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
       this.fetchData(value);
+
     }).done();
   }
 
   fetchData(user_id) {
+    console.log(user_id)
     fetch(`https://afternoon-badlands-40242.herokuapp.com/users/${user_id}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData)
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.posts),
-          username: responseData.username,
-          loaded: true
-        });
+        console.log(responseData.response)
+        if (responseData.response === "No posts for this user" ){
+          this.setState({
+            username: responseData.username,
+            dataSource: responseData.response,
+            loaded: true
+          })
+        } else {
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(responseData.posts),
+            username: responseData.username,
+            loaded: true
+          });
+        }
       })
       .done();
   }
@@ -52,21 +62,32 @@ class Profile extends Component {
   render(){
     if (!this.state.loaded) {
       return this.renderLoadingView();
+    } else if (this.state.dataSource === "No posts for this user"){
+      return(
+        <View>
+          <View style={styles.content}>
+          <Text style={styles.header}> {this.state.username} </Text>
+          <Text style={styles.header}> No Posts </Text>
+          </View>
+        </View>
+      )
+      console.log("no post for user")
+    } else {
+      return(
+        <View>
+          <View style={styles.content}>
+          <Text style={styles.header}> {this.state.username} </Text>
+          <Text style={styles.header}> Posts </Text>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderPostView.bind(this)}
+            style={styles.listView}
+          />
+          </View>
+        </View>
+      );
     }
 
-    return(
-      <View>
-        <View style={styles.content}>
-        <Text style={styles.header}> {this.state.username} </Text>
-        <Text style={styles.header}> Posts </Text>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderPostView.bind(this)}
-          style={styles.listView}
-        />
-        </View>
-      </View>
-    );
   }
 
   renderLoadingView() {
