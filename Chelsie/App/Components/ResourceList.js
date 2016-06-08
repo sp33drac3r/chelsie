@@ -13,6 +13,7 @@ import {
 
 import Separator from './Helpers/Separator'
 import Resource from './Resource'
+import Profile from './Profile'
 
 
 class ResourceList extends Component {
