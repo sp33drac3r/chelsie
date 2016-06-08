@@ -53,9 +53,10 @@ class School extends Component {
   }
 
   fetchData() {
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}`)
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts`)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.posts),
           loaded: true
@@ -199,6 +200,7 @@ var styles = StyleSheet.create({
   },
   row: {
     flex: 1,
+    flexDirection: 'row',
     alignItems: 'stretch',
     margin: 20
   },
