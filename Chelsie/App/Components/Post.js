@@ -114,12 +114,9 @@ class Post extends Component {
             <Text>Flag This Post</Text>
           </TouchableOpacity>
           <Text style={styles.header}> Comments </Text>
-          <TouchableOpacity style={styles.button} onPress={this._onAddCommentButton.bind(this)}>
-          <Text style={styles.add}>Add Comment</Text>
-          </TouchableOpacity>
         </View>
-      <ScrollView>
-        <View style={styles.container}>{commentBox}</View>
+      <ScrollView style={styles.commentContainer}>
+        <View>{commentBox}</View>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderCommentView.bind(this)}
@@ -127,6 +124,11 @@ class Post extends Component {
           style={styles.listView}
         />
       </ScrollView>
+      <View style={styles.footerNav}>
+        <TouchableOpacity style={styles.buttonNav} onPress={this._onAddCommentButton.bind(this)}>
+          <Text style={styles.addBtnText}>ADD A COMMENT</Text>
+        </TouchableOpacity>
+      </View>
       </View>
     );
   }
@@ -179,6 +181,9 @@ var styles = StyleSheet.create({
   content:{
     marginTop: 90,
   },
+  commentContainer:{
+    marginTop: 10,
+  },
   listView: {
     paddingTop: 1,
     backgroundColor: '#FFFFFF'
@@ -209,6 +214,26 @@ var styles = StyleSheet.create({
     paddingLeft: 10,
     alignItems: 'flex-end',
     alignSelf: 'stretch',
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  buttonNav: {
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'stretch',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
+  addBtnText:{
+    marginTop: 23,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: '#FFFFFF',
   }
 });
 
