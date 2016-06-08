@@ -37,11 +37,9 @@ class Profile extends Component {
   }
 
   fetchData(user_id) {
-    console.log(user_id)
     fetch(`https://afternoon-badlands-40242.herokuapp.com/users/${user_id}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData.response)
         if (responseData.response === "No posts for this user" ){
           this.setState({
             username: responseData.username,
@@ -67,11 +65,10 @@ class Profile extends Component {
         <View>
           <View style={styles.content}>
           <Text style={styles.header}> {this.state.username} </Text>
-          <Text style={styles.header}> No Posts </Text>
+          <Text style={styles.text}> You do not have any posts </Text>
           </View>
         </View>
       )
-      console.log("no post for user")
     } else {
       return(
         <View>
