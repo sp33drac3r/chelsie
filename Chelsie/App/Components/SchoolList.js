@@ -12,7 +12,6 @@ import {
   ScrollView,
   Navigator,
   AsyncStorage,
-  ScrollView,
   Image
 } from 'react-native';
 
@@ -22,6 +21,7 @@ import Separator from './Helpers/Separator'
 // Navbar Routes
 import Main from "./Main"
 import AboutUs from "./AboutUs"
+import Profile from './Profile'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
