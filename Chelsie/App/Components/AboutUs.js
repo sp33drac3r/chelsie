@@ -5,16 +5,19 @@ import {
   Text,
   StyleSheet,
   TouchableHighlight,
+  Image,
   Navigator
 } from 'react-native';
 
 class AboutUs extends Component {
   render(){
     return (
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <Text style={styles.text}>About Us</Text>
-        <Text> A mobile application to provide resources to college students who have been victims of sexual assualt. The platform aims to shed light on rape issues that occur in colleges and universities across America.< /Text>
+        <Text style={styles.header}>ABOUT CHELSIE</Text>
+        <Text style={styles.text}>Chelsie is a community for survivors of college sexual assault. Too often, survivors are left with few resources and feelings of loneliness or detachment, not knowing who they can reach out to for help or advice. Through anonymous posts, survivors can share their stories and journal their healing process, giving their support back to the community.  This community borrows its name from a former student of Kenyon College who was sexually assaulted in November of 2015. She went public with her story through an open letter to Kenyon written by her brother, also an alum.  An anonymous community is important for the protection of survivors but anonymity online brings risk of abuse. We rely on the community to flag hateful or abusive language so it can be removed. This is a safe space. < /Text>
       </View>
+      </Image>
     )
   }
 }
@@ -22,16 +25,26 @@ class AboutUs extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: 400,
     paddingTop: 90,
-    paddingRight: 10,
-    paddingLeft: 10,
+    paddingLeft: 14,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'transparent',
+  },
+  header:{
+    fontSize: 18,
+    color: '#FFFFFF',
+    fontFamily: 'Apple SD Gothic Neo',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    paddingBottom: 5
   },
   text: {
-    fontSize: 18,
-    color: '#000000',
+    fontSize: 17,
+    textAlign: 'justify',
+    color: '#FFFFFF',
+    fontFamily: 'Apple SD Gothic Neo',
     alignSelf: 'center'
   }
 });
