@@ -8,6 +8,7 @@ import {
   TouchableHighlight,
   ActivityIndicatorIOS,
   ScrollView,
+  Image,
   Navigator
 } from 'react-native';
 
@@ -72,9 +73,9 @@ class ResourceList extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+        <Text style={styles.header}> LOCAL RESOURCES </Text>
         <ScrollView style={styles.content}>
-        <Text style={styles.header}> Local Resources </Text>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderResourceView.bind(this)}
@@ -82,7 +83,7 @@ class ResourceList extends Component {
           style={styles.listView}
         />
         </ScrollView>
-      </View>
+      </Image>
     );
   }
 
@@ -122,11 +123,11 @@ class ResourceList extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          style={styles.row}
+          style={styles.rowContainer}
           onPress={(this._onResourceButton.bind(this, resource))}
           underlayColor="white">
-          <Text>{resource.name}</Text>
-          <Text>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
+          <Text style={styles.text}>{resource.name}</Text>
+          <Text style={styles.text}>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
         </TouchableOpacity>
       <Separator />
       </View>
@@ -136,29 +137,41 @@ class ResourceList extends Component {
 }
 
 var styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    alignItems: 'center',
+    width: null,
+    height: null,
+    justifyContent: 'center'
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#EAFCFD'
+    backgroundColor: 'transparent'
+  },
+  rowContainer: {
+    backgroundColor: 'transparent',
+    padding: 10,
   },
   content: {
-    marginTop: 90,
-    marginLeft: 10,
-  },
-  word: {
-    fontFamily: 'Apple SD Gothic Neo',
-    color: '#000000',
-    fontSize: 30,
-    fontWeight: 'bold'
+    marginTop: 10,
+    backgroundColor: 'transparent',
   },
   listView: {
     paddingTop: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'transparent',
+  },
+  text:{
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 16,
+    color: '#FFFFFF',
   },
   header: {
+    marginTop: 90,
     fontWeight: 'bold',
     fontSize: 20,
     fontFamily: 'Apple SD Gothic Neo',
+    color: '#FFFFFF',
     alignSelf: 'center',
     marginBottom: 10,
   }

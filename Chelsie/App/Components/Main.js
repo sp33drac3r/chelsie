@@ -72,15 +72,15 @@ class Main extends Component {
       />
       <ScrollView>
       <Swiper style={styles.wrapper} showsButtons={true}>
-        <View style={styles.slide1}>
+        <Image source={require('./../../imgs/gradient3.jpg')} style={styles.slide}>
           <Text style={styles.text}>I think my anger in this case is related to the fact that, like many women, I was raped by an acquaintance in college after a night of drinking.</Text>
-        </View>
-        <View style={styles.slide2}>
+        </Image>
+        <Image source={require('./../../imgs/gradient2.jpg')} style={styles.slide}>
           <Text style={styles.text}>If you’re a guy, you can go out and drink all you want and the worst you end up with is a hangover...If you’re a woman, you have to assess.</Text>
-        </View>
-        <View style={styles.slide3}>
+          </Image>
+        <Image source={require('./../../imgs/gradient1.jpg')} style={styles.slide}>
           <Text style={styles.text}>You took away my worth, my privacy, my energy, my time, my safety, my intimacy, my confidence, my own voice, until today... I am not just a drunk victim ... I am a human being who has been irreversibly hurt.</Text>
-        </View>
+        </Image>
       </Swiper>
       </ScrollView>
           <View style={styles.footerNav}>
@@ -103,19 +103,34 @@ var styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#29808C',
   },
+  wrapper: {
+    flex: 1,
+  },
+  slide: {
+    paddingLeft: 32,
+    paddingRight: 152,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    backgroundColor: 'transparent',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 25,
+    width: 355,
+    fontWeight: 'bold',
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
   bottomNav: {
     justifyContent: 'center',
     alignItems: 'stretch',
     color: 'rgba(255,255,255,1)',
     fontWeight: '400',
     fontSize:16
-  },
-  buttonText: {
-    marginTop: 23,
-    alignSelf: 'center',
-    fontWeight: '400',
-    fontSize: 17,
-    color: '#FFFFFF',
   },
   button: {
     flex: 1,
@@ -124,72 +139,12 @@ var styles = StyleSheet.create({
     height: 70,
     backgroundColor: '#29808C',
   },
-  header: {
-    fontWeight: 'bold',
-    marginTop: 110,
-    fontSize: 20,
-    color: '#29808C',
-    fontFamily: 'Arial',
-    alignSelf: 'center'
-  },
-  wrapper: {
-    flex: 1,
-  },
-  content: {
-    borderColor: 'red',
-    borderWidth: 4,
-    fontWeight: 'bold',
-    marginTop: 90,
-    paddingTop: 10,
-    fontSize: 20,
-    color: '#29808C',
-    fontFamily: 'Arial',
-    alignSelf: 'center'
-  },
-  slide1: {
-    paddingLeft: 32,
-    paddingRight: 32,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    paddingLeft: 32,
-    paddingRight: 32,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
-  },
-  slide3: {
-    paddingLeft: 32,
-    paddingRight: 32,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 25,
-    fontWeight: 'bold',
-  },
-  footerNav: {
-    flex: 0,
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-  },
   buttonNav: {
     flex: 1,
     marginTop: 5,
     alignSelf: 'stretch',
     height: 70,
     backgroundColor: '#29808C',
-  },
-  navBtn: {
-    marginTop: 12,
-    alignSelf: 'center'
   },
 });
 
