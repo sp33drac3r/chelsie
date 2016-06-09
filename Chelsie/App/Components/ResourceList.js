@@ -58,7 +58,10 @@ class ResourceList extends Component {
 
 
   fetchData(lat, lng) {
+    console.log(lat)
+    console.log(lng)
     var url = `https://afternoon-badlands-40242.herokuapp.com/centers/geo/${lat}/${lng}/10`
+    console.log(url)
     fetch(url)
       .then((response) => response.json())
       .then((responseData) => {
