@@ -75,12 +75,11 @@ class Profile extends Component {
       return this.renderLoadingView();
     } else if (this.state.dataSource === "No posts for this user"){
       return(
-        <View>
+        <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
           <View style={styles.content}>
-          <Text style={styles.header}> {this.state.username} </Text>
-          <Text style={styles.text}> You do not have any posts </Text>
+            <Text style={styles.text}> You do not have any posts </Text>
           </View>
-        </View>
+        </Image>
       )
     } else {
       return(
@@ -168,6 +167,13 @@ class Profile extends Component {
 }
 
 var styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    alignItems: 'center',
+    width: null,
+    height: null,
+    justifyContent: 'center'
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -187,7 +193,6 @@ var styles = StyleSheet.create({
   content:{
     flex: 1,
     marginTop: 90,
-    alignItems: 'stretch',
   },
   rowContainer: {
     padding: 10,
@@ -199,9 +204,8 @@ var styles = StyleSheet.create({
   text: {
     paddingLeft: 12,
     fontFamily: 'Apple SD Gothic Neo',
-    color: '#000000',
-    fontSize: 20,
-    fontWeight: 'bold'
+    color: '#FFF',
+    fontSize: 16,
   },
   row: {
     flex: 1,
