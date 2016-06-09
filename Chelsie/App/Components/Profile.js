@@ -13,6 +13,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
+import Login from './Login'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/users`
 
@@ -30,8 +31,18 @@ class Profile extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem('user_id').then((value) => {
-      this.setState({'user_id': value});
-      this.fetchData(value);
+      if (value === null) {
+        this.props.navigator.resetTo({
+          component: Login,
+          name: 'Login',
+          passProps: {
+            message: "You must be logged in to view your profile.",
+          }
+        })
+      } else {
+        this.setState({'user_id': value});
+        this.fetchData(value);
+      }
     }).done();
   }
 
@@ -39,12 +50,19 @@ class Profile extends Component {
     fetch(`https://afternoon-badlands-40242.herokuapp.com/users/${user_id}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData)
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.posts),
-          username: responseData.username,
-          loaded: true
-        });
+        if (responseData.response === "No posts for this user" ){
+          this.setState({
+            username: responseData.username,
+            dataSource: responseData.response,
+            loaded: true
+          })
+        } else {
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(responseData.posts),
+            username: responseData.username,
+            loaded: true
+          });
+        }
       })
       .done();
   }
@@ -52,21 +70,31 @@ class Profile extends Component {
   render(){
     if (!this.state.loaded) {
       return this.renderLoadingView();
+    } else if (this.state.dataSource === "No posts for this user"){
+      return(
+        <View>
+          <View style={styles.content}>
+          <Text style={styles.header}> {this.state.username} </Text>
+          <Text style={styles.text}> You do not have any posts </Text>
+          </View>
+        </View>
+      )
+    } else {
+      return(
+        <View>
+          <View style={styles.content}>
+          <Text style={styles.header}> {this.state.username} </Text>
+          <Text style={styles.header}> Posts </Text>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderPostView.bind(this)}
+            style={styles.listView}
+          />
+          </View>
+        </View>
+      );
     }
 
-    return(
-      <View>
-        <View style={styles.content}>
-        <Text style={styles.header}> {this.state.username} </Text>
-        <Text style={styles.header}> Posts </Text>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderPostView.bind(this)}
-          style={styles.listView}
-        />
-        </View>
-      </View>
-    );
   }
 
   renderLoadingView() {

@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   Navigator,
   TextInput,
+  Alert,
   AsyncStorage
 } from 'react-native';
 
@@ -28,48 +29,51 @@ class NewPost extends Component {
   componentDidMount() {
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
-      console.log(this.state.user_id);
     }).done();
   }
 
   _onPostButton(){
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        post: {
-          title: this.state.postTitle,
-          body: this.state.postText,
-          user_id: this.state.user_id,
-          school_id: this.state.school_id
-        }
+    if (this.state.postTitle.replace(/\s+/g, '') === '' ){
+      Alert.alert('Title is currently empty.')
+    } else if (this.state.postText.replace(/\s+/g, '') === '') {
+      Alert.alert('Post is currently empty.')
+    } else {
+      fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          post: {
+            title: this.state.postTitle,
+            body: this.state.postText,
+            user_id: this.state.user_id,
+            school_id: this.state.school_id
+          }
+        })
       })
-    })
-    .then((responseText) => responseText.json())
-    .then((responseData) => {
-      console.log(responseData);
-    })
-    .catch((error) => {
-      console.warn(error);
-    })
-    .done(() => {
-      this.props.navigator.replacePreviousAndPop({
-        component: School,
-        name: "School",
-        passProps: {
-        schoolId: this.state.schoolId,
-        schoolName: this.state.schoolName,
-        schoolAddress: this.state.schoolAddress
-      }})
-    })
+      .then((responseText) => responseText.json())
+      .then((responseData) => {
+        console.log(responseData);
+      })
+      .catch((error) => {
+        console.warn(error);
+      })
+      .done(() => {
+        this.props.navigator.replacePreviousAndPop({
+          component: School,
+          name: "School",
+          passProps: {
+            schoolId: this.state.schoolId,
+            schoolName: this.state.schoolName,
+            schoolAddress: this.state.schoolAddress
+          }})
+        })
+    }
   }
 
   render(){
-    console.log(this.props)
-    console.log(this.state.schoolId)
     return (
       <View style={styles.container}>
       <Text style={styles.header}>Title</Text>
@@ -85,14 +89,14 @@ class NewPost extends Component {
         value={this.state.postText}
       />
       <TouchableHighlight onPress={this._onPostButton.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          submit
-        </Text>
+      <Text style={styles.buttonText}>
+      submit
+      </Text>
       </TouchableHighlight>
       </View>
-
-    )
+    );
   }
+
 }
 
 
