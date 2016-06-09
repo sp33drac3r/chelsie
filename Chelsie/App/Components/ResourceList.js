@@ -8,12 +8,17 @@ import {
   TouchableHighlight,
   ActivityIndicatorIOS,
   ScrollView,
+  Image,
+  Linking,
   Navigator
 } from 'react-native';
 
 import Separator from './Helpers/Separator'
 import Resource from './Resource'
 import Profile from './Profile'
+import Communications from 'react-native-communications';
+
+var hotlineUrl = `https://ohl.rainn.org/online/`
 
 
 class ResourceList extends Component {
@@ -66,15 +71,23 @@ class ResourceList extends Component {
       .done();
   }
 
+  _onHotlineButton(){
+    Communications.phonecall('2134584288', true)
+  }
+
+  _onChatButton(){
+    Linking.openURL(hotlineUrl)
+  }
+
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
 
     return (
-      <View style={styles.container}>
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+        <Text style={styles.header}> LOCAL RESOURCES </Text>
         <ScrollView style={styles.content}>
-        <Text style={styles.header}> Local Resources </Text>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderResourceView.bind(this)}
@@ -82,7 +95,15 @@ class ResourceList extends Component {
           style={styles.listView}
         />
         </ScrollView>
-      </View>
+        <View style={styles.footerNav}>
+        <TouchableHighlight style={styles.button} onPress={this._onHotlineButton.bind(this)} underlayColor="#3D94A0">
+          <Text style={ styles.bottomNav }>hotline</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={this._onChatButton.bind(this)} underlayColor="#3D94A0">
+          <Text style={ styles.bottomNav }>chat</Text>
+        </TouchableHighlight>
+        </View>
+      </Image>
     );
   }
 
@@ -122,11 +143,11 @@ class ResourceList extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          style={styles.row}
+          style={styles.rowContainer}
           onPress={(this._onResourceButton.bind(this, resource))}
           underlayColor="white">
-          <Text>{resource.name}</Text>
-          <Text>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
+          <Text style={styles.textResource}>{resource.name}</Text>
+          <Text style={styles.textDistance}>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
         </TouchableOpacity>
       <Separator />
       </View>
@@ -136,32 +157,75 @@ class ResourceList extends Component {
 }
 
 var styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    alignItems: 'center',
+    width: null,
+    height: null,
+    justifyContent: 'center'
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#EAFCFD'
+    backgroundColor: 'transparent'
+  },
+  rowContainer: {
+    backgroundColor: 'transparent',
+    padding: 10,
   },
   content: {
-    marginTop: 90,
-    marginLeft: 10,
-  },
-  word: {
-    fontFamily: 'Apple SD Gothic Neo',
-    color: '#000000',
-    fontSize: 30,
-    fontWeight: 'bold'
+    marginTop: 10,
+    backgroundColor: 'transparent',
   },
   listView: {
     paddingTop: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'transparent',
+  },
+  textResource:{
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 16,
+    color: '#FFFFFF',
+  },
+  textDistance:{
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 15,
+    color: '#FFFFFF',
   },
   header: {
+    marginTop: 90,
     fontWeight: 'bold',
     fontSize: 20,
     fontFamily: 'Apple SD Gothic Neo',
+    color: '#FFFFFF',
     alignSelf: 'center',
     marginBottom: 10,
-  }
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  bottomNav: {
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    color: 'rgba(255,255,255,1)',
+    fontWeight: '400',
+    fontSize:16
+  },
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
+  buttonNav: {
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'stretch',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
 });
 
 module.exports = ResourceList;
