@@ -37,7 +37,7 @@ class Post extends Component {
       commentId: '',
       commentBody: '',
       user_id: '',
-      commentFlagger: []
+      commentsFlagged: []
     }
   }
 
@@ -48,59 +48,58 @@ class Post extends Component {
   }
 
   fetchData() {
-    fetch(`http://localhost:3000/flags/9`)
-    .then((response) => response.json())
-    .then((responseData) => {
-      console.log(responseData)
-
-      for (var i = 0; i < responseData.length; i++) {
-        if(responseData[i].flaggable_type === 'Post' && responseData[i].flaggable_id === this.state.postId){
-          this.setState.postFlagger = true
-        } else if(responseData[i].flaggable_type === 'Comment') {
-          this.state.commentFlagger.push(responseData[i].flaggable_id)
-          console.log(this.state.commentFlagger)
-        }
-      }
-    })
-    .done();
-
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
+    console.log("I'm in the fetch data case")
+    console.log(this.state.user_id)
+    if (this.state.user_id === '') {
+      console.log("I'm in the null case")
+      fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
+        .then((response) => response.json())
+        .then((responseData) => {
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
+            loaded: true
+          });
+        })
+        .done();
+    } else {
+      console.log("I'm in the else case")
+      fetch(`https://afternoon-badlands-40242.herokuapp.com/flags/${this.state.user_id}`)
       .then((response) => response.json())
       .then((responseData) => {
-        // console.log(responseData.flags)
-        // console.log(responseData.flags[0])
-        // console.log(responseData.flags[0].user_id)
+        console.log(responseData)
 
-        // responseData.flags.forEach({}, this)
-
-        // for (var i = 0; i < responseData.flags.length; i++) {
-        //   if (responseData.flags[i].user_id === 17 ) {
-        //     if (responseData.flags[i].flaggable_type === 'Post') {
-        //       console.log( "THIS POST" )
-        //       this.setState({postFlagger: true})
-        //       console.log(this.state.postFlagger)
-        //     } else {
-        //       console.log( "OH WELL" )
-        //     }
-        //   } else {
-        //     for (var x = 0; x < responseData.comments.length; x++) {
-        //       if (responseData.comments[x] === responseData.flags[i].flaggable_id) {
-        //         responseData.comments[x].flag = true
-        //         console.log("Gonna create a comment property flag = true?????")
-        //         console.log(responseData.comments[x].flag)
-        //       } else {
-        //         console.log(fail)
-        //       }
-        //     }
-        //   }
-        // }
-
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
-          loaded: true
-        });
+        //Mark post as flagged as needed and store all comment IDs flagged by user in commentsFlagged array in props.
+        for (var i = 0; i < responseData.length; i++) {
+          if(responseData[i].flaggable_type === 'Post' && responseData[i].flaggable_id === this.state.postId){
+            this.setState.postFlagger = true
+          } else if(responseData[i].flaggable_type === 'Comment') {
+            this.state.commentsFlagged.push(responseData[i].flaggable_id)
+            console.log(this.state.commentsFlagged)
+          }
+        }
       })
-      .done();
+      .done(fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
+        .then((response) => response.json())
+        .then((responseData) => {
+
+          // Empty comments that aren't flagged by user from the commentsFlagged prop
+          for (var c = 0; c < responseData.comments.length; c++) {
+            for (var i = 0; i < this.state.commentsFlagged.length; i++) {
+              if (responseData.comments[c].id !== this.state.commentsFlagged[i]) {
+                this.state.commentsFlagged.splice(i, 1)
+              }
+            }
+          }
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
+            loaded: true
+          });
+        })
+        .done()
+      );
+    }
+
+
   }
 
   _onFlagPostButton(){
