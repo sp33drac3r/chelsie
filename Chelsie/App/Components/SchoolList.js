@@ -175,9 +175,8 @@ class SchoolList extends Component {
       <View style={styles.container}>
       <TouchableOpacity
         style={styles.rowContainer}
-        onPress={(this._onButton.bind(this, school))}
-        underlayColor="white">
-        <Text>{school.name}</Text>
+        onPress={(this._onButton.bind(this, school))}>
+        <Text style={styles.text}>{school.name}</Text>
         <Separator/>
       </TouchableOpacity>
       </View>
@@ -188,59 +187,37 @@ class SchoolList extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    top: 90,
-    // marginTop: 5,
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    backgroundColor: '#FFFFFF',
-  },
-  content: {
-    // marginTop: 10,
+    top: 10,
+    flex: 0.05,
   },
   rowContainer: {
+    width: 410,
     padding: 10,
   },
-  word: {
+  text: {
     fontFamily: 'Apple SD Gothic Neo',
-    color: '#000000',
-    fontSize: 30,
-    fontWeight: 'bold'
+    color: '#FFFFFF',
+    fontSize: 17,
+    fontWeight: 'normal',
   },
   listView: {
     height: 500,
-    paddingTop: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  row: {
-    flex: 1,
-    alignItems: 'stretch',
-    margin: 20
   },
   searchBar: {
-    // marginTop: 30,
-    paddingLeft: 20,
-    fontSize: 20,
-    height: 2,
-    flex: 0.1,
-    borderWidth: 2,
-    borderColor: '#E4E4E4',
-  },
-  footerNav: {
-    flex: 0,
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-  },
-  buttonNav: {
-    flex: 1,
-    marginTop: 5,
-    alignSelf: 'stretch',
-    height: 70,
-    backgroundColor: '#29808C',
-  },
-  navBtn: {
-    marginTop: 12,
-    alignSelf: 'center'
+    marginTop: 100,
+    marginBottom: 20,
+    marginLeft: 10,
+    paddingLeft: 15,
+    fontSize: 22,
+    height: 10,
+    width: 390,
+    flex: 0.05,
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
+    fontFamily: 'Apple SD Gothic Neo',
+    color: '#FFFFFF',
+    fontSize: 27,
+    fontWeight: 'normal',
   },
 });
 
