@@ -209,7 +209,7 @@ var styles = StyleSheet.create({
     padding: 10,
   },
   word: {
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
     color: '#000000',
     fontSize: 30,
     fontWeight: 'bold'
