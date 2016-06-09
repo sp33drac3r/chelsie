@@ -125,30 +125,21 @@ class SchoolList extends Component {
     }
 
     return (
-      <View style={styles.container}>
-      <TextInput
-      style={styles.searchBar}
-      value={this.state.searchText}
-      onChange={this.setSearchText.bind(this)}
-      placeholder="Search" />
-      <ScrollView style={styles.content}>
-          <ListView
-            dataSource={this.state.dataSource}
-            renderRow={this.renderSchoolView.bind(this)}
-            style={styles.listView}/>
-        </ScrollView>
-        <View style={styles.footerNav}>
-          <TouchableOpacity style={styles.buttonNav} onPress={this._onMainButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/help.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonNav} onPress={this._onSchoolsButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/resource.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonNav} onPress={this._onProfileButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/info.png')} />
-          </TouchableOpacity>
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+        <View style={styles.container}>
+        <TextInput
+        style={styles.searchBar}
+        value={this.state.searchText}
+        onChange={this.setSearchText.bind(this)}
+        placeholder="Search" />
+        <ScrollView style={styles.content}>
+            <ListView
+              dataSource={this.state.dataSource}
+              renderRow={this.renderSchoolView.bind(this)}
+              style={styles.listView}/>
+          </ScrollView>
         </View>
-      </View>
+      </Image>
     );
   }
 
@@ -197,13 +188,15 @@ class SchoolList extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 5,
+    top: 90,
+    // marginTop: 5,
     flex: 1,
     flexDirection: 'column',
+    alignItems: 'stretch',
     backgroundColor: '#FFFFFF',
   },
   content: {
-    marginTop: 10,
+    // marginTop: 10,
   },
   rowContainer: {
     padding: 10,
@@ -215,6 +208,7 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listView: {
+    height: 500,
     paddingTop: 1,
     backgroundColor: '#FFFFFF',
   },
@@ -224,12 +218,12 @@ var styles = StyleSheet.create({
     margin: 20
   },
   searchBar: {
-    marginTop: 74,
-    paddingLeft: 30,
-    fontSize: 22,
-    height: 8,
-    flex: .1,
-    borderWidth: 9,
+    // marginTop: 30,
+    paddingLeft: 20,
+    fontSize: 20,
+    height: 2,
+    flex: 0.1,
+    borderWidth: 2,
     borderColor: '#E4E4E4',
   },
   footerNav: {
