@@ -203,11 +203,11 @@ var styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 21,
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
     alignSelf: 'center'
   },
   text: {
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
     color: '#000000',
     paddingLeft: 10,
     paddingRight: 10,
