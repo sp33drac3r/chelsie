@@ -7,7 +7,8 @@ import {
   TouchableHighlight,
   TextInput,
   Navigator,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 
 import Community from "./Community"
@@ -62,54 +63,55 @@ class SignUp extends Component {
 
   render(){
     return(
-      <View style={styles.container}>
-      <Text style={styles.header}>username</Text>
-      <TextInput
-        style={styles.loginArea}
-        onChangeText={(username) => this.setState({username: username})}
-        value={this.state.username}
-      />
-      <Text style={styles.header}>email</Text>
-      <TextInput
-        style={styles.loginArea}
-        onChangeText={(email) => this.setState({email: email})}
-        value={this.state.email}
-      />
-      <Text style={styles.header}>password</Text>
-      <TextInput
-        secureTextEntry={true}
-        style={styles.loginArea}
-        onChangeText={(password) => this.setState({password: password})}
-        value={this.state.password}
-      />
-      <TouchableHighlight onPress={this.signUp.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Sign Up
-        </Text>
-      </TouchableHighlight>
-      </View>
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+        <View style={styles.container}>
+        <Text style={styles.text}>username</Text>
+        <TextInput
+          style={styles.loginArea}
+          onChangeText={(username) => this.setState({username: username})}
+          value={this.state.username}
+        />
+        <Text style={styles.text}>email</Text>
+        <TextInput
+          style={styles.loginArea}
+          onChangeText={(email) => this.setState({email: email})}
+          value={this.state.email}
+        />
+        <Text style={styles.text}>password</Text>
+        <TextInput
+          secureTextEntry={true}
+          style={styles.loginArea}
+          onChangeText={(password) => this.setState({password: password})}
+          value={this.state.password}
+        />
+        <TouchableHighlight onPress={this.signUp.bind(this)} style={styles.button}>
+          <Text style={styles.buttonText}>
+            Sign Up
+          </Text>
+        </TouchableHighlight>
+        </View>
+      </Image>
     )
   }
 }
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
+    top: 200,
+    flex: 0.05,
+    width: 415,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   buttonText: {
     fontSize: 18,
-    color: '#111',
+    color: '#FFFFFF',
     alignSelf: 'center'
   },
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: '#E9D460',
-    borderColor: 'grey',
+    backgroundColor: 'transparent',
+    borderColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
@@ -117,28 +119,30 @@ var styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   loginArea: {
     height: 45,
+    color: '#FFFFFF',
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#ECF0F1',
-    borderColor: 'grey',
+    borderColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
     marginTop: 10,
     marginLeft: 5,
     marginRight: 5,
+    paddingLeft: 20,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 40,
+  text: {
     fontFamily: 'Apple SD Gothic Neo',
-    alignSelf: 'center'
+    color: '#FFFFFF',
+    fontSize: 17,
+    fontWeight: 'normal',
+    alignSelf: 'center',
   }
 });
 
