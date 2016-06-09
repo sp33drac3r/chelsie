@@ -146,7 +146,7 @@ var styles = StyleSheet.create({
     marginLeft: 10,
   },
   word: {
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
     color: '#000000',
     fontSize: 30,
     fontWeight: 'bold'
@@ -158,7 +158,7 @@ var styles = StyleSheet.create({
   header: {
     fontWeight: 'bold',
     fontSize: 20,
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
     alignSelf: 'center',
     marginBottom: 10,
   }
