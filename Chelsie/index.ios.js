@@ -115,7 +115,7 @@ class Chelsie extends Component {
     } else {
       return (
         <Navigator
-        initialRoute={ {name: 'SchoolList'} }
+        initialRoute={ this.state.root_route }
         renderScene={ this.renderScene.bind(this) }
         navigationBar={
           <Navigator.NavigationBar
