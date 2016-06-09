@@ -152,7 +152,7 @@ var NavigationBarRouteMapper = {
       <TouchableOpacity
          underlayColor="transparent"
          onPress={() => { navigator.resetTo({ component: Profile, name: "Profile" }) } }>
-        <Text style={ styles.titleNav }>my diary</Text>
+        <Text style={ styles.titleNav }>journal</Text>
       </TouchableOpacity>
   )
   },

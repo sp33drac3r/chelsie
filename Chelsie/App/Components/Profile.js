@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 import Login from './Login'
+import Separator from './Helpers/Separator'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/users`
 
@@ -119,7 +120,7 @@ class Profile extends Component {
       },
       body: JSON.stringify({
         school_id: post.school_id,
-        id: post.id  
+        id: post.id
       })
     })
     .then((responseText) => responseText.json())
@@ -137,24 +138,31 @@ class Profile extends Component {
         <Text>{post.title}</Text>
         <Text>{post.body}</Text>
         <TouchableOpacity style={styles.button} onPress={this._onDeleteButton.bind(this, post)}>
-          <Text style={styles.add}>Delete Post</Text>
+          <Text style={styles.add}>Delete</Text>
         </TouchableOpacity>
+        <Separator/>
       </View>
     );
   }
-
 }
 
 var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    flexDirection: 'row'
+  },
   content:{
     marginTop: 90,
-    alignItems: 'stretch'
+    alignItems: 'stretch',
   },
   listView: {
     paddingTop: 1,
     backgroundColor: '#FFFFFF',
   },
   text: {
+    paddingLeft: 12,
     fontFamily: 'Apple SD Gothic Neo',
     color: '#000000',
     fontSize: 20,
