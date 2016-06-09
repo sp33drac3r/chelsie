@@ -9,12 +9,16 @@ import {
   ActivityIndicatorIOS,
   ScrollView,
   Image,
+  Linking,
   Navigator
 } from 'react-native';
 
 import Separator from './Helpers/Separator'
 import Resource from './Resource'
 import Profile from './Profile'
+import Communications from 'react-native-communications';
+
+var hotlineUrl = `https://ohl.rainn.org/online/`
 
 
 class ResourceList extends Component {
@@ -67,6 +71,14 @@ class ResourceList extends Component {
       .done();
   }
 
+  _onHotlineButton(){
+    Communications.phonecall('2134584288', true)
+  }
+
+  _onChatButton(){
+    Linking.openURL(hotlineUrl)
+  }
+
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
@@ -83,6 +95,14 @@ class ResourceList extends Component {
           style={styles.listView}
         />
         </ScrollView>
+        <View style={styles.footerNav}>
+        <TouchableHighlight style={styles.button} onPress={this._onHotlineButton.bind(this)} underlayColor="#3D94A0">
+          <Text style={ styles.bottomNav }>hotline</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={this._onChatButton.bind(this)} underlayColor="#3D94A0">
+          <Text style={ styles.bottomNav }>chat</Text>
+        </TouchableHighlight>
+        </View>
       </Image>
     );
   }
@@ -126,8 +146,8 @@ class ResourceList extends Component {
           style={styles.rowContainer}
           onPress={(this._onResourceButton.bind(this, resource))}
           underlayColor="white">
-          <Text style={styles.text}>{resource.name}</Text>
-          <Text style={styles.text}>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
+          <Text style={styles.textResource}>{resource.name}</Text>
+          <Text style={styles.textDistance}>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
         </TouchableOpacity>
       <Separator />
       </View>
@@ -161,9 +181,14 @@ var styles = StyleSheet.create({
     paddingTop: 1,
     backgroundColor: 'transparent',
   },
-  text:{
+  textResource:{
     fontFamily: 'Apple SD Gothic Neo',
     fontSize: 16,
+    color: '#FFFFFF',
+  },
+  textDistance:{
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 15,
     color: '#FFFFFF',
   },
   header: {
@@ -174,7 +199,33 @@ var styles = StyleSheet.create({
     color: '#FFFFFF',
     alignSelf: 'center',
     marginBottom: 10,
-  }
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  bottomNav: {
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    color: 'rgba(255,255,255,1)',
+    fontWeight: '400',
+    fontSize:16
+  },
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
+  buttonNav: {
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'stretch',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
 });
 
 module.exports = ResourceList;
