@@ -83,7 +83,7 @@ class Chelsie extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      root_route: {name: "Main"},
+      root_route: {name: "SchoolList"},
       loaded: false
     }
   }
