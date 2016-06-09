@@ -33,23 +33,68 @@ class Post extends Component {
       postTitle: this.props.postTitle,
       postId: this.props.postId,
       postBody: this.props.postBody,
+      postFlagger: false,
       commentId: '',
       commentBody: '',
       user_id: '',
+      commentFlagger: []
     }
   }
 
   componentDidMount() {
-    this.fetchData();
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
-    }).done();
+    }).done(this.fetchData());
   }
 
   fetchData() {
+    fetch(`http://localhost:3000/flags/9`)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData)
+
+      for (var i = 0; i < responseData.length; i++) {
+        if(responseData[i].flaggable_type === 'Post' && responseData[i].flaggable_id === this.state.postId){
+          this.setState.postFlagger = true
+        } else if(responseData[i].flaggable_type === 'Comment') {
+          this.state.commentFlagger.push(responseData[i].flaggable_id)
+          console.log(this.state.commentFlagger)
+        }
+      }
+    })
+    .done();
+
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
       .then((response) => response.json())
       .then((responseData) => {
+        // console.log(responseData.flags)
+        // console.log(responseData.flags[0])
+        // console.log(responseData.flags[0].user_id)
+
+        // responseData.flags.forEach({}, this)
+
+        // for (var i = 0; i < responseData.flags.length; i++) {
+        //   if (responseData.flags[i].user_id === 17 ) {
+        //     if (responseData.flags[i].flaggable_type === 'Post') {
+        //       console.log( "THIS POST" )
+        //       this.setState({postFlagger: true})
+        //       console.log(this.state.postFlagger)
+        //     } else {
+        //       console.log( "OH WELL" )
+        //     }
+        //   } else {
+        //     for (var x = 0; x < responseData.comments.length; x++) {
+        //       if (responseData.comments[x] === responseData.flags[i].flaggable_id) {
+        //         responseData.comments[x].flag = true
+        //         console.log("Gonna create a comment property flag = true?????")
+        //         console.log(responseData.comments[x].flag)
+        //       } else {
+        //         console.log(fail)
+        //       }
+        //     }
+        //   }
+        // }
+
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
           loaded: true
