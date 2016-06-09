@@ -54,38 +54,65 @@ class Resource extends Component {
   render(){
     console.log(this.props.navigator.state.routeStack)
     return (
-      <View style={styles.container}>
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+        <View style={styles.content}>
         <ScrollView>
-          <Text style={styles.text}>{this.props.resourceName}</Text>
+          <Text style={styles.header}>{this.props.resourceName}</Text>
           <TouchableOpacity onPress={this._onMapButton.bind(this)}>
+            <Text style={styles.subheader}>Address: </Text>
             <Text style={styles.text}>{this.props.resourceAddress}</Text>
           </TouchableOpacity>
-          <Text style={styles.text}>{this.props.resourceTel1}</Text>
+          <Text style={styles.subheader}>Telephone: </Text>
+          <Text style={styles.text2}>{this.props.resourceTel1}</Text>
           <Text style={styles.text}>{this.props.resourceTel2}</Text>
           <TouchableOpacity onPress={this._onResourceButton.bind(this)}>
+            <Text style={styles.subheader}>Website: </Text>
             <Text style={styles.text}>{this.props.resourceWeb}</Text>
           </TouchableOpacity>
+          <Text style={styles.subheader}>Population Served: </Text>
           <Text style={styles.text}>{this.props.resourcePopServed}</Text>
         </ScrollView>
-      </View>
+        </View>
+      </Image>
     )
   }
 }
 
 var styles = StyleSheet.create({
-  container: {
-    marginTop: 90,
+  backgroundImage: {
     flex: 1,
-    paddingRight: 10,
-    paddingLeft: 10,
-    flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    width: null,
+    height: null,
+    justifyContent: 'center'
+  },
+  content: {
+    flex: 1,
+    paddingRight: 12,
+    paddingLeft: 12,
+    marginTop: 90,
+    backgroundColor: 'transparent',
+  },
+  header: {
+    alignSelf: 'center',
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    paddingBottom: 10,
+  },
+  subheader: {
+    fontSize: 17.5,
+    color: '#FFFFFF',
+    paddingBottom: 3,
   },
   text: {
-    fontSize: 18,
-    color: '#000000',
-    alignSelf: 'center'
+    fontSize: 16,
+    color: '#FFFFFF',
+    paddingBottom: 8,
+  },
+  text2: {
+    fontSize: 16,
+    color: '#FFFFFF',
   }
 });
 
