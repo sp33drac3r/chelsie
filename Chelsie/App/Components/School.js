@@ -205,6 +205,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
     color: '#FFFFFF',
     fontSize: 20,
+    paddingBottom: 15,
     fontFamily: 'Apple SD Gothic Neo',
     alignSelf: 'center'
   },
@@ -223,8 +224,8 @@ var styles = StyleSheet.create({
   addBtnText:{
     marginTop: 23,
     alignSelf: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontWeight: '400',
+    fontSize: 17,
     color: '#FFFFFF',
   }
 });

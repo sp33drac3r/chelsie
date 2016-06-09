@@ -10,6 +10,7 @@ import {
   ActivityIndicatorIOS,
   ScrollView,
   Navigator,
+  Image,
   AsyncStorage
 } from 'react-native';
 
@@ -81,17 +82,15 @@ class Profile extends Component {
       )
     } else {
       return(
-        <View>
+        <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
           <View style={styles.content}>
-          <Text style={styles.header}> {this.state.username} </Text>
-          <Text style={styles.header}> Posts </Text>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderPostView.bind(this)}
             style={styles.listView}
           />
           </View>
-        </View>
+        </Image>
       );
     }
 
@@ -146,6 +145,7 @@ class Profile extends Component {
 var styles = StyleSheet.create({
   content:{
     marginTop: 90,
+    alignItems: 'stretch'
   },
   listView: {
     paddingTop: 1,
@@ -163,10 +163,13 @@ var styles = StyleSheet.create({
     margin: 20
   },
   header: {
+    flex: 1,
+    alignItems: 'stretch',
+    alignSelf: 'center',
+    backgroundColor: '#88FFFF',
     fontWeight: 'bold',
     fontSize: 24,
     fontFamily: 'Apple SD Gothic Neo',
-    alignSelf: 'center'
   }
 });
 
