@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ListView,
   TouchableOpacity,
+  TouchableHighlight,
   ActivityIndicatorIOS,
   Image,
   ScrollView,
@@ -35,27 +36,6 @@ class Main extends Component {
   componentDidMount(){
     this.setState({
       loaded: true,
-    })
-  }
-
-  _onMainButton(){
-    this.props.navigator.resetTo({
-      component: Main,
-      name: "Main"
-    })
-  }
-
-  _onSchoolsButton(){
-    this.props.navigator.resetTo({
-      component: SchoolList,
-      name: "SchoolList"
-    })
-  }
-
-  _onProfileButton(){
-    this.props.navigator.push({
-      component: Profile,
-      name: "Profile"
     })
   }
 
@@ -107,26 +87,14 @@ class Main extends Component {
           <Text style={styles.text}>You took away my worth, my privacy, my energy, my time, my safety, my intimacy, my confidence, my own voice, until today... I am not just a drunk victim ... I am a human being who has been irreversibly hurt.</Text>
         </View>
       </Swiper>
-      <View style={styles.cotent}>
-      <Text style={styles.content}>Cronut fanny pack waistcoat food truck. Cronut fanny pack waistcoat food truck. Cronut fanny pack waistcoat food truck.</Text>
-      </View>
       </ScrollView>
-        <View style={styles.footerNav}>
-          <TouchableOpacity style={styles.button} onPress={this._onMainButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/help.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this._onSchoolsButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/resource.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this._onProfileButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/info.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this._onLoginButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/group.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this._onSignUpButton.bind(this)}>
-            <Image style={styles.navBtn} source={require('./../../imgs/add.png')} />
-          </TouchableOpacity>
+          <View style={styles.footerNav}>
+          <TouchableHighlight style={styles.button} onPress={this._onLoginButton.bind(this)} underlayColor="#3D94A0">
+            <Text style={ styles.bottomNav }>resources</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={this._onSignUpButton.bind(this)} underlayColor="#3D94A0">
+            <Text style={ styles.bottomNav }>about chelsie</Text>
+          </TouchableHighlight>
           </View>
       </View>
     )
@@ -140,15 +108,24 @@ var styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#29808C',
   },
+  bottomNav: {
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    color: 'rgba(255,255,255,1)',
+    fontWeight: '400',
+    fontSize:16
+  },
   buttonText: {
-    fontSize: 18,
+    marginTop: 23,
+    alignSelf: 'center',
+    fontWeight: '400',
+    fontSize: 17,
     color: '#FFFFFF',
-    alignSelf: 'center'
   },
   button: {
     flex: 1,
-    marginTop: 5,
-    alignSelf: 'stretch',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 70,
     backgroundColor: '#29808C',
   },
