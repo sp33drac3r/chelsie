@@ -8,7 +8,8 @@ import {
   TextInput,
   Navigator,
   Alert,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 
 import Community from "./Community"
@@ -64,6 +65,7 @@ class Login extends Component {
   render(){
     return(
       <View style={styles.container}>
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage} />
       <Text style={styles.header}>Chelsie</Text>
       <Text style={styles.redirectMessage}>{this.state.message}</Text>
       <TextInput
@@ -93,12 +95,21 @@ class Login extends Component {
 }
 
 var styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    // resizeMode: 'cover',
+    alignItems: 'center',
+    width: null,
+    height: null,
+    justifyContent: 'center'
+
+  },
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    // flexDirection: 'column',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // backgroundColor: '#F5FCFF',
   },
   buttonText: {
     fontSize: 18,
@@ -108,7 +119,7 @@ var styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'column',
-    backgroundColor: '#F0F3BD',
+    // backgroundColor: '#F0F3BD',
     borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 8,
@@ -123,7 +134,7 @@ var styles = StyleSheet.create({
     height: 45,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#ECF0F1',
+    // backgroundColor: '#ECF0F1',
     borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 8,
@@ -137,12 +148,12 @@ var styles = StyleSheet.create({
   header: {
     fontWeight: 'bold',
     fontSize: 40,
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
     alignSelf: 'center'
   },
   redirectMessage: {
     fontSize: 20,
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
     alignSelf: 'center',
     color: 'red'
   },

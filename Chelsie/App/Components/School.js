@@ -92,7 +92,7 @@ class School extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
         <ScrollView style={styles.content}>
         <Text style={styles.header}>{this.props.schoolName}</Text>
         <ListView
@@ -106,7 +106,7 @@ class School extends Component {
             <Text style={styles.addBtnText}>ADD A POST</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </Image>
     );
   }
 
@@ -156,7 +156,7 @@ class School extends Component {
         style={styles.rowContainer}
         onPress={(this._onPostClick.bind(this, post))}
         underlayColor="white">
-        <Text>{post.title}</Text>
+        <Text style={styles.test}>{post.title}</Text>
          <Separator />
       </TouchableOpacity>
       </View>
@@ -165,43 +165,48 @@ class School extends Component {
 }
 
 var styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    alignItems: 'center',
+    width: null,
+    height: null,
+    justifyContent: 'center'
+  },
+  test:{
+    color: '#FFFFFF',
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
+    backgroundColor: 'transparent',
   },
   content: {
     marginTop: 90,
+    backgroundColor: 'transparent',
   },
   listView: {
     paddingTop: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'transparent',
   },
   text: {
-    fontFamily: 'Cochin',
-    color: '#000000',
+    fontFamily: 'Apple SD Gothic Neo',
+    color: '#FFFFFF',
     fontSize: 30,
-    fontWeight: 'bold'
-  },
-  add: {
-    fontFamily: 'Cochin',
-    color: '#000000',
-    fontSize: 14,
-    paddingLeft: 5,
-    fontWeight: 'bold'
-  },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    margin: 20
+    backgroundColor: 'transparent',
+    fontWeight: 'bold',
+    opacity: 0.1,
   },
   rowContainer: {
+    backgroundColor: 'transparent',
     padding: 10,
   },
   header: {
     fontWeight: 'bold',
+    backgroundColor: 'transparent',
+    color: '#FFFFFF',
     fontSize: 20,
-    fontFamily: 'Cochin',
+    paddingBottom: 15,
+    fontFamily: 'Apple SD Gothic Neo',
     alignSelf: 'center'
   },
   footerNav: {
@@ -219,8 +224,8 @@ var styles = StyleSheet.create({
   addBtnText:{
     marginTop: 23,
     alignSelf: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontWeight: '400',
+    fontSize: 17,
     color: '#FFFFFF',
   }
 });

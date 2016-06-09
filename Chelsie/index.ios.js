@@ -115,7 +115,7 @@ class Chelsie extends Component {
     } else {
       return (
         <Navigator
-        initialRoute={ this.state.root_route }
+        initialRoute={ {name: 'SchoolList'} }
         renderScene={ this.renderScene.bind(this) }
         navigationBar={
           <Navigator.NavigationBar
@@ -134,7 +134,7 @@ var NavigationBarRouteMapper = {
         <TouchableOpacity
            underlayColor="transparent"
            onPress={() => { navigator.resetTo({ component: SchoolList, name: "SchoolList" }) } }>
-          <Text style={ styles.titleNav }>SCHOOL</Text>
+          <Text style={ styles.titleNav }>community</Text>
         </TouchableOpacity>
     )}
     if(index > 0) {
@@ -152,7 +152,7 @@ var NavigationBarRouteMapper = {
       <TouchableOpacity
          underlayColor="transparent"
          onPress={() => { navigator.resetTo({ component: Profile, name: "Profile" }) } }>
-        <Text style={ styles.titleNav }>PROFILE</Text>
+        <Text style={ styles.titleNav }>my diary</Text>
       </TouchableOpacity>
   )
   },
@@ -174,44 +174,30 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  word: {
-    fontFamily: 'Cochin',
-    color: '#000000',
-    fontSize: 30,
-    fontWeight: 'bold'
+  backBtn:{
+    marginLeft: 14,
+    marginTop: 14,
   },
   title: {
-    color: '#FFFFFF',
-    fontWeight: '800',
+    fontFamily: 'Apple SD Gothic Neo',
+    color: 'white',
+    fontWeight: '600',
     marginTop:13,
     fontSize:21
   },
   titleNav: {
-    color: '#FFFFFF',
-    fontWeight: '800',
+    color: 'rgba(255,255,255,1)',
+    fontWeight: '400',
     paddingLeft: 10,
     paddingRight: 10,
-    marginTop:17,
+    marginTop:14,
     fontSize:16
   },
   nav: {
-    height: 80,
-    backgroundColor: '#00bfd8'
-  },
-  navBarTitleText: {
-    color: '#aaecca',
-    fontWeight: '900',
-    marginVertical: 9,
-  },
-  navBarLeftButton: {
-    paddingLeft: 10,
-  },
-  navBarRightButton: {
-    paddingRight: 10,
-  },
-  backBtn:{
-    marginLeft: 14,
-    marginTop: 14,
+    height: 70,
+    // opacity: 0.9,
+    backgroundColor: 'transparent'
+    //  '#00bfd8'
   }
 });
 

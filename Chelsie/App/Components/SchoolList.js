@@ -164,6 +164,9 @@ class SchoolList extends Component {
   }
 
   _onButton(school){
+    console.log("THIS IS SCHOOL WE'RE PASSING FROM LIST: ")
+    console.log(school)
+
     AsyncStorage.setItem('last_school', JSON.stringify(school) )
 
     this.props.navigator.push({
@@ -206,7 +209,7 @@ var styles = StyleSheet.create({
     padding: 10,
   },
   word: {
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
     color: '#000000',
     fontSize: 30,
     fontWeight: 'bold'

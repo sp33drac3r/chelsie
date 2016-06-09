@@ -154,7 +154,7 @@ var styles = StyleSheet.create({
   header: {
     fontWeight: 'bold',
     fontSize: 40,
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
     alignSelf: 'center'
   }
 });
