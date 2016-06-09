@@ -75,27 +75,25 @@ class Profile extends Component {
       return this.renderLoadingView();
     } else if (this.state.dataSource === "No posts for this user"){
       return(
-        <View>
+        <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
           <View style={styles.content}>
-          <Text style={styles.header}> {this.state.username} </Text>
-          <Text style={styles.text}> You do not have any posts </Text>
+            <Text style={styles.text}> You do not have any posts </Text>
           </View>
-        </View>
+        </Image>
       )
     } else {
       return(
-        <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
-          <View style={styles.content}>
+          <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+          <ScrollView style={styles.content}>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderPostView.bind(this)}
             style={styles.listView}
           />
-          </View>
+          </ScrollView>
         </Image>
       );
     }
-
   }
 
   renderLoadingView() {
@@ -149,74 +147,89 @@ class Profile extends Component {
 
   renderPostView(post){
     return (
-      <View style={styles.container}>
-        <View style={styles.textContainer}>
-        <TouchableOpacity
-          sytle={styles.rowContainer}
-          onPress={(this._onPostButton.bind(this, post))}
-          underlayColor="white">
-          <Text>{post.title}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={this._onDeleteButton.bind(this, post)}>
-          <Text style={styles.add}>Delete</Text>
-        </TouchableOpacity>
+      <View>
+      <View style={styles.flexContainer}>
+        <View style={styles.postContainer}>
+          <TouchableOpacity
+            sytle={styles.rowContainer}
+            onPress={(this._onPostButton.bind(this, post))}
+            underlayColor="white">
+            <Text style={styles.textResource}>{post.title}</Text>
+          </TouchableOpacity>
         </View>
-        <Separator/>
+
+        <View style={styles.deleteButtonContainer}>
+          <TouchableOpacity style={styles.deleteButton} onPress={this._onDeleteButton.bind(this, post)}>
+          <View>
+          <Image source={require('./../../imgs/delete.png')}/>
+          </View>
+          </TouchableOpacity>
+        </View>
+
+      </View>
+      <Separator/>
       </View>
     );
   }
 }
 
 var styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    alignItems: 'center',
+    width: null,
+    height: null,
+    justifyContent: 'center'
+  },
   container: {
     flex: 1,
+    width: 400,
     flexDirection: 'column',
     backgroundColor: 'transparent',
   },
-  textContainer: {
-    marginTop: 12,
-    marginLeft: 12,
-    flexDirection: 'row'
-  },
-  add: {
-    width: 50,
-    textAlign: 'right',
-    fontSize: 12,
-
-  },
-  content:{
-    flex: 1,
-    marginTop: 90,
-    alignItems: 'stretch',
+  postContainer: {
+    width: 370,
+    backgroundColor: 'transparent',
+    padding: 10,
   },
   rowContainer: {
     padding: 10,
   },
+  delete: {
+    width: 30,
+    color: '#fff',
+    fontSize: 12,
+  },
+  content:{
+    marginTop: 90,
+    backgroundColor: 'transparent',
+  },
   listView: {
     paddingTop: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'transparent',
   },
   text: {
     paddingLeft: 12,
     fontFamily: 'Apple SD Gothic Neo',
-    color: '#000000',
-    fontSize: 20,
-    fontWeight: 'bold'
+    color: '#FFF',
+    fontSize: 16,
   },
-  row: {
-    flex: 1,
-    alignItems: 'stretch',
-    margin: 20
-  },
-  header: {
-    flex: 1,
-    alignItems: 'stretch',
-    alignSelf: 'center',
-    backgroundColor: '#88FFFF',
-    fontWeight: 'bold',
-    fontSize: 24,
+  textResource:{
     fontFamily: 'Apple SD Gothic Neo',
-  }
+    fontSize: 16,
+    color: '#FFFFFF',
+  },
+  deleteButtonContainer:{
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    backgroundColor: 'transparent'
+  },
+  flexContainer: {
+    alignItems: 'stretch',
+    flexDirection: 'row',
+    width: 400,
+  },
+
 });
 
 module.exports = Profile;
