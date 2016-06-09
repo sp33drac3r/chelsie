@@ -147,17 +147,27 @@ class Profile extends Component {
 
   renderPostView(post){
     return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          sytle={styles.rowContainer}
-          onPress={(this._onPostButton.bind(this, post))}
-          underlayColor="white">
-          <Text style={styles.textResource}>{post.title}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={this._onDeleteButton.bind(this, post)}>
-          <Text style={styles.delete}>DELETE</Text>
-        </TouchableOpacity>
-        <Separator/>
+      <View>
+      <View style={styles.flexContainer}>
+        <View style={styles.postContainer}>
+          <TouchableOpacity
+            sytle={styles.rowContainer}
+            onPress={(this._onPostButton.bind(this, post))}
+            underlayColor="white">
+            <Text style={styles.textResource}>{post.title}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.deleteButtonContainer}>
+          <TouchableOpacity style={styles.deleteButton} onPress={this._onDeleteButton.bind(this, post)}>
+          <View>
+          <Image source={require('./../../imgs/delete.png')}/>
+          </View>
+          </TouchableOpacity>
+        </View>
+
+      </View>
+      <Separator/>
       </View>
     );
   }
@@ -177,13 +187,16 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: 'transparent',
   },
-  rowContainer: {
+  postContainer: {
+    width: 370,
     backgroundColor: 'transparent',
     padding: 10,
   },
+  rowContainer: {
+    padding: 10,
+  },
   delete: {
-    width: 50,
-    textAlign: 'right',
+    width: 30,
     color: '#fff',
     fontSize: 12,
   },
@@ -206,6 +219,17 @@ var styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
   },
+  deleteButtonContainer:{
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    backgroundColor: 'transparent'
+  },
+  flexContainer: {
+    alignItems: 'stretch',
+    flexDirection: 'row',
+    width: 400,
+  },
+
 });
 
 module.exports = Profile;
