@@ -15,15 +15,10 @@ import {
 
 import Swiper from 'react-native-swiper'
 import ResourceList from "./ResourceList"
-import ImmediateAssistance from "./ImmediateAssistance"
 import Login from "./Login"
-import Community from "./Community"
 import SignUp from "./SignUp"
-
-// Navbar Routes
-import SchoolList from "./SchoolList"
 import AboutUs from "./AboutUs"
-import Profile from './Profile'
+
 
 class Main extends Component {
   constructor(props){
@@ -39,17 +34,17 @@ class Main extends Component {
     })
   }
 
-  _onLoginButton(){
+  _onResourceListButton(){
     this.props.navigator.push({
-      component: Login,
-      name: "Login"
+      component: ResourceList,
+      name: "ResourceList"
     })
   }
 
-  _onSignUpButton(){
+  _onAboutUsButton(){
     this.props.navigator.push({
-      component: SignUp,
-      name: "SignUp"
+      component: AboutUs,
+      name: "AboutUs"
     })
   }
 
@@ -89,10 +84,10 @@ class Main extends Component {
       </Swiper>
       </ScrollView>
           <View style={styles.footerNav}>
-          <TouchableHighlight style={styles.button} onPress={this._onLoginButton.bind(this)} underlayColor="#3D94A0">
+          <TouchableHighlight style={styles.button} onPress={this._onResourceListButton.bind(this)} underlayColor="#3D94A0">
             <Text style={ styles.bottomNav }>resources</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={this._onSignUpButton.bind(this)} underlayColor="#3D94A0">
+          <TouchableHighlight style={styles.button} onPress={this._onAboutUsButton.bind(this)} underlayColor="#3D94A0">
             <Text style={ styles.bottomNav }>about chelsie</Text>
           </TouchableHighlight>
           </View>
