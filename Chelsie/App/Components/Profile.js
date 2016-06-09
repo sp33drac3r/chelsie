@@ -16,6 +16,7 @@ import {
 
 import Login from './Login'
 import Separator from './Helpers/Separator'
+import Post from './Post'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/users`
 
@@ -132,14 +133,34 @@ class Profile extends Component {
     })
   }
 
+  _onPostButton (post) {
+    console.log(post)
+    this.props.navigator.push({
+      component: Post,
+      name: "Post",
+      passProps: {
+        schoolId: post.school_id,
+        postTitle: post.title,
+        postId: post.id,
+        postBody: post.body
+      },
+    });
+  }
+
   renderPostView(post){
     return (
       <View style={styles.container}>
-        <Text>{post.title}</Text>
-        <Text>{post.body}</Text>
+        <View style={styles.textContainer}>
+        <TouchableOpacity
+          sytle={styles.rowContainer}
+          onPress={(this._onPostButton.bind(this, post))}
+          underlayColor="white">
+          <Text>{post.title}</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={this._onDeleteButton.bind(this, post)}>
           <Text style={styles.add}>Delete</Text>
         </TouchableOpacity>
+        </View>
         <Separator/>
       </View>
     );
@@ -151,11 +172,25 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'transparent',
+  },
+  textContainer: {
+    marginTop: 12,
+    marginLeft: 12,
     flexDirection: 'row'
   },
+  add: {
+    width: 50,
+    textAlign: 'right',
+    fontSize: 12,
+
+  },
   content:{
+    flex: 1,
     marginTop: 90,
     alignItems: 'stretch',
+  },
+  rowContainer: {
+    padding: 10,
   },
   listView: {
     paddingTop: 1,
