@@ -147,7 +147,7 @@ var styles = StyleSheet.create({
     paddingTop: 10,
   },
   text: {
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
     color: '#000000',
     fontSize: 18,
     paddingTop: 10,
@@ -183,7 +183,7 @@ var styles = StyleSheet.create({
   header: {
     fontWeight: 'bold',
     fontSize: 20,
-    fontFamily: 'Cochin',
+    fontFamily: 'Apple SD Gothic Neo',
   }
 });
 
