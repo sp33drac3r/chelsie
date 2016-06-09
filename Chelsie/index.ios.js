@@ -83,7 +83,7 @@ class Chelsie extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      root_route: {name: "SchoolList"},
+      root_route: {name: "Main"},
       loaded: false
     }
   }
@@ -115,7 +115,7 @@ class Chelsie extends Component {
     } else {
       return (
         <Navigator
-        initialRoute={ {name: 'SchoolList'} }
+        initialRoute={ this.state.root_route }
         renderScene={ this.renderScene.bind(this) }
         navigationBar={
           <Navigator.NavigationBar
