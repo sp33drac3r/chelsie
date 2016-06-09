@@ -83,18 +83,17 @@ class Profile extends Component {
       )
     } else {
       return(
-        <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
-          <View style={styles.content}>
+          <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+          <ScrollView style={styles.content}>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderPostView.bind(this)}
             style={styles.listView}
           />
-          </View>
+          </ScrollView>
         </Image>
       );
     }
-
   }
 
   renderLoadingView() {
@@ -149,17 +148,15 @@ class Profile extends Component {
   renderPostView(post){
     return (
       <View style={styles.container}>
-        <View style={styles.textContainer}>
         <TouchableOpacity
           sytle={styles.rowContainer}
           onPress={(this._onPostButton.bind(this, post))}
           underlayColor="white">
-          <Text>{post.title}</Text>
+          <Text style={styles.textResource}>{post.title}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={this._onDeleteButton.bind(this, post)}>
-          <Text style={styles.add}>Delete</Text>
+          <Text style={styles.delete}>DELETE</Text>
         </TouchableOpacity>
-        </View>
         <Separator/>
       </View>
     );
@@ -176,30 +173,27 @@ var styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    width: 400,
     flexDirection: 'column',
     backgroundColor: 'transparent',
   },
-  textContainer: {
-    marginTop: 12,
-    marginLeft: 12,
-    flexDirection: 'row'
+  rowContainer: {
+    backgroundColor: 'transparent',
+    padding: 10,
   },
-  add: {
+  delete: {
     width: 50,
     textAlign: 'right',
+    color: '#fff',
     fontSize: 12,
-
   },
   content:{
-    flex: 1,
     marginTop: 90,
-  },
-  rowContainer: {
-    padding: 10,
+    backgroundColor: 'transparent',
   },
   listView: {
     paddingTop: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'transparent',
   },
   text: {
     paddingLeft: 12,
@@ -207,20 +201,11 @@ var styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 16,
   },
-  row: {
-    flex: 1,
-    alignItems: 'stretch',
-    margin: 20
-  },
-  header: {
-    flex: 1,
-    alignItems: 'stretch',
-    alignSelf: 'center',
-    backgroundColor: '#88FFFF',
-    fontWeight: 'bold',
-    fontSize: 24,
+  textResource:{
     fontFamily: 'Apple SD Gothic Neo',
-  }
+    fontSize: 16,
+    color: '#FFFFFF',
+  },
 });
 
 module.exports = Profile;
