@@ -107,8 +107,10 @@ class Profile extends Component {
     );
   }
 
-  _onDeleteButton(){
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/1/posts/82`, {
+  _onDeleteButton(post){
+    console.log(this)
+    console.log(post)
+    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${post.school_id}/posts/${post.id}`, {
       method: 'delete',
       headers: {
         'Access-Control-Allow-Methods': 'DELETE',
@@ -116,7 +118,8 @@ class Profile extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: 82
+        school_id: post.school_id,
+        id: post.id  
       })
     })
     .then((responseText) => responseText.json())
@@ -133,7 +136,7 @@ class Profile extends Component {
       <View style={styles.container}>
         <Text>{post.title}</Text>
         <Text>{post.body}</Text>
-        <TouchableOpacity style={styles.button} onPress={this._onDeleteButton.bind(this)}>
+        <TouchableOpacity style={styles.button} onPress={this._onDeleteButton.bind(this, post)}>
           <Text style={styles.add}>Delete Post</Text>
         </TouchableOpacity>
       </View>
