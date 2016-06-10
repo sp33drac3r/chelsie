@@ -50,7 +50,7 @@ class Main extends Component {
 
   renderLoadingView() {
     return (
-      <View>
+      <View style={styles.activityLoading}>
         <ActivityIndicatorIOS
           animating={!this.state.loaded}
           color="#111"
@@ -108,6 +108,11 @@ var styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
+  },
+  activityLoading:{
+    flex: 1,
+    marginTop: 200,
+    flexDirection: 'column',
   },
   slide: {
     paddingLeft: 32,

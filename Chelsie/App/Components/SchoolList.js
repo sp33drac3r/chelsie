@@ -11,6 +11,7 @@ import {
   ActivityIndicatorIOS,
   ScrollView,
   Navigator,
+  StatusBar,
   AsyncStorage,
   Image
 } from 'react-native';
@@ -120,7 +121,10 @@ class SchoolList extends Component {
 
     return (
       <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
-      {console.log("OMG!")}
+        <StatusBar
+        backgroundColor="blue"
+        barStyle="light-content"
+        />
         <View style={styles.container}>
         <TextInput
         style={styles.searchBar}
@@ -140,7 +144,7 @@ class SchoolList extends Component {
 
   renderLoadingView() {
     return (
-      <View style={styles.container}>
+      <View style={styles.activityLoading}>
         <ActivityIndicatorIOS
           animating={!this.state.loaded}
           color="#111"
@@ -184,6 +188,11 @@ var styles = StyleSheet.create({
   container: {
     top: 10,
     flex: 0.05,
+  },
+  activityLoading:{
+    flex: 1,
+    marginTop: 200,
+    flexDirection: 'column',
   },
   rowContainer: {
     width: 410,

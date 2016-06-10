@@ -10,6 +10,7 @@ import {
   ActivityIndicatorIOS,
   ScrollView,
   Navigator,
+  StatusBar,
   Image,
   AsyncStorage
 } from 'react-native';
@@ -100,6 +101,10 @@ class Profile extends Component {
     } else {
       return(
           <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+          <StatusBar
+          backgroundColor="blue"
+          barStyle="light-content"
+          />
           <ScrollView style={styles.content}>
           <ListView
             dataSource={this.state.dataSource}
@@ -119,7 +124,7 @@ class Profile extends Component {
 
   renderLoadingView() {
     return (
-      <View style={styles.container}>
+      <View style={styles.activityLoading}>
         <ActivityIndicatorIOS
           animating={!this.state.loaded}
           color="#111"
@@ -238,6 +243,11 @@ var styles = StyleSheet.create({
     fontFamily: 'Apple SD Gothic Neo',
     fontSize: 16,
     color: '#FFFFFF',
+  },
+  activityLoading:{
+    flex: 1,
+    marginTop: 200,
+    flexDirection: 'column',
   },
   deleteButtonContainer:{
     alignItems: 'flex-end',
