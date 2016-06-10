@@ -93,6 +93,7 @@ class School extends Component {
 
     return (
       <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+      {console.log('GMO is actually fine')}
         <ScrollView style={styles.content}>
         <Text style={styles.header}>{this.props.schoolName}</Text>
         <ListView

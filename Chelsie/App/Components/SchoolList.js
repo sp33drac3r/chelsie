@@ -52,12 +52,6 @@ class SchoolList extends Component {
     }).done();
   }
 
-  componentDidUpdate() {
-    if (this.state.searchText === '') {
-      this.fetchData();
-    }
-  }
-
   fetchData() {
     fetch(url)
       .then((response) => response.json())
@@ -126,6 +120,7 @@ class SchoolList extends Component {
 
     return (
       <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+      {console.log("OMG!")}
         <View style={styles.container}>
         <TextInput
         style={styles.searchBar}
