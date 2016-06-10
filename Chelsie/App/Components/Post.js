@@ -11,6 +11,8 @@ import {
   ScrollView,
   Navigator,
   Switch,
+  StatusBar,
+  Image,
   AsyncStorage
 } from 'react-native';
 
@@ -186,42 +188,48 @@ class Post extends Component {
 
   render(){
     return(
-      <View style={styles.container}>
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+        <StatusBar
+        backgroundColor="blue"
+        barStyle="light-content"
+        />
         <View style={styles.content}>
           <Text style={styles.header}>{this.props.postTitle}</Text>
           <Text style={styles.text}>{this.props.postBody}</Text>
-          <Text>{flag}</Text>
-        <View style={styles.switchContainer}>
-          <Switch
-          onValueChange={(value) => {
-              this.setState({falseSwitchIsOn: value});
-              this._onFlagPostButton(value)
+          <View style={styles.flexContainer}>
+            <View style={styles.flagText}>
+              <Text style={styles.text}>Flag this post</Text>
+            </View>
+          <View style={styles.switchContainer}>
+            <Switch
+            onValueChange={(value) => {
+                this.setState({falseSwitchIsOn: value});
+                this._onFlagPostButton(value)
+              }
             }
-          }
-          onTintColor="red"
-          style={{marginBottom: 10, alignItems: 'flex-end'}}
-          thumbTintColor="#ffffff"
-          tintColor="red"
-          value={this.state.falseSwitchIsOn} />
+            onTintColor="gray"
+            style={{marginBottom: 10, alignItems: 'flex-end'}}
+            thumbTintColor="#ffffff"
+            tintColor="gray"
+            value={this.state.falseSwitchIsOn} />
+          </View>
         </View>
-
-          <Text style={styles.header}> Comments </Text>
+        <Text style={styles.header}> Comments </Text>
+        <ScrollView style={styles.commentContainer}>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderCommentView.bind(this)}
+            enableEmptySections={true}
+            style={styles.listView}
+          />
+        </ScrollView>
+        <View style={styles.footerNav}>
+          <TouchableOpacity style={styles.buttonNav} onPress={this._onAddCommentButton.bind(this)}>
+            <Text style={styles.addBtnText}>RESPOND</Text>
+          </TouchableOpacity>
         </View>
-      <ScrollView style={styles.commentContainer}>
-        <View>{commentBox}</View>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderCommentView.bind(this)}
-          enableEmptySections={true}
-          style={styles.listView}
-        />
-      </ScrollView>
-      <View style={styles.footerNav}>
-        <TouchableOpacity style={styles.buttonNav} onPress={this._onAddCommentButton.bind(this)}>
-          <Text style={styles.addBtnText}>ADD A COMMENT</Text>
-        </TouchableOpacity>
-      </View>
-      </View>
+        </View>
+      </Image>
     );
   }
 
@@ -243,12 +251,8 @@ class Post extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <View style={styles.rowContainer}>
         <Text style={styles.text}> {comment.body} </Text>
-        <TouchableOpacity style={styles.button} onPress={this._onFlagCommentButton.bind(this, comment)}>
-          <Text>Flag Comment</Text>
-        </TouchableOpacity>
-        <Text style={styles.text}> {deleteButton} </Text>
         <Separator />
       </View>
     );
@@ -270,45 +274,62 @@ class Post extends Component {
 }
 
 var styles = StyleSheet.create({
-  container: {
+  backgroundImage: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'center',
+    width: null,
+    height: null,
+    justifyContent: 'center'
+  },
+  content: {
+    flex: 1,
+    alignSelf: 'stretch',
+    marginTop: 90,
+    backgroundColor: 'transparent',
+  },
+  flagText:{
+    alignItems: 'flex-end',
+    width: 360,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
   },
   switchContainer: {
+    width: 50,
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
     alignSelf: 'stretch',
-    alignItems: 'flex-end'
-  },
-  content:{
-    marginTop: 90,
+    alignItems: 'flex-end',
   },
   commentContainer:{
     marginTop: 10,
   },
   listView: {
     paddingTop: 1,
-    backgroundColor: '#FFFFFF'
-  },
-  row: {
-    flex: 1,
-    alignItems: 'stretch',
-    margin: 20
+    backgroundColor: 'transparent'
   },
   header: {
     fontWeight: 'bold',
-    paddingLeft: 10,
-    paddingRight: 10,
-    fontSize: 21,
+    backgroundColor: 'transparent',
+    color: '#FFFFFF',
+    fontSize: 20,
+    paddingBottom: 15,
     fontFamily: 'Apple SD Gothic Neo',
     alignSelf: 'center'
   },
   text: {
     fontFamily: 'Apple SD Gothic Neo',
-    color: '#000000',
+    color: '#FFFFFF',
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 17,
     fontWeight: 'normal'
+  },
+  flexContainer: {
+    marginTop: 20,
+    alignItems: 'stretch',
+    flexDirection: 'row',
+    width: 400,
+    marginBottom: 20,
   },
   button: {
     paddingRight: 10,
@@ -335,7 +356,12 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     color: '#FFFFFF',
-  }
+  },
+  rowContainer: {
+    padding: 3,
+    paddingLeft: 12,
+    paddingRight: 12,
+  },
 });
 
 module.exports = Post;
