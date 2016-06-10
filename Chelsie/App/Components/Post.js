@@ -185,6 +185,7 @@ class Post extends Component {
   }
 
   render(){
+    console.log(this.state.user_id)
     return(
       <View style={styles.container}>
         <View style={styles.content}>
