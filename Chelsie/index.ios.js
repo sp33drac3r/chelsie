@@ -170,8 +170,8 @@ var NavigationBarRouteMapper = {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 200,
     flex: 1,
+    marginTop: 200,
     flexDirection: 'column',
   },
   backBtn:{
