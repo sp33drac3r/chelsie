@@ -75,6 +75,9 @@ class Main extends Component {
         <Image source={require('./../../imgs/gradient3.jpg')} style={styles.slide}>
           <Text style={styles.text}>I think my anger in this case is related to the fact that, like many women, I was raped by an acquaintance in college after a night of drinking.</Text>
         </Image>
+        <Image source={require('./../../imgs/gradient1.jpg')} style={styles.slide}>
+          <Text style={styles.text}>Sometimes I think, if I hadn’t gone, then this never would’ve happened. But then I realized, it would have happened, just to somebody else.</Text>
+        </Image>
         <Image source={require('./../../imgs/gradient2.jpg')} style={styles.slide}>
           <Text style={styles.text}>If you’re a guy, you can go out and drink all you want and the worst you end up with is a hangover...If you’re a woman, you have to assess.</Text>
           </Image>
