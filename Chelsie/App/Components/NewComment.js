@@ -5,11 +5,14 @@ import {
   Text,
   StyleSheet,
   TouchableHighlight,
+  TouchableOpacity,
   Navigator,
   TextInput,
   ListView,
   Alert,
   ScrollView,
+  StatusBar,
+  Image,
   AsyncStorage
 } from 'react-native';
 
@@ -93,8 +96,14 @@ class NewComment extends Component {
 
   render(){
     return (
-      <View style={styles.container}>
-      <ScrollView style={styles.content}>
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+      <StatusBar
+        backgroundColor="blue"
+        barStyle="light-content"
+      />
+      <View style={styles.content}>
+      <Text style={styles.header}>Current Comments:</Text>
+      <ScrollView>
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderCommentView.bind(this)}
@@ -102,18 +111,22 @@ class NewComment extends Component {
         style={styles.listView}
       />
       </ScrollView>
+      <View style={styles.commentContainer}>
       <Text style={styles.header}>Add Your Comment:</Text>
       <TextInput
+        multiline={true}
         style={styles.textArea}
         onChangeText={(text) => this.setState({commentText: text})}
         value={this.state.commentText}
       />
-      <TouchableHighlight onPress={this._postCommentButton.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          SUBMIT
-        </Text>
-      </TouchableHighlight>
+      <View style={styles.footerNav}>
+        <TouchableOpacity style={styles.buttonNav} onPress={this._postCommentButton.bind(this)}>
+          <Text style={styles.addBtnText}>SUBMIT</Text>
+        </TouchableOpacity>
       </View>
+      </View>
+      </View>
+      </Image>
 
     )
   }
@@ -129,27 +142,28 @@ class NewComment extends Component {
 }
 
 var styles = StyleSheet.create({
-  container: {
+  backgroundImage: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'center',
+    width: null,
+    height: null,
+    justifyContent: 'center'
   },
   content: {
+    flex: 1,
+    alignSelf: 'stretch',
     marginTop: 90,
+    backgroundColor: 'transparent',
   },
   rowContainer: {
-    padding: 10,
-  },
-  commentContainer:{
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
-    paddingTop: 10,
+    padding: 3,
+    paddingLeft: 12,
+    paddingRight: 12,
   },
   text: {
     fontFamily: 'Apple SD Gothic Neo',
-    color: '#000000',
-    fontSize: 18,
+    color: '#FFFFFF',
+    fontSize: 16,
     paddingTop: 10,
   },
   buttonText: {
@@ -158,32 +172,51 @@ var styles = StyleSheet.create({
     alignSelf: 'center'
   },
   textArea: {
-    height: 100,
-    borderColor: 'gray',
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    height: 150,
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 16,
+    borderColor: '#FFFFFF',
+    color: '#FFFFFF',
     borderWidth: 1
   },
   listView: {
     paddingTop: 1,
-    backgroundColor: '#F5FCFF',
-  },
-  button: {
-    height: 45,
-    flexDirection: 'column',
-    backgroundColor: '#E74C3C',
-    borderColor: 'grey',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
+    backgroundColor: 'transparent',
   },
   header: {
-    fontWeight: 'bold',
-    fontSize: 20,
+    paddingLeft: 10,
     fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    paddingBottom: 7,
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  buttonNav: {
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'stretch',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
+  addBtnText:{
+    marginTop: 23,
+    alignSelf: 'center',
+    fontWeight: '400',
+    fontSize: 17,
+    color: '#FFFFFF',
+  },
+  commentContainer:{
+    marginTop: 16,
   }
 });
 
