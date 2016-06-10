@@ -85,8 +85,15 @@ class Profile extends Component {
     } else if (this.state.dataSource === "No posts for this user"){
       return(
         <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+          <ScrollView>
           <View style={styles.content}>
             <Text style={styles.text}> You do not have any posts </Text>
+          </View>
+          </ScrollView>
+          <View style={styles.footerNav}>
+            <TouchableOpacity style={styles.buttonNav} onPress={this._onLogoutButton.bind(this)}>
+              <Text style={styles.addBtnText}>LOG OUT</Text>
+            </TouchableOpacity>
           </View>
         </Image>
       )
@@ -100,11 +107,11 @@ class Profile extends Component {
             style={styles.listView}
           />
           </ScrollView>
-          <TouchableOpacity style={styles.deleteButton} onPress={this._onLogoutButton.bind(this)}>
-            <View>
-              <Text style={styles.textResource}>Log out</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={styles.footerNav}>
+            <TouchableOpacity style={styles.buttonNav} onPress={this._onLogoutButton.bind(this)}>
+              <Text style={styles.addBtnText}>LOG OUT</Text>
+            </TouchableOpacity>
+          </View>
         </Image>
       );
     }
@@ -173,11 +180,10 @@ class Profile extends Component {
 
         <View style={styles.deleteButtonContainer}>
           <TouchableOpacity style={styles.deleteButton} onPress={this._onDeleteButton.bind(this, post)}>
-          <View>
-          <Image source={require('./../../imgs/delete.png')}/>
-          </View>
+            <Image source={require('./../../imgs/delete.png')}/>
           </TouchableOpacity>
         </View>
+
       </View>
       <Separator/>
       </View>
@@ -242,6 +248,25 @@ var styles = StyleSheet.create({
     alignItems: 'stretch',
     flexDirection: 'row',
     width: 400,
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  buttonNav: {
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'stretch',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
+  addBtnText:{
+    marginTop: 23,
+    alignSelf: 'center',
+    fontWeight: '400',
+    fontSize: 17,
+    color: '#FFFFFF',
   },
 });
 

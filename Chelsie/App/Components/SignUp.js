@@ -84,9 +84,9 @@ class SignUp extends Component {
           onChangeText={(password) => this.setState({password: password})}
           value={this.state.password}
         />
-        <TouchableHighlight onPress={this.signUp.bind(this)} style={styles.button}>
+        <TouchableHighlight onPress={this.signUp.bind(this)} style={styles.signUpButton}>
           <Text style={styles.buttonText}>
-            Sign Up
+            SIGN UP
           </Text>
         </TouchableHighlight>
         </View>
@@ -111,6 +111,20 @@ var styles = StyleSheet.create({
     height: 45,
     flexDirection: 'column',
     backgroundColor: 'transparent',
+    borderColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 5,
+    marginRight: 5,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  signUpButton: {
+    height: 45,
+    flexDirection: 'column',
+    backgroundColor: '#29808C',
     borderColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 8,
