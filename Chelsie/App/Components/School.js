@@ -113,7 +113,7 @@ class School extends Component {
 
   renderLoadingView() {
     return (
-      <View style={styles.container}>
+      <View style={styles.activityLoading}>
         <ActivityIndicatorIOS
           animating={!this.state.loaded}
           color="#111"
@@ -175,6 +175,11 @@ var styles = StyleSheet.create({
   },
   test:{
     color: '#FFFFFF',
+  },
+  activityLoading:{
+    flex: 1,
+    marginTop: 200,
+    flexDirection: 'column',
   },
   container: {
     flex: 1,

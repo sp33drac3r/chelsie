@@ -290,12 +290,14 @@ var styles = StyleSheet.create({
   },
   flagText:{
     alignItems: 'flex-end',
-    width: 360,
+    width: 350,
+    paddingRight: 5,
     backgroundColor: 'transparent',
     justifyContent: 'center',
   },
   switchContainer: {
     width: 50,
+    paddingRight: 8,
     justifyContent: 'center',
     backgroundColor: 'transparent',
     alignSelf: 'stretch',
@@ -313,6 +315,8 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
     color: '#FFFFFF',
     fontSize: 20,
+    paddingRight: 10,
+    paddingLeft: 10,
     paddingBottom: 15,
     fontFamily: 'Apple SD Gothic Neo',
     alignSelf: 'center'
@@ -320,8 +324,8 @@ var styles = StyleSheet.create({
   text: {
     fontFamily: 'Apple SD Gothic Neo',
     color: '#FFFFFF',
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 12,
+    paddingRight: 12,
     fontSize: 17,
     fontWeight: 'normal'
   },
