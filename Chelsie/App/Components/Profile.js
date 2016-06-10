@@ -70,6 +70,15 @@ class Profile extends Component {
       .done();
   }
 
+    _onLogoutButton () {
+      AsyncStorage.removeItem('user_id')
+        this.props.navigator.push({
+          component: Login,
+          name: 'Login'
+        })
+          console.log(this.state.user_id)
+  }
+
   render(){
     if (!this.state.loaded) {
       return this.renderLoadingView();
@@ -91,6 +100,11 @@ class Profile extends Component {
             style={styles.listView}
           />
           </ScrollView>
+          <TouchableOpacity style={styles.deleteButton} onPress={this._onLogoutButton.bind(this)}>
+            <View>
+              <Text style={styles.textResource}>Log out</Text>
+            </View>
+          </TouchableOpacity>
         </Image>
       );
     }
@@ -108,8 +122,6 @@ class Profile extends Component {
   }
 
   _onDeleteButton(post){
-    console.log(this)
-    console.log(post)
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${post.school_id}/posts/${post.id}`, {
       method: 'delete',
       headers: {
@@ -145,6 +157,7 @@ class Profile extends Component {
     });
   }
 
+
   renderPostView(post){
     return (
       <View>
@@ -165,10 +178,11 @@ class Profile extends Component {
           </View>
           </TouchableOpacity>
         </View>
-
       </View>
       <Separator/>
       </View>
+
+
     );
   }
 }
@@ -229,7 +243,6 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     width: 400,
   },
-
 });
 
 module.exports = Profile;

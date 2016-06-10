@@ -12,7 +12,7 @@ import {
   Image
 } from 'react-native';
 
-import Community from "./Community"
+import Main from "./Main"
 
 class Login extends Component {
   constructor(props){
@@ -52,8 +52,8 @@ class Login extends Component {
         var stringId = String(responseData.id)
         AsyncStorage.setItem('user_id', stringId)
         this.props.navigator.push({
-          component: Community,
-          name: 'Community'
+          component: Main,
+          name: 'Main'
         })
       }
     })
