@@ -10,6 +10,7 @@ import {
   ActivityIndicatorIOS,
   ScrollView,
   Navigator,
+  Switch,
   AsyncStorage
 } from 'react-native';
 
@@ -20,6 +21,7 @@ import NewComment from './NewComment'
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 var deleteButton = null;
 var commentBox;
+var flag = 'Flag'
 
 class Post extends Component {
   constructor(props) {
@@ -33,54 +35,132 @@ class Post extends Component {
       postTitle: this.props.postTitle,
       postId: this.props.postId,
       postBody: this.props.postBody,
+      postFlagger: false,
       commentId: '',
       commentBody: '',
       user_id: '',
+      commentsFlagged: [],
+      trueSwitchIsOn: true,
+      falseSwitchIsOn: false,
+      flagId: '',
     }
   }
 
   componentDidMount() {
-    this.fetchData();
     AsyncStorage.getItem('user_id').then((value) => {
-      this.setState({'user_id': value});
+      this.setState({user_id: value});
+      console.log("I am the value" + value);
+      this.fetchData(value)
     }).done();
   }
 
-  fetchData() {
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
+
+  fetchData(value) {
+    if (value === '') {
+      console.log("I'm in the null case")
+      console.log(this.state.user_id)
+      fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
+        .then((response) => response.json())
+        .then((responseData) => {
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
+            loaded: true
+          });
+        })
+        .done();
+    } else {
+      console.log("I'm in the else case")
+      fetch(`https://afternoon-badlands-40242.herokuapp.com/flags/${this.state.user_id}`)
       .then((response) => response.json())
       .then((responseData) => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
-          loaded: true
-        });
+        console.log(responseData)
+        //Mark post as flagged as needed and store all comment IDs flagged by user in commentsFlagged array in props.
+        for (var i = 0; i < responseData.length; i++) {
+          if(responseData[i].flaggable_type === 'Post' && responseData[i].flaggable_id === this.state.postId){
+            this.setState.postFlagger = true;
+            console.log("Post Flagger state")
+            console.log(this.state.postFlagger)
+
+            this.state.falseSwitchIsOn = true;
+            console.log("False switch state")
+            console.log(this.state.falseSwitchIsOn)
+
+            this.setState({ flagId: responseData[i].id })
+          } else if(responseData[i].flaggable_type === 'Comment') {
+            this.state.commentsFlagged.push(responseData[i].flaggable_id)
+            console.log(this.state.commentsFlagged)
+          }
+        }
       })
-      .done();
+      .done(fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
+        .then((response) => response.json())
+        .then((responseData) => {
+
+          // Empty comments that aren't flagged by user from the commentsFlagged prop
+          for (var c = 0; c < responseData.comments.length; c++) {
+            for (var i = 0; i < this.state.commentsFlagged.length; i++) {
+              if (responseData.comments[c].id !== this.state.commentsFlagged[i]) {
+                this.state.commentsFlagged.splice(i, 1)
+              }
+            }
+          }
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
+            loaded: true
+          });
+        })
+        .done()
+      );
+    }
+
+
   }
 
-  _onFlagPostButton(){
-    console.log(this.state.user_id)
-    console.log(this.state.postId)
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: this.state.user_id,
-        flaggable: this.state.postId,
-        flaggable_type: "post"
-      })
-    })
-    .then((responseText) => responseText.json())
-    .then((responseData) => {
-      console.log(responseData);
-    })
-    .catch((error) => {
-      console.warn(error);
-    })
-  }
+  _onFlagPostButton(value) {
+   if ( value === true ) {
+     fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
+       method: 'POST',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         user_id: this.state.user_id,
+         flaggable: this.state.postId,
+         flaggable_type: "post"
+       })
+     })
+     .then((responseText) => responseText.json())
+     .then((responseData) => {
+       this.setState({flagId: responseData});
+       console.log(responseData)
+     })
+     .catch((error) => {
+       console.warn(error);
+     })
+   } else {
+     fetch(`https://afternoon-badlands-40242.herokuapp.com/flags/${this.state.flagId}`, {
+       method: 'DELETE',
+       headers: {
+         'Access-Control-Allow-Methods': 'DELETE',
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         user_id: this.state.user_id,
+         flaggable: this.state.postId,
+         flaggable_type: "post"
+       })
+     })
+     .then((responseText) => responseText.json())
+     .then((responseData) => {
+       console.log(responseData);
+     })
+     .catch((error) => {
+       console.warn(error);
+     })
+   }
+ }
 
   _onFlagCommentButton(comment){
     fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
@@ -110,9 +190,21 @@ class Post extends Component {
         <View style={styles.content}>
           <Text style={styles.header}>{this.props.postTitle}</Text>
           <Text style={styles.text}>{this.props.postBody}</Text>
-          <TouchableOpacity style={styles.button} onPress={this._onFlagPostButton.bind(this)}>
-            <Text>Flag This Post</Text>
-          </TouchableOpacity>
+          <Text>{flag}</Text>
+        <View style={styles.switchContainer}>
+          <Switch
+          onValueChange={(value) => {
+              this.setState({falseSwitchIsOn: value});
+              this._onFlagPostButton(value)
+            }
+          }
+          onTintColor="red"
+          style={{marginBottom: 10, alignItems: 'flex-end'}}
+          thumbTintColor="#ffffff"
+          tintColor="red"
+          value={this.state.falseSwitchIsOn} />
+        </View>
+
           <Text style={styles.header}> Comments </Text>
         </View>
       <ScrollView style={styles.commentContainer}>
@@ -182,6 +274,10 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#F5FCFF',
+  },
+  switchContainer: {
+    alignSelf: 'stretch',
+    alignItems: 'flex-end'
   },
   content:{
     marginTop: 90,
