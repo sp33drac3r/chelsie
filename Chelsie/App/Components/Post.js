@@ -48,14 +48,17 @@ class Post extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem('user_id').then((value) => {
-      this.setState({'user_id': value});
-    }).done(this.fetchData());
+      this.setState({user_id: value});
+      console.log("I am the value" + value);
+      this.fetchData(value)
+    }).done();
   }
 
-  fetchData() {
 
-    if (this.state.user_id === '') {
+  fetchData(value) {
+    if (value === '') {
       console.log("I'm in the null case")
+      console.log(this.state.user_id)
       fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
         .then((response) => response.json())
         .then((responseData) => {
@@ -71,7 +74,6 @@ class Post extends Component {
       .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)
-
         //Mark post as flagged as needed and store all comment IDs flagged by user in commentsFlagged array in props.
         for (var i = 0; i < responseData.length; i++) {
           if(responseData[i].flaggable_type === 'Post' && responseData[i].flaggable_id === this.state.postId){
@@ -83,7 +85,7 @@ class Post extends Component {
             console.log("False switch state")
             console.log(this.state.falseSwitchIsOn)
 
-            this.setState({ flagId: responseDate[i].id })
+            this.setState({ flagId: responseData[i].id })
           } else if(responseData[i].flaggable_type === 'Comment') {
             this.state.commentsFlagged.push(responseData[i].flaggable_id)
             console.log(this.state.commentsFlagged)
