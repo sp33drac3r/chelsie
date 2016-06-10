@@ -187,6 +187,7 @@ class Post extends Component {
   }
 
   render(){
+    console.log(this.state.user_id)
     return(
       <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
         <StatusBar
