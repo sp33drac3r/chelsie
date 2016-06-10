@@ -6,6 +6,7 @@ import {
   TextInput,
   ListView,
   TouchableHighlight,
+  TouchableOpacity,
   Navigator,
   Alert,
   AsyncStorage,
@@ -79,9 +80,9 @@ class Login extends Component {
             onChangeText={(password) => this.setState({password: password})}
             value={this.state.password}
           />
-          <TouchableHighlight onPress={this.login.bind(this)} style={styles.button}>
-            <Text style={styles.text}>Log In</Text>
-          </TouchableHighlight>
+          <TouchableOpacity onPress={this.login.bind(this)} style={styles.loginButton}>
+            <Text style={styles.text}>LOGIN</Text>
+          </TouchableOpacity>
           <TouchableHighlight onPress={() => {this.props.navigator.resetTo({name: 'SignUp'})}}>
             <Text style={styles.text}>Create an account</Text>
           </TouchableHighlight>
@@ -139,6 +140,20 @@ var styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'normal',
     alignSelf: 'center',
+  },
+  loginButton: {
+    height: 45,
+    flexDirection: 'column',
+    backgroundColor: '#29808C',
+    borderColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 5,
+    marginRight: 5,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
   },
 });
 
