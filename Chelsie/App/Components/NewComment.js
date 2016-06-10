@@ -11,6 +11,7 @@ import {
   ListView,
   Alert,
   ScrollView,
+  StatusBar,
   Image,
   AsyncStorage
 } from 'react-native';
@@ -96,6 +97,10 @@ class NewComment extends Component {
   render(){
     return (
       <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+      <StatusBar
+        backgroundColor="blue"
+        barStyle="light-content"
+      />
       <View style={styles.content}>
       <Text style={styles.header}>Current Comments:</Text>
       <ScrollView>
@@ -211,7 +216,7 @@ var styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   commentContainer:{
-    marginTop: 15,
+    marginTop: 16,
   }
 });
 

@@ -5,10 +5,14 @@ import {
   Text,
   StyleSheet,
   TouchableHighlight,
+  TouchableOpacity,
   Navigator,
   TextInput,
   Alert,
-  AsyncStorage
+  Image,
+  AsyncStorage,
+  StatusBar,
+  ScrollView,
 } from 'react-native';
 
 import School from "./School"
@@ -75,7 +79,12 @@ class NewPost extends Component {
 
   render(){
     return (
-      <View style={styles.container}>
+      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+      <StatusBar
+      backgroundColor="blue"
+      barStyle="light-content"
+      />
+      <View style={styles.content}>
       <Text style={styles.header}>Title</Text>
       <TextInput
         style={styles.smallTextArea}
@@ -83,17 +92,21 @@ class NewPost extends Component {
         value={this.state.postTitle}
       />
       <Text style={styles.header}>Post</Text>
+      <ScrollView>
       <TextInput
         style={styles.textArea}
+        multiline={true}
         onChangeText={(text) => this.setState({postText: text})}
         value={this.state.postText}
       />
-      <TouchableHighlight onPress={this._onPostButton.bind(this)} style={styles.button}>
-      <Text style={styles.buttonText}>
-      submit
-      </Text>
-      </TouchableHighlight>
+      </ScrollView>
+      <View style={styles.footerNav}>
+        <TouchableOpacity style={styles.buttonNav} onPress={this._onPostButton.bind(this)}>
+          <Text style={styles.addBtnText}>SUBMIT</Text>
+        </TouchableOpacity>
       </View>
+      </View>
+      </Image>
     );
   }
 
@@ -101,61 +114,71 @@ class NewPost extends Component {
 
 
 var styles = StyleSheet.create({
-  container: {
+  backgroundImage: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    width: null,
+    height: null,
+    justifyContent: 'center'
   },
-  buttonText: {
-    fontSize: 18,
-    color: '#111',
-    alignSelf: 'center'
+  content: {
+    flex: 1,
+    alignSelf: 'stretch',
+    marginTop: 90,
+    backgroundColor: 'transparent',
   },
   smallTextArea: {
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
     height: 40,
-    borderColor: 'gray',
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 16,
+    borderColor: '#FFFFFF',
+    color: '#FFFFFF',
     borderWidth: 1
   },
   textArea: {
-    height: 100,
-    borderColor: 'gray',
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    height: 450,
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 16,
+    borderColor: '#FFFFFF',
+    color: '#FFFFFF',
     borderWidth: 1
   },
-  button: {
-    height: 45,
-    flexDirection: 'column',
-    backgroundColor: '#E74C3C',
-    borderColor: 'grey',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
-  asapButton: {
-    height: 45,
-    flexDirection: 'column',
-    backgroundColor: '#E74C3C',
-    borderColor: 'grey',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
   header: {
-    fontWeight: 'bold',
-    fontSize: 40,
+    paddingLeft: 10,
     fontFamily: 'Apple SD Gothic Neo',
-    alignSelf: 'center'
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    paddingBottom: 7,
+  },
+  footerNav: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  buttonNav: {
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'stretch',
+    height: 70,
+    backgroundColor: '#29808C',
+  },
+  addBtnText:{
+    marginTop: 23,
+    alignSelf: 'center',
+    fontWeight: '400',
+    fontSize: 17,
+    color: '#FFFFFF',
   }
 });
 
