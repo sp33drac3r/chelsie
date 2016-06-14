@@ -21,11 +21,9 @@ import {
 import ResourceList from './App/Components/ResourceList'
 import Resource from './App/Components/Resource'
 import Main from './App/Components/Main'
-import ImmediateAssistance from './App/Components/ImmediateAssistance'
 import AboutUs from './App/Components/AboutUs'
 import Login from './App/Components/Login'
 import NewPost from './App/Components/NewPost'
-import Community from './App/Components/Community'
 import SchoolList from './App/Components/SchoolList'
 import School from './App/Components/School'
 import Post from './App/Components/Post'
@@ -45,9 +43,6 @@ class Chelsie extends Component {
     if (route.name == 'Main') {
       return <Main navigator={navigator} />
     }
-    if (route.name == 'ImmediateAssistance') {
-      return <ImmediateAssistance navigator={navigator} />
-    }
     if (route.name == 'AboutUs') {
       return <AboutUs navigator={navigator} />
     }
@@ -56,9 +51,6 @@ class Chelsie extends Component {
     }
     if (route.name == 'NewPost') {
       return <NewPost navigator={navigator} {...route.passProps} />
-    }
-    if (route.name == 'Community') {
-      return <Community navigator={navigator} />
     }
     if (route.name == 'SchoolList') {
       return <SchoolList navigator={navigator} {...route.passProps} />

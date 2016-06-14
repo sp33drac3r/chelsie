@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ListView,
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicatorIOS,
@@ -15,8 +14,6 @@ import {
 
 import Swiper from 'react-native-swiper'
 import ResourceList from "./ResourceList"
-import Login from "./Login"
-import SignUp from "./SignUp"
 import AboutUs from "./AboutUs"
 
 
@@ -144,13 +141,6 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 70,
-    backgroundColor: '#29808C',
-  },
-  buttonNav: {
-    flex: 1,
-    marginTop: 5,
-    alignSelf: 'stretch',
     height: 70,
     backgroundColor: '#29808C',
   },

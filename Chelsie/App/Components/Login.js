@@ -99,25 +99,6 @@ var styles = StyleSheet.create({
     width: 415,
     alignItems: 'center',
   },
-  buttonText: {
-    fontSize: 18,
-    color: '#FFFFFF',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 45,
-    flexDirection: 'column',
-    backgroundColor: 'transparent',
-    borderColor: '#FFFFFF',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-  },
   loginArea: {
     height: 45,
     color: '#FFFFFF',
