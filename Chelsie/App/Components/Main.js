@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ListView,
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicatorIOS,
