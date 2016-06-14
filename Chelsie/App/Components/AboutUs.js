@@ -4,9 +4,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight,
-  Image,
-  Navigator
+  Image
 } from 'react-native';
 
 class AboutUs extends Component {
