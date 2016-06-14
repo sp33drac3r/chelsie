@@ -21,7 +21,6 @@ import {
 import ResourceList from './App/Components/ResourceList'
 import Resource from './App/Components/Resource'
 import Main from './App/Components/Main'
-import ImmediateAssistance from './App/Components/ImmediateAssistance'
 import AboutUs from './App/Components/AboutUs'
 import Login from './App/Components/Login'
 import NewPost from './App/Components/NewPost'
@@ -44,9 +43,6 @@ class Chelsie extends Component {
     }
     if (route.name == 'Main') {
       return <Main navigator={navigator} />
-    }
-    if (route.name == 'ImmediateAssistance') {
-      return <ImmediateAssistance navigator={navigator} />
     }
     if (route.name == 'AboutUs') {
       return <AboutUs navigator={navigator} />
