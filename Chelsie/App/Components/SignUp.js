@@ -11,7 +11,6 @@ import {
   Image
 } from 'react-native';
 
-import Community from "./Community"
 import Main from "./Main"
 
 class SignUp extends Component {
