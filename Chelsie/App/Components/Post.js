@@ -51,7 +51,6 @@ class Post extends Component {
   componentDidMount() {
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({user_id: value});
-      console.log("I am the value" + value);
       this.fetchData(value)
     }).done();
   }
@@ -59,8 +58,6 @@ class Post extends Component {
 
   fetchData(value) {
     if (value === '') {
-      console.log("I'm in the null case")
-      console.log(this.state.user_id)
       fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
         .then((response) => response.json())
         .then((responseData) => {
@@ -71,26 +68,17 @@ class Post extends Component {
         })
         .done();
     } else {
-      console.log("I'm in the else case")
       fetch(`https://afternoon-badlands-40242.herokuapp.com/flags/${this.state.user_id}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData)
         //Mark post as flagged as needed and store all comment IDs flagged by user in commentsFlagged array in props.
         for (var i = 0; i < responseData.length; i++) {
           if(responseData[i].flaggable_type === 'Post' && responseData[i].flaggable_id === this.state.postId){
             this.setState.postFlagger = true;
-            console.log("Post Flagger state")
-            console.log(this.state.postFlagger)
-
             this.state.falseSwitchIsOn = true;
-            console.log("False switch state")
-            console.log(this.state.falseSwitchIsOn)
-
             this.setState({ flagId: responseData[i].id })
           } else if(responseData[i].flaggable_type === 'Comment') {
             this.state.commentsFlagged.push(responseData[i].flaggable_id)
-            console.log(this.state.commentsFlagged)
           }
         }
       })
@@ -135,7 +123,6 @@ class Post extends Component {
      .then((responseText) => responseText.json())
      .then((responseData) => {
        this.setState({flagId: responseData});
-       console.log(responseData)
      })
      .catch((error) => {
        console.warn(error);
@@ -187,7 +174,6 @@ class Post extends Component {
   }
 
   render(){
-    console.log(this.state.user_id)
     return(
       <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
         <StatusBar
