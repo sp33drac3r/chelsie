@@ -18,10 +18,7 @@ import {
 
 import School from './School'
 import Separator from './Helpers/Separator'
-
-// Navbar Routes
 import Main from "./Main"
-import AboutUs from "./AboutUs"
 import Profile from './Profile'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
@@ -91,27 +88,6 @@ class SchoolList extends Component {
         this.filterSchools(searchText, responseData);
     })
     .done();
-  }
-
-  _onMainButton(){
-    this.props.navigator.resetTo({
-      component: Main,
-      name: "Main"
-    })
-  }
-
-  _onSchoolsButton(){
-    this.props.navigator.resetTo({
-      component: SchoolList,
-      name: "SchoolList"
-    })
-  }
-
-  _onProfileButton(){
-    this.props.navigator.push({
-      component: Profile,
-      name: "Profile"
-    })
   }
 
   render() {
