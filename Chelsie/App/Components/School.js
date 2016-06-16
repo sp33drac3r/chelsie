@@ -18,13 +18,8 @@ import Separator from './Helpers/Separator'
 import SchoolList from './SchoolList'
 import NewPost from './NewPost'
 import Post from './Post'
-
-// Navbar Routes
 import Main from "./Main"
-import AboutUs from "./AboutUs"
 import Profile from './Profile'
-
-var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
 class School extends Component {
   constructor(props) {
@@ -73,7 +68,6 @@ class School extends Component {
 
     return (
       <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
-      {console.log('GMO is actually fine')}
         <ScrollView style={styles.content}>
         <Text style={styles.header}>{this.props.schoolName}</Text>
         <ListView
@@ -133,7 +127,7 @@ class School extends Component {
         style={styles.rowContainer}
         onPress={(this._onPostClick.bind(this, post))}
         underlayColor="white">
-        <Text style={styles.test}>{post.title}</Text>
+        <Text style={styles.postTitle}>{post.title}</Text>
          <Separator />
       </TouchableOpacity>
       </View>
@@ -149,7 +143,7 @@ var styles = StyleSheet.create({
     height: null,
     justifyContent: 'center'
   },
-  test:{
+  postTitle:{
     color: '#FFFFFF',
   },
   activityLoading:{
