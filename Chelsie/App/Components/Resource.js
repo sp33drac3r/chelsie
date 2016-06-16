@@ -6,7 +6,6 @@ import {
   StyleSheet,
   ListView,
   TouchableOpacity,
-  ActivityIndicatorIOS,
   ScrollView,
   Linking,
   Image,
@@ -21,24 +20,22 @@ class Resource extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      resourceName: this.props.resourceName,
-      resourceAddress: this.props.resourceAddress,
-      resourceTel1: this.props.resourceTel1,
-      resourceTel2: this.props.resourceTel2,
-      resourceWeb: this.props.resourceWeb,
+      resourceName:      this.props.resourceName,
+      resourceAddress:   this.props.resourceAddress,
+      resourceTel1:      this.props.resourceTel1,
+      resourceTel2:      this.props.resourceTel2,
+      resourceWeb:       this.props.resourceWeb,
       resourcePopServed: this.props.resourcePopServed,
     }
   }
 
   _onResourceButton(){
-    console.log(this.props.resourceWeb)
     Linking.openURL(this.props.resourceWeb)
   }
 
   _onMapButton(){
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position)
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         var initialPosition = JSON.stringify(position);
@@ -52,9 +49,9 @@ class Resource extends Component {
   }
 
   render(){
-    console.log(this.props.navigator.state.routeStack)
     return (
-      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+      <Image source={require('./../../imgs/gradient3.jpg')}
+             style={styles.backgroundImage}>
         <View style={styles.content}>
         <ScrollView>
           <Text style={styles.header}>{this.props.resourceName}</Text>
@@ -63,7 +60,7 @@ class Resource extends Component {
             <Text style={styles.text}>{this.props.resourceAddress}</Text>
           </TouchableOpacity>
           <Text style={styles.subheader}>Telephone: </Text>
-          <Text style={styles.text2}>{this.props.resourceTel1}</Text>
+          <Text style={styles.text}>{this.props.resourceTel1}</Text>
           <Text style={styles.text}>{this.props.resourceTel2}</Text>
           <TouchableOpacity onPress={this._onResourceButton.bind(this)}>
             <Text style={styles.subheader}>Website: </Text>
@@ -109,10 +106,6 @@ var styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     paddingBottom: 8,
-  },
-  text2: {
-    fontSize: 16,
-    color: '#FFFFFF',
   }
 });
 
