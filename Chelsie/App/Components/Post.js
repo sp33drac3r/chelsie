@@ -37,7 +37,6 @@ class Post extends Component {
       postTitle: this.props.postTitle,
       postId: this.props.postId,
       postBody: this.props.postBody,
-      postFlagger: false,
       commentId: '',
       commentBody: '',
       user_id: '',
@@ -74,7 +73,6 @@ class Post extends Component {
         //Mark post as flagged as needed and store all comment IDs flagged by user in commentsFlagged array in props.
         for (var i = 0; i < responseData.length; i++) {
           if(responseData[i].flaggable_type === 'Post' && responseData[i].flaggable_id === this.state.postId){
-            this.setState.postFlagger = true;
             this.state.falseSwitchIsOn = true;
             this.setState({ flagId: responseData[i].id })
           } else if(responseData[i].flaggable_type === 'Comment') {
