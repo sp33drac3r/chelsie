@@ -80,6 +80,9 @@ class Post extends Component {
           }
         }
       })
+      .catch((error) => {
+        console.warn(error);
+      })
       .done(fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
         .then((response) => response.json())
         .then((responseData) => {
@@ -96,6 +99,9 @@ class Post extends Component {
             dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
             loaded: true
           });
+        })
+        .catch((error) => {
+          console.warn(error);
         })
         .done()
       );
