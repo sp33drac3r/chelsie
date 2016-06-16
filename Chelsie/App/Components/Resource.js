@@ -6,7 +6,6 @@ import {
   StyleSheet,
   ListView,
   TouchableOpacity,
-  ActivityIndicatorIOS,
   ScrollView,
   Linking,
   Image,
