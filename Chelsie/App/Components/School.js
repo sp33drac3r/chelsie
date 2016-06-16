@@ -14,12 +14,12 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import Separator from './Helpers/Separator'
+import Separator  from './Helpers/Separator'
 import SchoolList from './SchoolList'
-import NewPost from './NewPost'
-import Post from './Post'
-import Main from "./Main"
-import Profile from './Profile'
+import NewPost    from './NewPost'
+import Post       from './Post'
+import Main       from "./Main"
+import Profile    from './Profile'
 
 class School extends Component {
   constructor(props) {
@@ -67,7 +67,8 @@ class School extends Component {
     }
 
     return (
-      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+      <Image source={require('./../../imgs/gradient3.jpg')}
+             style={styles.backgroundImage}>
         <ScrollView style={styles.content}>
         <Text style={styles.header}>{this.props.schoolName}</Text>
         <ListView
@@ -77,7 +78,8 @@ class School extends Component {
         />
         </ScrollView>
         <View style={styles.footerNav}>
-          <TouchableOpacity style={styles.buttonNav} onPress={this._onAddPostButton.bind(this)}>
+          <TouchableOpacity style={styles.buttonNav}
+                            onPress={this._onAddPostButton.bind(this)}>
             <Text style={styles.addBtnText}>ADD A POST</Text>
           </TouchableOpacity>
         </View>

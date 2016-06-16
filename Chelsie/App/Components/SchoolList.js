@@ -16,10 +16,10 @@ import {
   Image
 } from 'react-native';
 
-import School from './School'
-import Separator from './Helpers/Separator'
-import Main from "./Main"
-import Profile from './Profile'
+import School     from './School'
+import Separator  from './Helpers/Separator'
+import Main       from "./Main"
+import Profile    from './Profile'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
@@ -98,17 +98,18 @@ class SchoolList extends Component {
     }
 
     return (
-      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+      <Image source={require('./../../imgs/gradient3.jpg')}
+             style={styles.backgroundImage}>
         <StatusBar
-        backgroundColor="blue"
-        barStyle="light-content"
+          backgroundColor="blue"
+          barStyle="light-content"
         />
         <View style={styles.container}>
         <TextInput
-        style={styles.searchBar}
-        value={this.state.searchText}
-        onChange={this.setSearchText.bind(this)}
-        placeholder="Search" />
+          style={styles.searchBar}
+          value={this.state.searchText}
+          onChange={this.setSearchText.bind(this)}
+          placeholder="Search" />
         <ScrollView style={styles.content}>
             <ListView
               dataSource={this.state.dataSource}

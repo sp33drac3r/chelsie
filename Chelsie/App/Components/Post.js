@@ -16,14 +16,10 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import Separator from './Helpers/Separator'
+import Separator  from './Helpers/Separator'
 import NewComment from './NewComment'
 
-
-var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 var deleteButton = null;
-var commentBox;
-var flag = 'Flag'
 
 class Post extends Component {
   constructor(props) {
