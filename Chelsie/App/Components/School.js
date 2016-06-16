@@ -126,10 +126,6 @@ class School extends Component {
     });
   }
 
-  _onBackButton(){
-    this.props.navigator.pop()
-  }
-
   renderPostView(post){
     return (
       <View style={styles.container}>
