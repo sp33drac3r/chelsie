@@ -58,7 +58,7 @@ class Post extends Component {
 
 
   fetchData(value) {
-    if (value === '') {
+    if (value === null) {
       console.log("I'm in the null case")
       console.log(this.state.user_id)
       fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
