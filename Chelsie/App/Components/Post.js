@@ -199,7 +199,7 @@ class Post extends Component {
             value={this.state.falseSwitchIsOn} />
           </View>
         </View>
-        <Text style={styles.header}> Comments </Text>
+        <Text style={styles.header}> Responses </Text>
         <ScrollView style={styles.commentContainer}>
           <ListView
             dataSource={this.state.dataSource}
