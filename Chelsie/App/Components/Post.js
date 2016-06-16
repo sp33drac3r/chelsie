@@ -6,7 +6,6 @@ import {
   StyleSheet,
   ListView,
   TouchableOpacity,
-  TouchableHighlight,
   ActivityIndicatorIOS,
   ScrollView,
   Navigator,
@@ -18,7 +17,6 @@ import {
 
 import Separator from './Helpers/Separator'
 import NewComment from './NewComment'
-
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 var deleteButton = null;
@@ -58,7 +56,7 @@ class Post extends Component {
 
 
   fetchData(value) {
-    if (value === '') {
+    if (value === null) {
       console.log("I'm in the null case")
       console.log(this.state.user_id)
       fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
@@ -114,8 +112,6 @@ class Post extends Component {
         .done()
       );
     }
-
-
   }
 
   _onFlagPostButton(value) {
@@ -335,12 +331,6 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     width: 400,
     marginBottom: 20,
-  },
-  button: {
-    paddingRight: 10,
-    paddingLeft: 10,
-    alignItems: 'flex-end',
-    alignSelf: 'stretch',
   },
   footerNav: {
     flex: 0,
