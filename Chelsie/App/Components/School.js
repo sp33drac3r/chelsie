@@ -11,6 +11,7 @@ import {
   ScrollView,
   Image,
   Navigator,
+  Alert,
   AsyncStorage
 } from 'react-native';
 
@@ -18,6 +19,7 @@ import Separator from './Helpers/Separator'
 import SchoolList from './SchoolList'
 import NewPost from './NewPost'
 import Post from './Post'
+import Login from './Login'
 
 // Navbar Routes
 import Main from "./Main"
@@ -123,15 +125,23 @@ class School extends Component {
   }
 
   _onAddPostButton(){
-    this.props.navigator.push({
-      component: NewPost,
-      name: "NewPost",
-      passProps: {
-        schoolId: this.state.schoolId,
-        schoolName: this.state.schoolName,
-        schoolAddress: this.state.schoolAddress
-      }
-    })
+    if(this.state.user_id !== null){
+      this.props.navigator.push({
+        component: NewPost,
+        name: "NewPost",
+        passProps: {
+          schoolId: this.state.schoolId,
+          schoolName: this.state.schoolName,
+          schoolAddress: this.state.schoolAddress
+        }
+      })
+    } else {
+      Alert.alert('Please login to post.')
+      this.props.navigator.push({
+        component: Login,
+        name: "Login"
+      })
+    }
   }
   _onPostClick (post){
     this.props.navigator.push({
