@@ -31,13 +31,10 @@ class SchoolList extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      title: '',
       schoolName: '',
       schoolId: '',
-      schoolAddress: '',
       posts: '',
       searchText: '',
-      school: '',
       user_id: ''
     };
   }
@@ -46,7 +43,6 @@ class SchoolList extends Component {
     this.fetchData();
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
-      console.log(this.state.user_id);
     }).done();
   }
 
@@ -58,6 +54,9 @@ class SchoolList extends Component {
           dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
         });
+      })
+      .catch((error) => {
+        console.warn(error);
       })
       .done();
   }
@@ -86,6 +85,9 @@ class SchoolList extends Component {
     .then((response) => response.json())
     .then((responseData) => {
         this.filterSchools(searchText, responseData);
+    })
+    .catch((error) => {
+      console.warn(error);
     })
     .done();
   }
@@ -130,11 +132,7 @@ class SchoolList extends Component {
   }
 
   _onButton(school){
-    console.log("THIS IS SCHOOL WE'RE PASSING FROM LIST: ")
-    console.log(school)
-
     AsyncStorage.setItem('last_school', JSON.stringify(school) )
-
     this.props.navigator.push({
       component: School,
       name: "School",
