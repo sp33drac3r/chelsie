@@ -16,13 +16,10 @@ import {
   Image
 } from 'react-native';
 
-import School from './School'
-import Separator from './Helpers/Separator'
-
-// Navbar Routes
-import Main from "./Main"
-import AboutUs from "./AboutUs"
-import Profile from './Profile'
+import School     from './School'
+import Separator  from './Helpers/Separator'
+import Main       from "./Main"
+import Profile    from './Profile'
 
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
@@ -34,13 +31,10 @@ class SchoolList extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      title: '',
       schoolName: '',
       schoolId: '',
-      schoolAddress: '',
       posts: '',
       searchText: '',
-      school: '',
       user_id: ''
     };
   }
@@ -49,7 +43,6 @@ class SchoolList extends Component {
     this.fetchData();
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
-      console.log(this.state.user_id);
     }).done();
   }
 
@@ -61,6 +54,9 @@ class SchoolList extends Component {
           dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
         });
+      })
+      .catch((error) => {
+        console.warn(error);
       })
       .done();
   }
@@ -90,28 +86,10 @@ class SchoolList extends Component {
     .then((responseData) => {
         this.filterSchools(searchText, responseData);
     })
+    .catch((error) => {
+      console.warn(error);
+    })
     .done();
-  }
-
-  _onMainButton(){
-    this.props.navigator.resetTo({
-      component: Main,
-      name: "Main"
-    })
-  }
-
-  _onSchoolsButton(){
-    this.props.navigator.resetTo({
-      component: SchoolList,
-      name: "SchoolList"
-    })
-  }
-
-  _onProfileButton(){
-    this.props.navigator.push({
-      component: Profile,
-      name: "Profile"
-    })
   }
 
   render() {
@@ -120,17 +98,18 @@ class SchoolList extends Component {
     }
 
     return (
-      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
+      <Image source={require('./../../imgs/gradient3.jpg')}
+             style={styles.backgroundImage}>
         <StatusBar
-        backgroundColor="blue"
-        barStyle="light-content"
+          backgroundColor="blue"
+          barStyle="light-content"
         />
         <View style={styles.container}>
         <TextInput
-        style={styles.searchBar}
-        value={this.state.searchText}
-        onChange={this.setSearchText.bind(this)}
-        placeholder="Search" />
+          style={styles.searchBar}
+          value={this.state.searchText}
+          onChange={this.setSearchText.bind(this)}
+          placeholder="Search" />
         <ScrollView style={styles.content}>
             <ListView
               dataSource={this.state.dataSource}
@@ -154,11 +133,7 @@ class SchoolList extends Component {
   }
 
   _onButton(school){
-    console.log("THIS IS SCHOOL WE'RE PASSING FROM LIST: ")
-    console.log(school)
-
     AsyncStorage.setItem('last_school', JSON.stringify(school) )
-
     this.props.navigator.push({
       component: School,
       name: "School",

@@ -15,18 +15,13 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import Separator from './Helpers/Separator'
+import Separator  from './Helpers/Separator'
 import SchoolList from './SchoolList'
-import NewPost from './NewPost'
-import Post from './Post'
-import Login from './Login'
-
-// Navbar Routes
-import Main from "./Main"
-import AboutUs from "./AboutUs"
-import Profile from './Profile'
-
-var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
+import NewPost    from './NewPost'
+import Post       from './Post'
+import Main       from "./Main"
+import Profile    from './Profile'
+import Login      from './Login'
 
 class School extends Component {
   constructor(props) {
@@ -50,7 +45,6 @@ class School extends Component {
     this.fetchData();
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({'user_id': value});
-      console.log(this.state.user_id);
     }).done();
   }
 
@@ -58,34 +52,15 @@ class School extends Component {
     fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.posts),
           loaded: true
         });
       })
+      .catch((error) => {
+        console.warn(error);
+      })
       .done();
-  }
-
-  _onMainButton(){
-    this.props.navigator.resetTo({
-      component: Main,
-      name: "Main"
-    })
-  }
-
-  _onSchoolsButton(){
-    this.props.navigator.resetTo({
-      component: SchoolList,
-      name: "SchoolList"
-    })
-  }
-
-  _onProfileButton(){
-    this.props.navigator.push({
-      component: Profile,
-      name: "Profile"
-    })
   }
 
   render() {
@@ -94,8 +69,8 @@ class School extends Component {
     }
 
     return (
-      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
-      {console.log('GMO is actually fine')}
+      <Image source={require('./../../imgs/gradient3.jpg')}
+             style={styles.backgroundImage}>
         <ScrollView style={styles.content}>
         <Text style={styles.header}>{this.props.schoolName}</Text>
         <ListView
@@ -105,7 +80,8 @@ class School extends Component {
         />
         </ScrollView>
         <View style={styles.footerNav}>
-          <TouchableOpacity style={styles.buttonNav} onPress={this._onAddPostButton.bind(this)}>
+          <TouchableOpacity style={styles.buttonNav}
+                            onPress={this._onAddPostButton.bind(this)}>
             <Text style={styles.addBtnText}>ADD A POST</Text>
           </TouchableOpacity>
         </View>
@@ -156,10 +132,6 @@ class School extends Component {
     });
   }
 
-  _onBackButton(){
-    this.props.navigator.pop()
-  }
-
   renderPostView(post){
     return (
       <View style={styles.container}>
@@ -167,7 +139,7 @@ class School extends Component {
         style={styles.rowContainer}
         onPress={(this._onPostClick.bind(this, post))}
         underlayColor="white">
-        <Text style={styles.test}>{post.title}</Text>
+        <Text style={styles.postTitle}>{post.title}</Text>
          <Separator />
       </TouchableOpacity>
       </View>
@@ -183,7 +155,7 @@ var styles = StyleSheet.create({
     height: null,
     justifyContent: 'center'
   },
-  test:{
+  postTitle:{
     color: '#FFFFFF',
   },
   activityLoading:{

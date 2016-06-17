@@ -15,13 +15,10 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import Separator from './Helpers/Separator'
+import Separator  from './Helpers/Separator'
 import NewComment from './NewComment'
 
-var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 var deleteButton = null;
-var commentBox;
-var flag = 'Flag'
 
 class Post extends Component {
   constructor(props) {
@@ -35,7 +32,6 @@ class Post extends Component {
       postTitle: this.props.postTitle,
       postId: this.props.postId,
       postBody: this.props.postBody,
-      postFlagger: false,
       commentId: '',
       commentBody: '',
       user_id: '',
@@ -49,7 +45,6 @@ class Post extends Component {
   componentDidMount() {
     AsyncStorage.getItem('user_id').then((value) => {
       this.setState({user_id: value});
-      console.log("I am the value" + value);
       this.fetchData(value)
     }).done();
   }
@@ -57,8 +52,6 @@ class Post extends Component {
 
   fetchData(value) {
     if (value === null) {
-      console.log("I'm in the null case")
-      console.log(this.state.user_id)
       fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
         .then((response) => response.json())
         .then((responseData) => {
@@ -69,28 +62,21 @@ class Post extends Component {
         })
         .done();
     } else {
-      console.log("I'm in the else case")
       fetch(`https://afternoon-badlands-40242.herokuapp.com/flags/${this.state.user_id}`)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData)
         //Mark post as flagged as needed and store all comment IDs flagged by user in commentsFlagged array in props.
         for (var i = 0; i < responseData.length; i++) {
           if(responseData[i].flaggable_type === 'Post' && responseData[i].flaggable_id === this.state.postId){
-            this.setState.postFlagger = true;
-            console.log("Post Flagger state")
-            console.log(this.state.postFlagger)
-
             this.state.falseSwitchIsOn = true;
-            console.log("False switch state")
-            console.log(this.state.falseSwitchIsOn)
-
             this.setState({ flagId: responseData[i].id })
           } else if(responseData[i].flaggable_type === 'Comment') {
             this.state.commentsFlagged.push(responseData[i].flaggable_id)
-            console.log(this.state.commentsFlagged)
           }
         }
+      })
+      .catch((error) => {
+        console.warn(error);
       })
       .done(fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
         .then((response) => response.json())
@@ -108,6 +94,9 @@ class Post extends Component {
             dataSource: this.state.dataSource.cloneWithRows(responseData.comments),
             loaded: true
           });
+        })
+        .catch((error) => {
+          console.warn(error);
         })
         .done()
       );
@@ -131,7 +120,6 @@ class Post extends Component {
      .then((responseText) => responseText.json())
      .then((responseData) => {
        this.setState({flagId: responseData});
-       console.log(responseData)
      })
      .catch((error) => {
        console.warn(error);
@@ -183,7 +171,6 @@ class Post extends Component {
   }
 
   render(){
-    console.log(this.state.user_id)
     return(
       <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
         <StatusBar
@@ -211,7 +198,7 @@ class Post extends Component {
             value={this.state.falseSwitchIsOn} />
           </View>
         </View>
-        <Text style={styles.header}> Comments </Text>
+        <Text style={styles.header}> Responses </Text>
         <ScrollView style={styles.commentContainer}>
           <ListView
             dataSource={this.state.dataSource}
