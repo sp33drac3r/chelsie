@@ -11,6 +11,7 @@ import {
   ScrollView,
   Image,
   Navigator,
+  Alert,
   AsyncStorage
 } from 'react-native';
 
@@ -20,6 +21,7 @@ import NewPost    from './NewPost'
 import Post       from './Post'
 import Main       from "./Main"
 import Profile    from './Profile'
+import Login      from './Login'
 
 class School extends Component {
   constructor(props) {
@@ -99,15 +101,23 @@ class School extends Component {
   }
 
   _onAddPostButton(){
-    this.props.navigator.push({
-      component: NewPost,
-      name: "NewPost",
-      passProps: {
-        schoolId: this.state.schoolId,
-        schoolName: this.state.schoolName,
-        schoolAddress: this.state.schoolAddress
-      }
-    })
+    if(this.state.user_id !== null){
+      this.props.navigator.push({
+        component: NewPost,
+        name: "NewPost",
+        passProps: {
+          schoolId: this.state.schoolId,
+          schoolName: this.state.schoolName,
+          schoolAddress: this.state.schoolAddress
+        }
+      })
+    } else {
+      Alert.alert('Please login to post.')
+      this.props.navigator.push({
+        component: Login,
+        name: "Login"
+      })
+    }
   }
   _onPostClick (post){
     this.props.navigator.push({

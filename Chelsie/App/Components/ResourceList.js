@@ -13,9 +13,9 @@ import {
   Navigator
 } from 'react-native';
 
-import Separator from './Helpers/Separator'
-import Resource from './Resource'
-import Profile from './Profile'
+import Separator      from './Helpers/Separator'
+import Resource       from './Resource'
+import Profile        from './Profile'
 import Communications from 'react-native-communications';
 
 var hotlineUrl = `https://ohl.rainn.org/online/`
@@ -44,12 +44,10 @@ class ResourceList extends Component {
   componentDidMount() {
   navigator.geolocation.getCurrentPosition(
     (position) => {
-      console.log(position)
-      var lat = position.coords.latitude;
-      var lng = position.coords.longitude;
       var initialPosition = JSON.stringify(position);
       this.setState({initialPosition});
-      this.fetchData(lat,lng);
+      this.fetchData(position.coords.latitude,
+                     position.coords.longitude);
     },
     (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -58,14 +56,10 @@ class ResourceList extends Component {
 
 
   fetchData(lat, lng) {
-    console.log(lat)
-    console.log(lng)
-    var url = `https://afternoon-badlands-40242.herokuapp.com/centers/geo/${lat}/${lng}/10`
-    console.log(url)
+    var url = `http://chelsie.io/centers/geo/${lat}/${lng}/10`
     fetch(url)
       .then((response) => response.json())
       .then((responseData) => {
-        {console.log(responseData)}
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
@@ -88,8 +82,9 @@ class ResourceList extends Component {
     }
 
     return (
-      <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
-        <Text style={styles.header}> LOCAL RESOURCES </Text>
+      <Image source={require('./../../imgs/gradient3.jpg')}
+             style={styles.backgroundImage}>
+        <Text style={styles.header}> crisis centers near you </Text>
         <ScrollView style={styles.content}>
         <ListView
           dataSource={this.state.dataSource}
@@ -99,10 +94,14 @@ class ResourceList extends Component {
         />
         </ScrollView>
         <View style={styles.footerNav}>
-        <TouchableHighlight style={styles.button} onPress={this._onHotlineButton.bind(this)} underlayColor="#3D94A0">
+        <TouchableHighlight style={styles.button}
+                            onPress={this._onHotlineButton.bind(this)}
+                            underlayColor="#3D94A0">
           <Text style={ styles.bottomNav }>hotline</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={this._onChatButton.bind(this)} underlayColor="#3D94A0">
+        <TouchableHighlight style={styles.button}
+                            onPress={this._onChatButton.bind(this)}
+                            underlayColor="#3D94A0">
           <Text style={ styles.bottomNav }>chat</Text>
         </TouchableHighlight>
         </View>
@@ -122,21 +121,20 @@ class ResourceList extends Component {
   }
 
   _onResourceButton(resource){
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/centers/${resource.id}`)
+    fetch(`http://chelsie.io/centers/${resource.id}`)
       .then((response) => response.json())
       .then(responseData => {
-        console.log(responseData)
         this.props.navigator.push({
           component: Resource,
           name: "Resource",
           passProps: {
-            resourceID: responseData.id,
-            resourceName: responseData.name,
-            resourceAddress: responseData.address,
+            resourceID:        responseData.id,
+            resourceName:      responseData.name,
+            resourceAddress:   responseData.address,
             resourcePopServed: responseData.populations_served,
-            resourceTel1: responseData.telephone,
-            resourceTel2: responseData.tty,
-            resourceWeb: responseData.website
+            resourceTel1:      responseData.telephone,
+            resourceTel2:      responseData.tty,
+            resourceWeb:       responseData.website
           },
       });
     }).done();
@@ -150,7 +148,9 @@ class ResourceList extends Component {
           onPress={(this._onResourceButton.bind(this, resource))}
           underlayColor="white">
           <Text style={styles.textResource}>{resource.name}</Text>
-          <Text style={styles.textDistance}>Distance: {Math.round(resource.distance_in_miles*100)/100} miles</Text>
+          <Text style={styles.textDistance}>
+            Distance: {Math.round(resource.distance_in_miles*100)/100} miles
+          </Text>
         </TouchableOpacity>
       <Separator />
       </View>
@@ -219,13 +219,6 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 70,
-    backgroundColor: '#29808C',
-  },
-  buttonNav: {
-    flex: 1,
-    marginTop: 5,
-    alignSelf: 'stretch',
     height: 70,
     backgroundColor: '#29808C',
   },

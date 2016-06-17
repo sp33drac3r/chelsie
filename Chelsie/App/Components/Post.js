@@ -6,7 +6,6 @@ import {
   StyleSheet,
   ListView,
   TouchableOpacity,
-  TouchableHighlight,
   ActivityIndicatorIOS,
   ScrollView,
   Navigator,
@@ -52,7 +51,7 @@ class Post extends Component {
 
 
   fetchData(value) {
-    if (value === '') {
+    if (value === null) {
       fetch(`https://afternoon-badlands-40242.herokuapp.com/schools/${this.state.schoolId}/posts/${this.state.postId}`)
         .then((response) => response.json())
         .then((responseData) => {
@@ -102,8 +101,6 @@ class Post extends Component {
         .done()
       );
     }
-
-
   }
 
   _onFlagPostButton(value) {
@@ -321,12 +318,6 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     width: 400,
     marginBottom: 20,
-  },
-  button: {
-    paddingRight: 10,
-    paddingLeft: 10,
-    alignItems: 'flex-end',
-    alignSelf: 'stretch',
   },
   footerNav: {
     flex: 0,
