@@ -12,6 +12,7 @@ import {
   Switch,
   StatusBar,
   Image,
+  Alert,
   AsyncStorage
 } from 'react-native';
 
@@ -272,16 +273,24 @@ class Post extends Component {
   }
 
   _onAddCommentButton(){
-    this.props.navigator.push({
-      component: NewComment,
-      name: "NewComment",
-      passProps: {
-        schoolId: this.state.schoolId,
-        postId: this.state.postId,
-        postBody: this.state.postBody,
-        postTitle: this.state.postTitle
-      },
-    });
+    if(this.state.user_id !== null){
+      this.props.navigator.push({
+        component: NewComment,
+        name: "NewComment",
+        passProps: {
+          schoolId: this.state.schoolId,
+          postId: this.state.postId,
+          postBody: this.state.postBody,
+          postTitle: this.state.postTitle
+        },
+      });
+    } else {
+      Alert.alert('Please login to respond.')
+      this.props.navigator.push({
+        component: Login,
+        name: "Login"
+      })
+    }
   }
 
 }
