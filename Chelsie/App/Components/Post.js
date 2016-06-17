@@ -17,8 +17,12 @@ import {
 
 import Separator  from './Helpers/Separator'
 import NewComment from './NewComment'
+import Login      from './Login'
 
 var deleteButton = null;
+
+var flagText = "Login to Flag";
+var flagBoolean = true;
 
 class Post extends Component {
   constructor(props) {
@@ -44,6 +48,10 @@ class Post extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem('user_id').then((value) => {
+      if (value !== null){
+        flagText = "Flag This Post",
+        flagBoolean = false
+      }
       this.setState({user_id: value});
       this.fetchData(value)
     }).done();
@@ -170,6 +178,13 @@ class Post extends Component {
     })
   }
 
+  _loginButton(){
+    this.props.navigator.push({
+      component: Login,
+      name: "Login"
+    })
+  }
+
   render(){
     return(
       <Image source={require('./../../imgs/gradient3.jpg')} style={styles.backgroundImage}>
@@ -182,7 +197,9 @@ class Post extends Component {
           <Text style={styles.text}>{this.props.postBody}</Text>
           <View style={styles.flexContainer}>
             <View style={styles.flagText}>
-              <Text style={styles.text}>Flag this post</Text>
+            <TouchableOpacity onPress={()=>{if (flagBoolean === true){this.props.navigator.push({name: "Login"})}}}>
+              <Text style={styles.text}>{flagText}</Text>
+            </TouchableOpacity>
             </View>
           <View style={styles.switchContainer}>
             <Switch
@@ -192,12 +209,13 @@ class Post extends Component {
               }
             }
             onTintColor="gray"
+            disabled={flagBoolean}
             style={{marginBottom: 10, alignItems: 'flex-end'}}
             thumbTintColor="#ffffff"
             tintColor="gray"
             value={this.state.falseSwitchIsOn} />
           </View>
-        </View>
+          </View>
         <Text style={styles.header}> Responses </Text>
         <ScrollView style={styles.commentContainer}>
           <ListView
@@ -215,6 +233,17 @@ class Post extends Component {
         </View>
       </Image>
     );
+  }
+
+  renderPostFlagSwitch(){
+    return(
+      <View>
+        <Switch
+          disabled={true}
+          style={{marginBottom: 10}}
+          value={true} />
+      </View>
+    )
   }
 
   renderLoadingView() {
