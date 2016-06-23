@@ -9,7 +9,7 @@ Every year, thousands of women are sexually assaulted on American college campus
 https://mjakobhayes.wordpress.com/2016/04/25/to-kenyon-college-for-failing-my-little-sister/
 
 ## Contributing
-Contributions welcome!
+chelsie is built on React Native and contributions are welcome!  
 Fork it, clone it, change it and make a pull request with a clear, detailed description of the change or feature.
 We will review and merge it.
 
