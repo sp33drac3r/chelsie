@@ -1,7 +1,8 @@
 # chelsie
 #### you are not alone
-
 chelsie is an anonymous, online community for survivors of college sexual assault.
+
+**Under Development**: chelsie is currently being developed for release on the Apple App store.
 
 Every year, thousands of women are sexually assaulted on American college campuses. Feelings of loneliness, alienation and not knowing where to turn for help and advice are common feelings among survivors. chelsie serves survivors by connecting a sympathetic community of individuals who are healing from similar experiences.
 
