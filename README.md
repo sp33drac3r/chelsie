@@ -3,7 +3,7 @@
 
 chelsie is an anonymous, online community for survivors of college sexual assault.
 
-Every year, thousands of women are sexually assaulted on American college campuses. Feelings of loneliness, alienation and not knowing where to turn for help and advice are common feelings among survivors. chelsie serves survivors heal by connecting a sympathetic community of individuals who are healing from similar experiences.
+Every year, thousands of women are sexually assaulted on American college campuses. Feelings of loneliness, alienation and not knowing where to turn for help and advice are common feelings among survivors. chelsie serves survivors by connecting a sympathetic community of individuals who are healing from similar experiences.
 
 ## Who is Chelsie?
 https://mjakobhayes.wordpress.com/2016/04/25/to-kenyon-college-for-failing-my-little-sister/
