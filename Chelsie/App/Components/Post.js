@@ -293,8 +293,8 @@ class Post extends Component {
       <View style={styles.rowContainer}>
         <Text style={styles.text}> {comment.body} </Text>
         <View style={styles.flagText}>
-        <TouchableOpacity onPress={this._onFlagCommentButton.bind(this)}>
-          <Text style={styles.text}>Flag This Comment</Text>
+        <TouchableOpacity onPress={()=>{if (flagBoolean === true){this.props.navigator.push({name: "Login"})} else {console.log("Yeah Yeah Yeah")}}}>
+          <Text style={styles.text}>{flagText}</Text>
         </TouchableOpacity>
         </View>
         <Separator />
