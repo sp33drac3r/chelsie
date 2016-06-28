@@ -157,8 +157,10 @@ class Post extends Component {
    }
  }
 
-  _onFlagCommentButton(comment){
+  _onFlagCommentButton(comment) {
     console.log("We flagged a thing!")
+    console.log(comment)
+    console.log(comment.id)
     // if ( value === true ) {
     //   fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
     //     method: 'POST',
@@ -293,7 +295,7 @@ class Post extends Component {
       <View style={styles.rowContainer}>
         <Text style={styles.text}> {comment.body} </Text>
         <View style={styles.flagText}>
-        <TouchableOpacity onPress={()=>{if (flagBoolean === true){this.props.navigator.push({name: "Login"})} else {console.log("Yeah Yeah Yeah")}}}>
+        <TouchableOpacity onPress={()=>{if (flagBoolean === true){this.props.navigator.push({name: "Login"})} else {this._onFlagCommentButton(comment)}}}>
           <Text style={styles.text}>{flagText}</Text>
         </TouchableOpacity>
         </View>
