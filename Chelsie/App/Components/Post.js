@@ -158,26 +158,51 @@ class Post extends Component {
  }
 
   _onFlagCommentButton(comment){
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: this.state.user_id,
-        flaggable: comment.id,
-        flaggable_type: 'comment'
-      })
-    })
-    .then((responseText) => responseText.json())
-    .then((responseData) => {
-      console.log(responseData);
-    })
-    .catch((error) => {
-      console.warn(error);
-    })
+    console.log("We flagged a thing!")
+    // if ( value === true ) {
+    //   fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       user_id: this.state.user_id,
+    //       flaggable: this.state.commentId,
+    //       flaggable_type: "comment"
+    //     })
+    //   })
+    //   .then((responseText) => responseText.json())
+    //   .then((responseData) => {
+    //     this.setState({flagId: responseData});
+    //   })
+    //   .catch((error) => {
+    //     console.warn(error);
+    //   })
+    // } else {
+    //   fetch(`https://afternoon-badlands-40242.herokuapp.com/flags/${this.state.flagId}`, {
+    //     method: 'DELETE',
+    //     headers: {
+    //       'Access-Control-Allow-Methods': 'DELETE',
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       user_id: this.state.user_id,
+    //       flaggable: this.state.commentId,
+    //       flaggable_type: "comment"
+    //     })
+    //   })
+    //   .then((responseText) => responseText.json())
+    //   .then((responseData) => {
+    //     console.log(responseData);
+    //   })
+    //   .catch((error) => {
+    //     console.warn(error);
+    //   })
+    // }
   }
+
 
   _loginButton(){
     this.props.navigator.push({
@@ -267,6 +292,11 @@ class Post extends Component {
     return (
       <View style={styles.rowContainer}>
         <Text style={styles.text}> {comment.body} </Text>
+        <View style={styles.flagText}>
+        <TouchableOpacity onPress={this._onFlagCommentButton.bind(this)}>
+          <Text style={styles.text}>Flag This Comment</Text>
+        </TouchableOpacity>
+        </View>
         <Separator />
       </View>
     );
