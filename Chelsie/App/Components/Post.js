@@ -161,48 +161,59 @@ class Post extends Component {
     console.log("We flagged a thing!")
     console.log(comment)
     console.log(comment.id)
-    // if ( value === true ) {
-    //   fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       user_id: this.state.user_id,
-    //       flaggable: this.state.commentId,
-    //       flaggable_type: "comment"
-    //     })
-    //   })
-    //   .then((responseText) => responseText.json())
-    //   .then((responseData) => {
-    //     this.setState({flagId: responseData});
-    //   })
-    //   .catch((error) => {
-    //     console.warn(error);
-    //   })
-    // } else {
-    //   fetch(`https://afternoon-badlands-40242.herokuapp.com/flags/${this.state.flagId}`, {
-    //     method: 'DELETE',
-    //     headers: {
-    //       'Access-Control-Allow-Methods': 'DELETE',
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       user_id: this.state.user_id,
-    //       flaggable: this.state.commentId,
-    //       flaggable_type: "comment"
-    //     })
-    //   })
-    //   .then((responseText) => responseText.json())
-    //   .then((responseData) => {
-    //     console.log(responseData);
-    //   })
-    //   .catch((error) => {
-    //     console.warn(error);
-    //   })
-    // }
+    var alreadyFlagged = false;
+
+    for (var i = 0; i < this.state.commentsFlagged.length; i++) {
+      if (comment.id === this.state.commentsFlagged[i]) {
+        alreadyFlagged = true;
+      }
+    }
+
+    if ( alreadyFlagged === true ) {
+      Alert.alert('You have already flagged this comment. Thank you!')
+      // fetch(`https://afternoon-badlands-40242.herokuapp.com/flags/${this.state.flagId}`, {
+      //   method: 'DELETE',
+      //   headers: {
+      //     'Access-Control-Allow-Methods': 'DELETE',
+      //     'Accept': 'application/json',
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     user_id: this.state.user_id,
+      //     flaggable: this.state.commentId,
+      //     flaggable_type: "comment"
+      //   })
+      // })
+      // .then((responseText) => responseText.json())
+      // .then((responseData) => {
+      //   console.log(responseData);
+      // })
+      // .catch((error) => {
+      //   console.warn(error);
+      // })
+    } else {
+      fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: this.state.user_id,
+          flaggable: comment.id,
+          flaggable_type: "comment"
+        })
+      })
+      .then((responseText) => responseText.json())
+      .then((responseData) => {
+        console.log("Flag created! Or atleast a response was received.")
+        console.log(responseData)
+        this.state.commentsFlagged.push(responseData.flaggable_id)
+      })
+      .catch((error) => {
+        console.warn(error);
+      })
+    }
   }
 
 
