@@ -217,6 +217,16 @@ class Post extends Component {
         console.log("Flag created! Or atleast a response was received.")
         console.log(responseData)
         this.state.commentsFlagged.push(responseData.flaggable_id)
+        this.props.navigator.replace({
+          component: Post,
+          name: "Post",
+          passProps: {
+            schoolId: this.state.schoolId,
+            postTitle: this.state.postTitle,
+            postId: this.state.postId,
+            postBody: this.state.postBody
+          }
+        })
       })
       .catch((error) => {
         console.warn(error);
