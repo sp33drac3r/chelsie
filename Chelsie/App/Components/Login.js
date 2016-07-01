@@ -52,7 +52,7 @@ class Login extends Component {
       } else {
         var stringId = String(responseData.id)
         AsyncStorage.setItem('user_id', stringId)
-        this.props.navigator.push({
+        this.props.navigator.resetTo({
           component: Main,
           name: 'Main'
         })
