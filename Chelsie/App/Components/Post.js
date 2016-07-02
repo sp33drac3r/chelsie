@@ -157,27 +157,83 @@ class Post extends Component {
    }
  }
 
-  _onFlagCommentButton(comment){
-    fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: this.state.user_id,
-        flaggable: comment.id,
-        flaggable_type: 'comment'
+  _onFlagCommentButton(comment) {
+    console.log("We flagged a thing!")
+    var alreadyFlagged = false;
+
+    for (var i = 0; i < this.state.commentsFlagged.length; i++) {
+      if (comment.id === this.state.commentsFlagged[i]) {
+        alreadyFlagged = true;
+        index = i;
+      }
+    }
+
+    if ( alreadyFlagged === true ) {
+      Alert.alert(
+        'Some Title',
+        'You have already flagged this comment. Do you want to unflag it?',
+        [
+          {text: 'Cancel', onPress: () => console.log(this), style: 'cancel'},
+          {text: 'Unflag', onPress: () =>
+            fetch(`https://afternoon-badlands-40242.herokuapp.com/flags/${this.state.commentsFlagged[index]}`, {
+            method: 'DELETE',
+            headers: {
+              'Access-Control-Allow-Methods': 'DELETE',
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user_id: this.state.user_id,
+              flaggable: comment.id,
+              flaggable_type: "comment"
+            })
+          })
+          .then((responseText) => responseText.json())
+          .then((responseData) => {
+            console.log("anything");
+            console.log(responseData);
+            this.state.commentsFlagged.splice(index, 1)
+          })
+          .catch((error) => {
+            console.warn(error);
+          })}
+        ]
+      )
+    } else {
+      fetch(`https://afternoon-badlands-40242.herokuapp.com/flags`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: this.state.user_id,
+          flaggable: comment.id,
+          flaggable_type: "comment"
+        })
       })
-    })
-    .then((responseText) => responseText.json())
-    .then((responseData) => {
-      console.log(responseData);
-    })
-    .catch((error) => {
-      console.warn(error);
-    })
+      .then((responseText) => responseText.json())
+      .then((responseData) => {
+        console.log("Flag created! Or atleast a response was received.")
+        console.log(responseData)
+        this.state.commentsFlagged.push(responseData.flaggable_id)
+        this.props.navigator.replace({
+          component: Post,
+          name: "Post",
+          passProps: {
+            schoolId: this.state.schoolId,
+            postTitle: this.state.postTitle,
+            postId: this.state.postId,
+            postBody: this.state.postBody
+          }
+        })
+      })
+      .catch((error) => {
+        console.warn(error);
+      })
+    }
   }
+
 
   _loginButton(){
     this.props.navigator.push({
@@ -267,6 +323,11 @@ class Post extends Component {
     return (
       <View style={styles.rowContainer}>
         <Text style={styles.text}> {comment.body} </Text>
+        <View style={styles.flagText}>
+        <TouchableOpacity onPress={()=>{if (flagBoolean === true){this.props.navigator.push({name: "Login"})} else {this._onFlagCommentButton(comment)}}}>
+          <Text style={styles.text}>{flagText}</Text>
+        </TouchableOpacity>
+        </View>
         <Separator />
       </View>
     );
