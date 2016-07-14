@@ -16,6 +16,7 @@ import Swiper from 'react-native-swiper'
 import ResourceList from "./ResourceList"
 import AboutUs from "./AboutUs"
 
+const SCREEN_WIDTH = require('Dimensions').get('window').width;
 
 class Main extends Component {
   constructor(props){
@@ -122,7 +123,7 @@ var styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 25,
-    width: 355,
+    width: SCREEN_WIDTH - 50,
     fontWeight: 'bold',
   },
   footerNav: {
