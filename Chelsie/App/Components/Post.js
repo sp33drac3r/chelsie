@@ -20,6 +20,8 @@ import Separator  from './Helpers/Separator'
 import NewComment from './NewComment'
 import Login      from './Login'
 
+const SCREEN_WIDTH = require('Dimensions').get('window').width;
+
 var deleteButton = null;
 
 var flagText = "Login to Flag";
@@ -372,7 +374,7 @@ var styles = StyleSheet.create({
   },
   flagText:{
     alignItems: 'flex-end',
-    width: 350,
+    width: SCREEN_WIDTH - 50,
     paddingRight: 5,
     backgroundColor: 'transparent',
     justifyContent: 'center',
@@ -415,7 +417,7 @@ var styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'stretch',
     flexDirection: 'row',
-    width: 400,
+    width: SCREEN_WIDTH,
     marginBottom: 20,
   },
   footerNav: {

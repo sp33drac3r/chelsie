@@ -19,6 +19,8 @@ import Login from './Login'
 import Separator from './Helpers/Separator'
 import Post from './Post'
 
+const SCREEN_WIDTH = require('Dimensions').get('window').width;
+
 var url = `https://afternoon-badlands-40242.herokuapp.com/users`
 
 class Profile extends Component {
@@ -190,7 +192,7 @@ class Profile extends Component {
         </View>
 
       </View>
-      <Separator/>
+      <Separator />
       </View>
 
 
@@ -202,18 +204,18 @@ var styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     alignItems: 'center',
-    width: null,
+    width: SCREEN_WIDTH,
     height: null,
     justifyContent: 'center'
   },
   container: {
     flex: 1,
-    width: 400,
+    width: SCREEN_WIDTH - 10,
     flexDirection: 'column',
     backgroundColor: 'transparent',
   },
   postContainer: {
-    width: 370,
+    width: SCREEN_WIDTH - 30,
     backgroundColor: 'transparent',
     padding: 10,
   },
@@ -257,7 +259,7 @@ var styles = StyleSheet.create({
   flexContainer: {
     alignItems: 'stretch',
     flexDirection: 'row',
-    width: 400,
+    width: SCREEN_WIDTH,
   },
   footerNav: {
     flex: 0,

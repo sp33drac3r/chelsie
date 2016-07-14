@@ -21,6 +21,8 @@ import Separator  from './Helpers/Separator'
 import Main       from "./Main"
 import Profile    from './Profile'
 
+const SCREEN_WIDTH = require('Dimensions').get('window').width;
+
 var url = `https://afternoon-badlands-40242.herokuapp.com/schools`
 
 class SchoolList extends Component {
@@ -171,7 +173,7 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
   },
   rowContainer: {
-    width: 410,
+    width: SCREEN_WIDTH,
     padding: 10,
   },
   text: {
@@ -187,10 +189,11 @@ var styles = StyleSheet.create({
     marginTop: 100,
     marginBottom: 20,
     marginLeft: 10,
+    marginRight: 10,
     paddingLeft: 15,
     fontSize: 22,
     height: 10,
-    width: 390,
+    width: SCREEN_WIDTH - 20,
     flex: 0.05,
     borderWidth: 1,
     borderColor: '#FFFFFF',
