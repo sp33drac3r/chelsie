@@ -15,6 +15,8 @@ import {
 
 import Main from "./Main"
 
+const SCREEN_WIDTH = require('Dimensions').get('window').width;
+
 class Login extends Component {
   constructor(props){
     super(props)
@@ -94,9 +96,9 @@ class Login extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    top: 200,
+    top: 100,
     flex: 0.05,
-    width: 415,
+    width: SCREEN_WIDTH,
     alignItems: 'center',
   },
   loginArea: {
