@@ -46,6 +46,7 @@ class SchoolList extends Component {
     }).done();
   }
 
+  // BUG: fetchData() does not fail gracefully if url does not return response
   fetchData() {
     fetch(url)
       .then((response) => response.json())
