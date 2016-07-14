@@ -417,7 +417,7 @@ var styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'stretch',
     flexDirection: 'row',
-    width: 400,
+    width: SCREEN_WIDTH,
     marginBottom: 20,
   },
   footerNav: {
