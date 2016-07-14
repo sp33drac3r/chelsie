@@ -84,7 +84,7 @@ class Chelsie extends Component {
   componentDidMount() {
     AsyncStorage.getItem('last_school').then((value) => {
       if ( value === null ) {
-        this.setState({isLoading: false});
+        this.setState({loaded: true});
       } else {
         var parsed_value = JSON.parse(value)
         this.setState({root_route: {name: 'School', passProps: {schoolName: parsed_value.name, schoolId: parsed_value.id}}})
